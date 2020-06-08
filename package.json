@@ -1,0 +1,42 @@
+{
+  "name": "playdate",
+  "version": "1.0.0",
+  "description": "Learning Node.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "lint": "eslint \"**/*.js\"",
+    "dev": "nodemon --exec \"npm run lint && node app.js\""
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "express-session": "^1.17.1",
+    "express-socket.io-session": "^1.3.5",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.15",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.1.0",
+    "nodemon": "^2.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vincentvanleeuwen/project-tech-2020/backend_development/week-1/index.html"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Vincent van Leeuwen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vincentvanleeuwen/project-tech-2020/backend_development/week-1/index.html/issues"
+  },
+  "homepage": "https://vincentvanleeuwen.github.io/project-tech-2020/backend_development/dynamic-feature/app.js"
+}

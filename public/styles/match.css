@@ -1,0 +1,317 @@
+/* Matching Buttons */
+.log-in-container {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.log-in-container-mobile {
+  margin-left: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 25%;
+  z-index: 6;
+}
+
+.log-in-form {
+  height: 8em;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.log-in-button {
+ height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  background: url('../media/images/accept.svg');
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.log-in-form:last-of-type .log-in-button {
+
+  background: url('../media/images/decline.svg');
+  background-repeat: no-repeat;
+}
+
+.match-buttons {
+  align-items: center;
+  flex-direction: row;
+  position: absolute;
+  z-index: 6;
+  bottom: 3em;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 23%;
+}
+
+.match-button img {
+  width: auto;
+  height: 5em;
+}
+
+.match-button:last-of-type img {
+  padding-left: 81px;
+}
+
+/*Dog match*/
+.dog-container {
+  margin-bottom: 60px;
+  height: 65vh;
+  width: 80vw;
+  background-color: var(--light-color);
+  border-radius: 50px;
+  box-shadow: #d0d0d0 0 3px 8px 0;
+  filter: drop-shadow(0 3px 8px #d0d0d0);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+
+.dog-name {
+  font-family: var(--heading);
+  color: var(--dark-color);
+}
+.more-details {
+  background-color: var(--light-color);
+  width: 5em;
+  height: 2em;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -1em;
+}
+.more-images {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3em;
+  background-image: -webkit-gradient(
+    linear, left top, left bottom, from(rgba(80,80,80,0.0)),
+    to(rgba(50,50,50,0.8))
+  );
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+}
+.more-images .image-box {
+  width: 2.5em;
+  height: 2.5em;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-right: 5px;
+  background: var(--light-color);
+}
+
+/* Active Image*/
+.dog-image .more-images .image-box:first-child {
+  border: solid 2px var(--call-to-action);
+}
+
+.more-images img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+
+.dog-bio {
+  display: flex;
+}
+@media screen and (min-width: 30em) {
+  .dog-container {
+    width: 60vw;
+  }
+  .match-button img {
+    width: auto;
+    height: 6em;
+  }
+  .match-button:last-of-type img {
+    padding-left: 106px;
+  }
+
+  .more-images {
+    right: 0;
+    height: 100%;
+    width: 5em;
+    flex-direction: column;
+    padding-right: 0;
+    padding-bottom: 10px;
+    background-image: -webkit-gradient( linear, right right, left left, from(rgba(80,80,80,0.0)), to(rgba(50,50,50,0.8)) );
+  }
+  .more-images .image-box {
+    width: 4em;
+    height: 4em;
+    margin-right: 0;
+    margin-top: 5px;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .new-dog-buttons {
+    width: 100%;
+    height: 20%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .new-dog-buttons .nav-button {
+    background-color: var(--light-color);
+    width: 2em;
+    height: 5em;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    box-shadow: #d0d0d0 0 3px 8px 0;
+    cursor: pointer;
+    margin-top: 0;
+  }
+
+  .new-dog-buttons .nav-button:hover {
+    background-color: var(--call-to-action);
+    transition: 1s;
+  }
+  .new-dog-buttons .nav-button:active  {
+    background-color: var(--call-to-action);
+    margin-top: 2px;
+    transition: margin-top .1s ;
+
+  }
+  .new-dog-buttons .nav-button:first-of-type {
+    left: 2em;
+  }
+  .new-dog-buttons .nav-button:first-of-type img {
+    transform: rotate(90deg);
+  }
+  .new-dog-buttons .nav-button:last-of-type {
+    right: 2em;
+  }
+  .new-dog-buttons .nav-button:last-of-type img {
+    transform: rotate(-90deg);
+  }
+  .dog-container {
+    margin-top: 3em;
+    height: 65vh;
+    width: 75vw;
+    align-items: flex-start;
+    flex-direction: row;
+    box-shadow: #27272757 0 13px 20px 0;
+    filter: none;
+  }
+  .dog-container .dog-image {
+    height: 100%;
+    width: 50%;
+  }
+
+
+  .dog-container .dog-bio {
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+  }
+  .dog-container .dog-bio .dog-desktop {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+    padding-left: 2.5em;
+    position: relative;
+  }
+  .dog-container .dog-bio .dog-desktop .dog-points {
+    display: flex;
+    flex-direction: row;
+  }
+  .dog-container .dog-bio .dog-desktop .dog-points-titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+  .dog-container .dog-bio .dog-desktop .dog-points-titles h3,
+  .dog-container .dog-bio .dog-desktop .dog-description h3 {
+    font-family: var(--heading);
+    font-size: 1em;
+    color: var(--dark-color);
+
+    margin:5px 0;
+  }
+  .dog-container .dog-bio .dog-desktop .dog-description {
+    margin-top: 10px;
+  }
+  .dog-container .dog-bio .dog-desktop .dog-description p {
+    max-width: 30em;
+    font-size: .8em;
+    padding-right: 2.5em;
+  }
+  .dog-container .dog-bio .dog-desktop .dog-points-answers {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+  .dog-container .dog-bio .dog-desktop .dog-points-answers p {
+    font-family: var(--paragraph);
+    font-size: 1em;
+    color: var(--dark-color);
+    margin:5px 0;
+  }
+  .dog-container .dog-bio .dog-name {
+    height: 10%;
+    font-size: 2.2em;
+    font-weight: 100;
+    margin: .6em 0 .6em 1em;
+  }
+
+  .more-images {
+    width: 100%;
+    height: 5em;
+    flex-direction: row;
+    padding-right: 10px;
+    background-image: -webkit-gradient(
+      linear, left top, left bottom, from(rgba(80,80,80,0.1)),
+      to(rgba(50,50,50,0.8))
+    );
+  }
+  .more-images .image-box {
+    width: 4em;
+    height: 4em;
+    margin-top: auto;
+    margin-right: 10px;
+  }
+  .dog-desktop .match-buttons {
+    z-index: 5;
+    width: 80%;
+    bottom:0;
+  }
+  .dog-desktop .match-button:last-of-type img {
+    padding-left: 75px;
+  }
+
+  .match-button:hover:last-child, .match-button:hover:first-child {
+
+    transform: scale(1.1);
+    transition: 1s;
+    cursor:pointer;
+  }
+}

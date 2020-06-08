@@ -1,0 +1,101 @@
+<!--    On swipe left/right, go to the next or previous dog-->
+<!--    On swipe up, open the dog biography-->
+<section class="dog-container">
+
+  <section class="dog-image">
+
+    <img src="../../public/media/images/dogs/{{ images.[0] }}"
+         alt="Bobby"
+         class="main-image">
+
+    <section class="more-images">
+
+      {{#each images }}
+
+        <div class="image-box">
+
+          <img src="../../public/media/images/dogs/{{ this }}"
+               alt="more pups"/>
+
+        </div>
+
+      {{/each}}
+
+    </section>
+  </section>
+
+  <section class="dog-bio">
+
+    <h2 class="dog-name"> {{ name }} </h2>
+
+    <section class="dog-desktop">
+
+      <section class="dog-points">
+
+        <div class="dog-points-titles">
+
+          <h3> Breed </h3>
+          <h3> Age </h3>
+          <h3> Personality </h3>
+          <h3> Favorite Key </h3>
+
+        </div>
+
+        <div class="dog-points-answers">
+
+          <p> {{ breed }}</p>
+          <p> {{ age }}</p>
+          <p> {{ personality }}</p>
+          <p> {{ favToy }}</p>
+
+        </div>
+
+      </section>
+
+      <section class="dog-description">
+
+        <h3> Description </h3>
+        <p> {{ description }} </p>
+
+      </section>
+      <section class="log-in-container">
+
+        <form action="/matches" method="post" class="log-in-form">
+
+          <label for="name" style="display:none">
+            <input type="text" value="{{ name }}" name="name">
+          </label>
+
+          <label for="email" style="display:none">
+            <input type="text" value="{{ email }}" name="email">
+          </label>
+
+          <input type="submit" value="" class="log-in-button">
+
+        </form>
+
+        <form action="/" method="post" class="log-in-form">
+
+          <label for="next-dog" style="display:none">
+            <input type="text" value="{{email}}" name="next-dog">
+          </label>
+
+          <input type="submit" value="" class="log-in-button">
+
+        </form>
+
+
+      </section>
+
+    </section>
+
+  </section>
+
+  <section class="more-details">
+
+    <img src="../../public/media/images/arrowdown.svg"
+         alt="More Details">
+
+  </section>
+
+</section>

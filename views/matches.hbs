@@ -1,0 +1,76 @@
+{{!--Extends the main layout--}}
+{{#> layouts/main }}
+
+  <section class="matches-container">
+
+    {{# each match }}
+      {{> matchesChat
+        dogName = name
+        dogImage = images.[0]
+        chatStatus = status
+        lastMessage = lastMessage
+        email = email
+      }}
+    {{/ each }}
+
+  </section>
+
+  <form class="dropdown-menu" action="/matches" method="post">
+
+    <label for="dog-match" style="display:none">
+
+      <input type="text" value="{{ selected.email }}" name="dog-match" class="this-dog">
+
+    </label>
+
+    <input type="submit" value="Block this dog" class="block">
+
+  </form>
+
+  <section class="chat-container">
+
+    <section class="dog-image">
+
+      <img src="../public/media/images/dog-settings.svg"
+           alt="chat settings"
+           class="dog-settings"/>
+
+        <img src="../public/media/images/dogs/{{ selected.images.[0] }}"
+             alt="Bobby"
+             class="main-image"/>
+
+    </section>
+
+    <div class="chat-bulbs">
+
+  {{!--  All the chat messages appear in this container--}}
+  {{!--      See logic in public/utils/default.js--}}
+
+      {{# each message }}
+        {{> chatBulb
+          message = message
+          date = date
+          id = _id
+          receiver = receiver
+          sendFrom = sendFrom
+        }}
+      {{/ each }}
+
+    </div>
+
+    <form class="chat-input" autocomplete="off">
+
+      <label for="message">
+
+        <input name="message" type="text" placeholder="Send a message..." id="chat-input"/>
+
+      </label>
+
+      <button type="submit" id="send-message"></button>
+
+    </form>
+
+  </section>
+
+
+{{/ layouts/main }}

@@ -1,0 +1,5 @@
+# Project modules
+.idea
+node_modules
+.env
+

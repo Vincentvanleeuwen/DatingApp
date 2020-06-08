@@ -1,0 +1,260 @@
+:root {
+  --primary-color: #FFAF91;
+  --secondary-color: #FF9EA6;
+  --call-to-action: #03EBBB;
+  --error-color: #FF4D8F;
+  --dark-color: #565656;
+  --light-color: #fff;
+  --heading: 'Bevan', cursive;
+  --paragraph: 'Open Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+/* @@@@@@@@@@@ Mobile application @@@@@@@@@@@@*/
+body {
+  background-color: var(--light-color);
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /*padding-top: 25px;*/
+  /*font-family: var(--paragraph);*/
+  overflow: hidden;
+}
+
+h1 {
+  font-family: var(--heading);
+}
+
+h2, h3 {
+  font-family: var(--paragraph);
+  font-weight: 800;
+}
+p {
+  font-family: var(--paragraph);
+}
+
+ul li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--dark-color);
+  cursor: pointer;
+}
+input:focus {
+  border: white 1px!important;
+  color: white;
+}
+nav {
+  z-index: 8!important;
+}
+/* Hide on mobile */
+.dog-desktop,
+.desktop-nav,
+.chat-container{
+  display: none;
+}
+
+/*******************/
+
+.bg-circle {
+  background-color: var(--primary-color);
+  width: 100%;
+  height: 50%;
+  border-radius:50%;
+  position: absolute;
+  top: -25vh;
+}
+
+
+/* -------------- Top Navigation -----------*/
+
+.setting-nav {
+  width: 100%;
+  height: 14vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+.setting-nav ul {
+  padding: 0;
+  margin:0;
+  text-decoration: none;
+  list-style-type: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+}
+.setting-nav ul li {
+  width: calc(100%/2);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.setting-nav .mobile-nav li {
+  flex: 1;
+}
+.setting-nav .mobile-nav li.current-page {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-family: var(--heading);
+  color: var(--light-color);
+  font-size: 1.5em;
+  flex: 3;
+}
+.setting-nav .desktop-nav {
+  display:none;
+}
+.action-bar-desktop {
+  display:none;
+}
+.new-dog-buttons {
+  display: none;
+}
+
+
+/* ----------- Bottom Navigation --------------*/
+.action-nav {
+  background-image: url(../media/images/navbar.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  min-height: 4em;
+  background-size: cover;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  filter: drop-shadow(0 7px 11px #d0d0d0);
+  z-index: 5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-nav ul {
+  padding: 5px 0;
+  margin:0;
+  text-decoration: none;
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  margin-block-start: -5px;
+}
+
+.action-nav ul li {
+  text-align: center;
+  font-size: .7em;
+
+}
+.action-nav ul li:first-of-type {
+  padding-right: 45px;
+}
+.action-nav ul li:last-of-type {
+  padding-left: 45px;
+}
+
+.action-bar-desktop {
+  display:none;
+}
+
+.default-button {
+  margin-bottom: 5px;
+}
+.dog-image {
+  height: 80%;
+  width: 100%;
+  border-radius: 50px 50px 0 50px;
+  position:relative;
+  overflow:hidden;
+}
+.dog-image .main-image{
+  width: 100%;
+  position:absolute;
+  top:0;
+  bottom:0;
+  margin: auto;
+}
+@media screen and (min-width: 30em) {
+
+  .action-nav {
+    min-height: 13vw;
+  }
+  .action-nav ul li {
+    font-size: 1em;
+  }
+  .default-button img {
+    width: 2em;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  /*Hide on desktop*/
+  .more-details {
+    display: none!important;
+  }
+  .action-nav {
+    display: none!important;
+  }
+
+  /* Hide mobile match buttons*/
+  .disabled {
+    display: none!important;
+  }
+  /*****************/
+  .setting-nav .desktop-nav {
+    display:flex;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 8em;
+  }
+  .setting-nav .desktop-nav li {
+    width: 8em;
+  }
+  .setting-nav .desktop-nav li:nth-child(2) {
+    margin-right:20%;
+  }
+  .setting-nav .desktop-nav li:nth-child(3) {
+    margin-left: 20%;
+  }
+
+  .bg-circle {
+    width: 40%;
+    top: -25vh;
+  }
+  .bg-circle:last-of-type {
+    background-color: var(--secondary-color);
+    bottom: -25vh;
+    top: initial;
+  }
+
+}
+
+

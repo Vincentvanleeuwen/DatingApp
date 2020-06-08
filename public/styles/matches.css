@@ -1,0 +1,341 @@
+/* Matches Page*/
+
+
+.matches-container {
+  margin-top: 8em;
+  max-width: 20em;
+  width: 90%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  z-index: 5;
+}
+
+.matches-container .single-match {
+  width: 100%;
+  height: 4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: #d0d0d0 0 3px 8px 0;
+  background-color: var(--light-color);
+  padding-right: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+
+.active-chat {
+  background-color: var(--call-to-action)!important;
+  animation: point-right 1s cubic-bezier(.81,.04,.78,.97) forwards;
+}
+.active-chat .chat-status {
+  color: var(--dark-color)!important;
+}
+
+.matches-container .single-match .match-content {
+  display: flex;
+  padding-left: .5em;
+  align-items: center;
+  width: 65%;
+}
+.matches-container .single-match .match-content .chat-info {
+  padding-left: .5em;
+}
+.matches-container .single-match .profile-picture {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border-top-right-radius: 0;
+  overflow: hidden;
+  box-shadow: #d0d0d0 0 3px 8px 0;
+  background: #fff;
+}
+.matches-container .single-match .profile-picture img {
+  width: 100%;
+  height: auto;
+  background-position: center;
+
+}
+
+.matches-container .single-match .chat-button {
+  transform: rotate(-90deg);
+
+}
+
+.matches-container .single-match .chat-info .chat-name {
+  font-size: 1em;
+  font-family: var(--heading);
+  font-weight: 100;
+  color: var(--dark-color);
+  margin: 0;
+}
+.matches-container .single-match .chat-info .chat-status {
+  font-size: .5em;
+  font-weight: bold;
+  color: var(--call-to-action);
+}
+
+.matches-container .single-match .chat-info .last-message {
+  font-size: 0.8em;
+}
+
+@media screen and (min-width: 60em) {
+  body {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 180px;
+  }
+  .matches-container {
+    margin-right: 2em;
+    margin-top: 0;
+  }
+  .chat-container {
+    position: relative;
+    width: 30vw;
+    max-width: 20em;
+    height: 60vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--light-color);
+    box-shadow: #d0d0d0 0 3px 8px 0;
+    z-index: 5;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .chat-container .dog-image {
+    height: 25%;
+  }
+
+  .chat-container .dog-image .dog-settings {
+    z-index: 10;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    max-height: 2em;
+    filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, 0.4));
+    cursor: pointer;
+  }
+
+  .chat-container .dog-image .dog-settings:hover {
+    transform: scale(1.1);
+    transition: 1s;
+  }
+  .chat-container .chat-input {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: .5em;
+  }
+  .chat-container .chat-input label {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    min-height: 60px;
+
+  }
+  .chat-container .chat-input label:focus {
+    background: transparent;
+    border: none;
+    outline: transparent;
+  }
+  .chat-container .chat-input input{
+    width: 90%;
+    padding: 12px 45px 12px 20px;
+    margin: 8px 0;
+    box-shadow: #d0d0d0 0 3px 8px 0;
+    border: 1px solid #fff;
+    border-radius: 4px;
+
+
+  }
+  .chat-container .chat-input input:focus {
+    outline: transparent;
+    color: var(--dark-color);
+
+  }
+
+
+  .chat-container .chat-input input::placeholder {
+    color: #d7d7d7;
+  }
+  .chat-container .chat-input button {
+    position: absolute;
+    right:2em;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url(../media/images/send.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 2em;
+    height: 2em;
+    border: 0;
+    background-color: transparent;
+  }
+
+  .chat-bulbs {
+    width: 100%;
+    height: 60%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+  }
+  .chat-bulbs::-webkit-scrollbar {
+    background: transparent;
+    width: .5em;
+
+  }
+  .chat-bulbs::-webkit-scrollbar-thumb{
+    background: var(--dark-color);
+    border-radius: 25px;
+    width: 50%;
+    padding: .5em;
+  }
+  .single-bulb {
+    width: 100%;
+    height: max-content;
+    animation: fade-in .3s forwards;
+    opacity: 0;
+  }
+
+  .bulb {
+    width: max-content;
+    max-width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: .5em 0.5em 0 0.5em;
+  }
+  .bulb-content {
+    width: 100%;
+    height: max-content;
+    line-break: anywhere;
+    padding: .4em 2em;
+    border-radius: 25px;
+    background-color: var(--primary-color);
+    box-shadow: #d0d0d0 0 3px 8px 0;
+  }
+  .bulb-timestamp {
+    font-size: .5em;
+    color: var(--dark-color);
+    margin: .5em 2em 0 0;
+  }
+  .self {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .self .bulb-content {
+    background-color: var(--secondary-color);
+  }
+  .is-typing {
+    position: absolute;
+    bottom: 3em;
+    color: var(--dark-color);
+    opacity: 0.5;
+    animation: fade-in .3s forwards;
+  }
+
+  .dropdown-menu {
+    display: flex;
+    position: absolute;
+    background-color: var(--light-color);
+    z-index: 0;
+    height: 25%;
+    width: 15em;
+    right:0;
+    opacity: 0;
+    box-shadow: 3px 9px 18px 0 #00000012;
+    border-radius: 10px;
+
+  }
+  .dropdown-menu input {
+    height: 33%;
+    width: 100%;
+    background: var(--secondary-color);
+    color: white;
+    padding: 0 2em;
+    border: none;
+    display: flex;
+    justify-content: flex-end;
+    border-top-right-radius: 10px;
+    font-family: var(--heading);
+    outline: none;
+    cursor: pointer;
+  }
+  .dropdown-menu input:hover {
+    background: var(--primary-color);
+  }
+  .show-menu {
+    right:0;
+    opacity: 0;
+    animation: slide .4s forwards;
+  }
+  .hide-menu {
+    right:-15em;
+    opacity: 1;
+    animation: slide-back .4s backwards;
+  }
+  .dropdown-menu input, .hide-menu
+
+
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes point-right {
+  0% {
+    margin-left: 0;
+  }
+  50% {
+    margin-left:5px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+
+@keyframes slide {
+  0% {
+    right:0;
+    opacity: 0;
+  }
+  100% {
+    right: 8em;
+    opacity: 1;
+  }
+}
+
+@keyframes slide-back {
+  0% {
+    right: 8em;
+    opacity: 1;
+  }
+  100% {
+
+    right:0;
+    opacity: 0;
+  }
+}
