@@ -15,7 +15,6 @@ messageSchema.statics = {
 
   getMessages: (messages, sender, receiver) => {
 
-    console.log('messageModel', messages, sender, receiver);
     return messages.filter(message => {
 
       if (message.sendFrom === sender && message.sendTo === receiver) {
@@ -24,7 +23,7 @@ messageSchema.statics = {
 
       }
 
-    })
+    });
 
   }
 

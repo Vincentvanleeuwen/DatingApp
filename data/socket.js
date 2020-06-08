@@ -1,11 +1,11 @@
 const sharedSessions = require('express-socket.io-session');
 const Message = require('./messageModel');
 const Dog = require('./dogModel');
+const Room = require('./roomModel');
 
 const initializeSocketIO = (server, newSession) => {
 
   const io = require('socket.io')(server);
-  let room;
 
   io.use(sharedSessions(newSession));
 
@@ -41,26 +41,26 @@ const initializeSocketIO = (server, newSession) => {
     });
 
     // Unfinished Socket function.
-    socket.on('match-room', roomID => {
+    socket.on('match-room', email => {
 
-      if(socket.roomID) {
+      if (socket.id) {
 
-        console.log('Left the socket!', socket.roomID);
-
-        socket.leave(socket.roomID);
+        socket.leave(socket.id);
 
       }
+      socket.id = Room.getRoom(email, socket.handshake.session.user.email);
+      console.log('Serverside Socket Room ID',socket.id);
 
-      room = roomID;
-
-      socket.join(room);
+      socket.join(socket.id);
 
     });
 
     // When a dog submits a message
     socket.on('dog-message', (id, message) => {
 
-      socket.broadcast.to(id).emit('message', message);
+      socket.broadcast.to(socket.id).emit('message', message);
+
+      // socket.broadcast.to(id).emit('message', message);
 
     });
 
@@ -83,7 +83,7 @@ const initializeSocketIO = (server, newSession) => {
 
       // Update matches
       Dog.updateDog(socket.handshake.session.user)
-      .then(result => console.log("result is", result))
+      .then(result => console.log('result is', result))
       .catch(err => console.log(err));
 
 

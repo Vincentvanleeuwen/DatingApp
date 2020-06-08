@@ -44,7 +44,9 @@ dogSchema.statics = {
     return currentDog.filter(dog => {
 
       if (dog !== match) {
+
         return dog;
+
       }
 
     });
@@ -66,6 +68,7 @@ dogSchema.statics = {
       }
 
     });
+
   },
 
   getDogFromEmail: (dogs, currentDog) => {
