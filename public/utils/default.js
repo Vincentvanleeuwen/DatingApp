@@ -1,7 +1,6 @@
 /*eslint-disable */
 
 const socket = io();
-let dogConnection = io.connect();
 
 /*eslint-enable */
 
@@ -30,7 +29,7 @@ if(dogSettingButton) {
       dogSettingMenu.classList.toggle('hide-menu');
 
       setTimeout(() => {
-        
+
         dogSettingMenu.classList.toggle('hide-menu');
 
       }, 400);
@@ -73,6 +72,7 @@ if (bulb.length !== 0) {
 
 }
 
+// Eventlistener for the block button
 if(blockButton) {
 
   blockButton.addEventListener('click', () => {
@@ -160,16 +160,18 @@ if(chatContainer) {
         message: message,
         date: new Date()
         .toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' })
-      })
+      });
 
     }
 
-    console.log(socket.id);
+    console.log('Clientside Socket Room ID',socket.id);
 
     socket.emit('dog-message', socket.id, message);
 
     // Clear the input when someone sends their message
     chatInput.value = '';
+
+
 
   });
 
@@ -181,6 +183,7 @@ if (chatButtons.length !== 0) {
   let currentlyActive = chatButtons[0];
 
   let room = chatButtons[0].getAttribute('data-room');
+
   // Set chat index to 0
   socket.emit('chat-index', 0);
   socket.emit('match-room', room);
@@ -193,7 +196,7 @@ if (chatButtons.length !== 0) {
     button.addEventListener('click', () => {
 
       // Get the room
-      const room = button.getAttribute('data-room');
+      const email = button.getAttribute('data-room');
 
       // Remove the active class
       currentlyActive.classList.remove('active-chat');
@@ -206,9 +209,7 @@ if (chatButtons.length !== 0) {
 
       socket.emit('chat-index', getIndexOfChat(button));
 
-      console.log('room', room);
-
-      socket.emit('match-room', room);
+      socket.emit('match-room', email);
 
 
 
