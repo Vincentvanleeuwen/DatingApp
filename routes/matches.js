@@ -1,6 +1,22 @@
 const router = require('express').Router();
 const Message = require('../data/messageModel');
 
+
+router.get('/', (req, res) => {
+
+  console.log('current user matches.js/', req.session.user);
+
+  res.render('matches', {
+
+    title: 'Logged in as ' + req.body.name,
+    style: 'matches.css',
+    match: req.session.matches,
+
+  });
+
+});
+
+
 // Show your matches on http://localhost:4000/matches
 router.post('/', (req, res) => {
 
