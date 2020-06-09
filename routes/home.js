@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Dog = require('../data/dogModel');
+
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
 
@@ -10,8 +11,7 @@ router.get('/', async (req, res) => {
   console.log('current user home.js/', req.session.user);
   console.log(' ----- End logs on home.js ----- ');
 
-
-  req.session.allDogs =  await getDogs();
+  req.session.allDogs =  await Dog.find().lean();
 
   res.render('home', {
 
@@ -23,12 +23,7 @@ router.get('/', async (req, res) => {
 
 });
 
-async function getDogs() {
 
-  //just return the plain javascript object. instead of mongoose
-  return await Dog.find().lean();
-
-}
 
 router.post('/', async (req, res) => {
 

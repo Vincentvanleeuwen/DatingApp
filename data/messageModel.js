@@ -11,11 +11,10 @@ const messageSchema = new Schema({
 
 messageSchema.statics = {
 
-  getAllMessages: async () => mongoose.model('messageModel', messageSchema).find().lean(),
+  getAllMessages: async () => mongoose.model('messageModel', messageSchema).find()
+                                                                                  .lean(),
 
   getMessages: (messages, sender, receiver) => {
-
-    console.log('getmessage', sender, receiver);
 
     return messages.filter(message => {
 

@@ -21,7 +21,7 @@ const thisDog = document.querySelector('.this-dog');
 // Toggles the dog chat info menu
 if(dogSettingButton) {
 
-  dogSettingButton.addEventListener('click', (e) => {
+  dogSettingButton.addEventListener('click', () => {
 
     dogSettingMenu.classList.toggle('show-menu');
 
@@ -30,12 +30,21 @@ if(dogSettingButton) {
       dogSettingMenu.classList.toggle('hide-menu');
 
       setTimeout(() => {
+        
         dogSettingMenu.classList.toggle('hide-menu');
+
       }, 400);
 
     }
 
   });
+
+}
+if(chatBulbContainer) {
+
+  // Scroll to bottom to always see newest chat message
+  chatBulbContainer.scrollTop = chatBulbContainer.scrollHeight - chatBulbContainer.clientHeight;
+
 
 }
 
@@ -45,12 +54,16 @@ if (bulb.length !== 0) {
   bulb.forEach(bulb => {
 
     bulb.addEventListener('click', () => {
-      if (confirm("Do you really want to delete this message?")) {
+
+      if (confirm('Do you really want to delete this message?')) {
 
         socket.emit('delete-message', bulb.id);
         bulb.remove();
+
       } else {
+
         console.log('cancelled deletion');
+
       }
 
 
@@ -64,7 +77,7 @@ if(blockButton) {
 
   blockButton.addEventListener('click', () => {
 
-    console.log('Dog to block = ', thisDog.value, "@default.js:38");
+    console.log('Dog to block = ', thisDog.value, '@default.js:38');
 
     // Emit the dog you want to block
     socket.emit('block-user', thisDog.value);
@@ -76,8 +89,6 @@ if(blockButton) {
 socket.on('block-user', data => {
 
   console.log(data);
-
-  deleteDogFromChat(data);
 
 });
 

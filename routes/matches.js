@@ -18,7 +18,6 @@ router.post('/', (req, res) => {
     title: 'Logged in as ' + req.body.name,
     style: 'matches.css',
     match: req.session.matches,
-    message: req.session.messages
 
   });
 
@@ -28,7 +27,7 @@ router.post('/:id/chat', async (req, res) => {
 
   const allMessages = await Message.getAllMessages();
 
-    console.log('matches.js/:id/chat', req.session.user);
+    console.log('matches.js/:id/chat', Message.getMessages(allMessages, req.session.user.email, req.body.email));
 
     res.render('chat', {
 
@@ -36,7 +35,7 @@ router.post('/:id/chat', async (req, res) => {
       style: 'chat.css',
       selected: req.session.selected,
       message: Message.getMessages(allMessages, req.session.user.email, req.body.email)
-
+      // Returns an array with all their messages.
     });
 
 });
