@@ -42,11 +42,17 @@ async function dogVariables(req, res, next) {
   const allDogs = await Dog.getDogs();
   const allMessages = await Message.getAllMessages();
 
-  // Set the session for this user
-  req.session.user = {email: req.body.email, name: req.body.name};
+  // Set the session for this user if undefined
+  if (!req.session.user) {
+
+    req.session.user = {email: req.body.email, name: req.body.name};
+
+  }
+
+
   req.session.matches = Dog.dogMatches(allDogs, req.session.user);
   req.session.allDogs = allDogs;
-  req.session.selected = Dog.selectedConversation(req.session.allDogs,req.session.user, 0);
+  // req.session.selected = Dog.selectedConversation(req.session.allDogs,req.session.user, 0);
   req.session.messages =  Message.getMessages(allMessages, req.session.user.email, req.session.selected.email);
 
   next();

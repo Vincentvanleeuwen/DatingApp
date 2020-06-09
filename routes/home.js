@@ -5,6 +5,9 @@ router.get('/', async (req, res) => {
 
   console.log(' ----- Every log on home.js ----- ');
   console.log('All dogs ', req.session.allDogs);
+  req.session.user = null;
+
+  console.log('current user home.js/', req.session.user);
   console.log(' ----- End logs on home.js ----- ');
 
 
@@ -30,10 +33,12 @@ async function getDogs() {
 router.post('/', async (req, res) => {
 
   console.log(' ----- Every log on home.js ----- ');
+  console.log('current user home.js/', req.session.user);
 
+  if (req.session.allDogs.length !== 1) {
 
-  if (req.session.allDogs.length !== 1){
     req.session.allDogs.shift();
+
   }
 
   console.log(' allDogs ', req.session.allDogs);

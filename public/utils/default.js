@@ -253,20 +253,4 @@ function addNewMessage(message, receiver) {
 
 }
 
-function deleteDogFromChat(dog) {
 
-  console.log(dog);
-
-}
-
-function logDogIn(dog) {
-
-  // Get the "login" buttons.
-  // When First button is clicked => next dog in template
-  // When second button is clicked => Log dog into this.dog
-
-  console.log(dog);
-
-}
-
-logDogIn();

@@ -44,7 +44,9 @@ dogSchema.statics = {
     return currentDog.filter(dog => {
 
       if (dog !== match) {
+
         return dog;
+
       }
 
     });
@@ -56,6 +58,12 @@ dogSchema.statics = {
     // Get the logged in dog object
     let loggedInDog = mongoose.model('dogModel', dogSchema).getDogFromEmail(dogs, currentDog);
 
+    if (!loggedInDog[0]) {
+
+      return;
+
+    }
+
     // Check if logged in dog has matches, return those dogs
     return dogs.filter(dog => {
 
@@ -66,6 +74,7 @@ dogSchema.statics = {
       }
 
     });
+
   },
 
   getDogFromEmail: (dogs, currentDog) => {
@@ -82,7 +91,7 @@ dogSchema.statics = {
 
   },
 
-  selectedConversation(dogs, currentDog, index) {
+  selectedConversation: (dogs, currentDog, index) => {
 
     // Get first dog in array to open instantly.
     return mongoose.model('dogModel', dogSchema).dogMatches(dogs, currentDog)[index];
