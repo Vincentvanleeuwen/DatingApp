@@ -77,7 +77,6 @@ app.engine('hbs', handlebars({
 .use('/',
   home
 )
-
 // Show all matches & chats
 .use('/matches',
   dogVariables,

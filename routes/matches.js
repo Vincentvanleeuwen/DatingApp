@@ -56,6 +56,35 @@ router.post('/:id/chat', async (req, res) => {
 
 });
 
+router.post('/:id/chat/noJS', (req, res) => {
+
+  let newMessage = Message.create([{
+    sendFrom: req.session.user.email,
+    sendTo: req.session.selected.email,
+    message: req.body.message,
+    receiver: req.session.user.email,
+    date: new Date()
+      .toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' })
+
+    }]);
+
+
+  res.render('noJS', {
+    layout: 'empty',
+    style: 'noJS.css',
+    message: req.body.message,
+    date: new Date().toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' }),
+    id: newMessage._id
+
+  });
+
+});
+
+router.get('/:id/chat/noJS', (req, res) => {
+
+  res.send('Javascript is disabled. Please enable Javascript for the best experience.');
+
+});
 
 // Export the router so it can be required in other files.
 module.exports = router;

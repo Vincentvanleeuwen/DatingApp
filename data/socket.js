@@ -48,10 +48,10 @@ const initializeSocketIO = (server, newSession) => {
         socket.leave(socket.id);
 
       }
-      socket.id = Room.getRoom(email, socket.handshake.session.user.email);
-      console.log('Serverside Socket Room ID',socket.id);
 
-      socket.join(socket.id);
+      console.log('Serverside Socket Room ID', Room.getRoom(email, socket.handshake.session.user.email));
+
+      socket.join(Room.getRoom(email, socket.handshake.session.user.email));
 
     });
 

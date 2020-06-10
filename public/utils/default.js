@@ -180,7 +180,7 @@ if(chatContainer) {
 
 if (chatButtons.length !== 0) {
 
-  let currentlyActive = chatButtons[0];
+
 
   let room = chatButtons[0].getAttribute('data-room');
 
@@ -188,7 +188,7 @@ if (chatButtons.length !== 0) {
   socket.emit('chat-index', 0);
   socket.emit('match-room', room);
 
-  currentlyActive.classList.add('active-chat');
+
 
   chatButtons.forEach(button => {
 
@@ -197,15 +197,6 @@ if (chatButtons.length !== 0) {
 
       // Get the room
       const email = button.getAttribute('data-room');
-
-      // Remove the active class
-      currentlyActive.classList.remove('active-chat');
-
-      // Add active class to clicked element
-      button.classList.add('active-chat');
-
-      // Set clicked element to current active element.
-      currentlyActive = button;
 
       socket.emit('chat-index', getIndexOfChat(button));
 

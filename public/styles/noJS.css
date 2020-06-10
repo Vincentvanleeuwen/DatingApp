@@ -1,0 +1,56 @@
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.single-bulb {
+  width: 100%;
+  height: max-content;
+  animation: fade-in .3s forwards;
+  opacity: 0;
+}
+
+.bulb {
+  width: max-content;
+  max-width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: .5em 0.5em 0 0.5em;
+}
+
+.bulb-content {
+  width: 100%;
+  height: max-content;
+  line-break: anywhere;
+  padding: .4em 2em;
+  border-radius: 25px;
+  background-color: var(--primary-color);
+  box-shadow: #d0d0d0 0 3px 8px 0;
+}
+
+.bulb-timestamp {
+  font-size: .5em;
+  color: var(--dark-color);
+  margin: .5em 2em 0 0;
+}
+
+.self {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.self .bulb-content {
+  background-color: var(--secondary-color);
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

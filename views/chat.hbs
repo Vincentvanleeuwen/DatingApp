@@ -41,10 +41,15 @@
         sendFrom = sendFrom
       }}
     {{/ each }}
+    <noscript>
+      <iframe name="enhanced" id="enhanced" style="border: none; width: 100%;" src="/matches/{{ selected._id }}/chat/noJS">
+      </iframe>
+    </noscript>
 
   </div>
 
-  <form class="chat-input" autocomplete="off">
+  <form class="chat-input" autocomplete="off" target="enhanced" action="/matches/{{ selected._id }}/chat/noJS"
+        method="post">
 
     <label for="message">
 
