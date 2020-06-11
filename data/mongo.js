@@ -19,6 +19,7 @@ mongoose.connect(dbUrl, {
   // Prevent connection error
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false
 
 });
 

@@ -40,9 +40,9 @@ let newSession = session({
 
 });
 
-
 // Require the routes
 let home = require('./routes/home');
+let match = require('./routes/match');
 let matches = require('./routes/matches');
 
 
@@ -74,9 +74,12 @@ app.engine('hbs', handlebars({
 // Supports parsing of x-www-form-urlencoded
 .use(bodyParser.urlencoded({extended: true}))
 
-.use('/',
-  home
+.use('/', home)
+.use('/match',
+  dogVariables,
+  match
 )
+
 // Show all matches & chats
 .use('/matches',
   dogVariables,

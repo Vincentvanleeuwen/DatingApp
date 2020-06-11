@@ -12,18 +12,20 @@ const dogSchema = new Schema({
   favToy: String,
   age: String,
   personality: String,
-  matches: Array
+  matches: Array,
+  dislikes: Array
 }, {collection: 'dogs'});
 
 
 dogSchema.statics = {
 
   //just return the plain javascript object. instead of mongoose
-  getDogs: async () => mongoose.model('dogModel', dogSchema).find().lean(),
+  getDogs: async () => mongoose.model('dogModel', dogSchema).find()
+                                                                  .lean(),
 
   updateDog: async (dog) => {
 
-    return await Dog.updateOne(
+    await Dog.updateOne(
 
       {'email': dog.email},
       {'name': dog.name},
@@ -33,7 +35,8 @@ dogSchema.statics = {
       {'breed': dog.breed},
       {'favToy': dog.favToy},
       {'age': dog.age},
-      {'personality': dog.personality}
+      {'personality': dog.personality},
+      {'dislikes': dog.dislikes}
 
     );
 

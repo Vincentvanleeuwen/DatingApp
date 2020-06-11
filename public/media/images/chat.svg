@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62" height="72.5" viewBox="0 0 62 72.5">
+  <defs>
+    <filter id="Rectangle_1" x="0" y="0" width="62" height="72.5" filterUnits="userSpaceOnUse">
+      <feOffset dy="14" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feFlood flood-opacity="0.031"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_42" data-name="Group 42" transform="translate(-208.5 -548)">
+    <g id="PAw" transform="translate(212.81 547.564)">
+      <g transform="matrix(1, 0, 0, 1, -4.31, 0.44)" filter="url(#Rectangle_1)">
+        <g id="Rectangle_1-2" data-name="Rectangle 1" transform="translate(4.5)" fill="#03ebbb" stroke="rgba(168,251,234,0.44)" stroke-width="4">
+          <rect width="53" height="54" rx="26.5" stroke="none"/>
+          <rect x="2" y="2" width="49" height="50" rx="24.5" fill="none"/>
+        </g>
+      </g>
+      <g id="dog-paw" transform="translate(12.429 12.92)" opacity="0">
+        <path id="Path_9" data-name="Path 9" d="M23.572,22.025c1.228,1.933,1.807,2.96,1.807,4.03,0,2.114-1.57,3.14-3.686,3.14a5.318,5.318,0,0,1-3.056-.793,4.736,4.736,0,0,0-3.293-.809,4.739,4.739,0,0,0-3.315.821A5.234,5.234,0,0,1,9,29.2c-2.116,0-3.687-1.024-3.687-3.14,0-1.071.58-2.1,1.808-4.03a31.574,31.574,0,0,1,4.331-5.665,5.924,5.924,0,0,1,3.571-1.3h.653a5.764,5.764,0,0,1,3.573,1.3A38.406,38.406,0,0,1,23.572,22.025Zm-13.4-9.544c2.212,0,4-2.794,4-6.241S12.387,0,10.175,0s-4,2.794-4,6.241S7.963,12.481,10.175,12.481ZM6.337,18.525c1.63-.753,2-3.421.83-5.961S3.723,8.576,2.093,9.328s-2,3.421-.83,5.961S4.707,19.276,6.337,18.525Zm13.149-6.044c2.212,0,4.005-2.794,4.005-6.241S21.7,0,19.486,0s-4,2.794-4,6.241S17.274,12.481,19.486,12.481Zm8.083-3.154c-1.631-.753-3.9.7-5.074,3.237s-.8,5.209.83,5.961,3.9-.7,5.074-3.237S29.2,10.08,27.569,9.327Z" transform="translate(-0.579 0)" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Group_15" data-name="Group 15" transform="translate(-147 383)">
+      <g id="Group_12" data-name="Group 12" transform="translate(371 179)">
+        <path id="Union_3" data-name="Union 3" d="M7.93,22.019A11.261,11.261,0,0,1,11.259,0h9.1a11.259,11.259,0,0,1,0,22.519H13.264c-1.64,3.371-9.717,5.6-9.717,5.6S6.134,27.128,7.93,22.019Z" fill="#fff"/>
+      </g>
+      <rect id="Rectangle_7" data-name="Rectangle 7" width="20.081" height="1.339" rx="0.669" transform="translate(376.355 185.674)" fill="#fff"/>
+      <rect id="Rectangle_8" data-name="Rectangle 8" width="12.049" height="1.339" rx="0.669" transform="translate(384.388 189.678)" fill="#fff"/>
+      <rect id="Rectangle_9" data-name="Rectangle 9" width="16.065" height="1.339" rx="0.669" transform="translate(380.371 193.682)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

@@ -2,7 +2,7 @@
 
   {{!--  Render a dog--}}
   {{#with dogs.[0] }}
-    {{> singleMatchHome
+    {{> singleMatch
       name = name
       images = images
       email = email
@@ -23,11 +23,7 @@
   <section class="log-in-container-mobile disabled">
 
     {{!--    Post request when dog is accepted--}}
-    <form action="/match" method="post" class="log-in-form">
-
-      <label for="name" style="display:none">
-        <input type="text" value="{{ dogs.[0].name }}" name="name">
-      </label>
+    <form action="/" method="post" class="log-in-form">
 
       <label for="email" style="display:none">
         <input type="text" value="{{ dogs.[0].email }}" name="email">

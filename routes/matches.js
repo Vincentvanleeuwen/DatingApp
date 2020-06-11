@@ -1,5 +1,4 @@
-const router = require('express')
-.Router();
+const router = require('express').Router();
 const Dog = require('../data/dogModel');
 const Message = require('../data/messageModel');
 

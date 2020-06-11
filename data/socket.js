@@ -51,7 +51,18 @@ const initializeSocketIO = (server, newSession) => {
 
       console.log('Serverside (argument 1)', email);
       console.log('Serverside (argument 2)', socket.handshake.session.user.email);
-      console.log('Serverside (getRoom result)', Room.getRoom(email, socket.handshake.session.user.email));
+
+      async function waiting() {
+
+        return await Room.getRoom(email, socket.handshake.session.user.email);
+
+      }
+      waiting().then(result => {
+
+        console.log('Serverside (getRoom result)', result);
+
+      })
+      .catch(err => console.log('Error getting room', err));
 
       socket.join('test');
 
@@ -84,7 +95,6 @@ const initializeSocketIO = (server, newSession) => {
       Dog.updateDog(socket.handshake.session.user)
       .then(result => console.log('result is', result))
       .catch(err => console.log(err));
-
 
     });
 

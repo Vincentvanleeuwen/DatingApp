@@ -1,8 +1,8 @@
 {{#> layouts/main }}
 
   {{!--  Render a dog--}}
-  {{#with dogs.[0] }}
-    {{> singleMatchHome
+  {{#with match }}
+    {{> newMatchDog
       name = name
       images = images
       email = email
@@ -13,6 +13,7 @@
       favToy = favToy
       age = age
       personality = personality
+      id = _id
     }}
 
   {{/with}}
@@ -22,12 +23,8 @@
 
   <section class="log-in-container-mobile disabled">
 
-    {{!--    Post request when dog is accepted--}}
-    <form action="/match" method="post" class="log-in-form">
-
-      <label for="name" style="display:none">
-        <input type="text" value="{{ dogs.[0].name }}" name="name">
-      </label>
+    {{!--    Go to chat--}}
+    <form action="/matches/{{ match._id }}/chat" method="post" class="log-in-form">
 
       <label for="email" style="display:none">
         <input type="text" value="{{ dogs.[0].email }}" name="email">
@@ -37,7 +34,7 @@
 
     </form>
 
-    {{!--    Post request when dog is denied--}}
+    {{!--    Keep scrolling --}}
     <form action="/" method="post" class="log-in-form">
 
       <label for="next-dog" style="display:none">

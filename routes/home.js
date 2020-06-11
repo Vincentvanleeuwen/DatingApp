@@ -28,6 +28,14 @@ router.post('/', async (req, res) => {
 
   }
 
+  // De huidige dog matches updaten naar de nieuwe match
+  // Session dog
+  // req.dog
+  // req.matches = ['1', 'bobby@gmail.com']
+
+  // []                         [...]
+
+
   res.render('home', {
 
     title: 'Login as',
