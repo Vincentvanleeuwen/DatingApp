@@ -49,9 +49,11 @@ const initializeSocketIO = (server, newSession) => {
 
       }
 
-      console.log('Serverside Socket Room ID', Room.getRoom(email, socket.handshake.session.user.email));
+      console.log('Serverside (argument 1)', email);
+      console.log('Serverside (argument 2)', socket.handshake.session.user.email);
+      console.log('Serverside (getRoom result)', Room.getRoom(email, socket.handshake.session.user.email));
 
-      socket.join(Room.getRoom(email, socket.handshake.session.user.email));
+      socket.join('test');
 
     });
 
@@ -75,9 +77,6 @@ const initializeSocketIO = (server, newSession) => {
     socket.on('block-user', email => {
 
       let currentDog = Dog.getDogFromEmail(socket.handshake.session.allDogs, socket.handshake.session.user);
-
-      console.log('blocked user = ', email);
-      console.log('current user = ', socket.handshake.session.user);
 
       socket.handshake.session.user.matches = Dog.blockMatch(email, currentDog[0].matches);
 

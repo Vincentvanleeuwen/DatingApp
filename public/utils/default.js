@@ -177,7 +177,6 @@ if(chatContainer) {
 
 }
 
-
 if (chatButtons.length !== 0) {
 
 
@@ -210,7 +209,6 @@ if (chatButtons.length !== 0) {
 
 }
 
-
 function getIndexOfChat(button) {
 
   const chats = Array.prototype.slice.call(chatButtons);
@@ -219,14 +217,13 @@ function getIndexOfChat(button) {
 
 }
 
-
 //Create HTML element of a chatbubble.
 function addNewMessage(message, receiver) {
 
   const chatBulb = document.createElement('div');
   chatBulb.classList += ' single-bulb';
 
-  if(receiver){
+  if (receiver) {
 
     chatBulb.classList += `${receiver}`;
 

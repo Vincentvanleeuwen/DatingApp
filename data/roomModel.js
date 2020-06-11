@@ -17,13 +17,14 @@ roomSchema.statics = {
     Room.getAllRooms()
       .then(result => {
 
-        console.log('RoomModel (getRooms)', participantOne, participantTwo);
+        console.log('RoomModel (getRoom argument 1)', participantOne);
+        console.log('RoomModel (getRoom argument 2)', participantTwo);
 
         return result.filter(room => {
 
           if (room.participants.includes(participantOne) && room.participants.includes(participantTwo)) {
 
-            console.log('room id ====', room._id);
+            console.log('RoomModel (getRoom return result) ', room._id);
 
             return room._id;
 
