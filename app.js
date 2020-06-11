@@ -41,7 +41,7 @@ let newSession = session({
 });
 
 // Require the routes
-let home = require('./routes/home');
+let register = require('./routes/register');
 let match = require('./routes/match');
 let matches = require('./routes/matches');
 
@@ -74,7 +74,8 @@ app.engine('hbs', handlebars({
 // Supports parsing of x-www-form-urlencoded
 .use(bodyParser.urlencoded({extended: true}))
 
-.use('/', home)
+.use('/', register)
+
 .use('/match',
   dogVariables,
   match

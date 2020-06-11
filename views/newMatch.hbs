@@ -35,10 +35,10 @@
     </form>
 
     {{!--    Keep scrolling --}}
-    <form action="/" method="post" class="log-in-form">
+    <form action="/match" method="post" class="log-in-form">
 
-      <label for="next-dog" style="display:none">
-        <input type="text" value="{{dogs.[0].email}}" name="next-dog">
+      <label for="email" style="display:none">
+        <input type="text" value="{{ dogs.[0].email }}" name="email">
       </label>
 
       <input type="submit" value="" class="log-in-button">

@@ -23,7 +23,7 @@
   <section class="log-in-container-mobile disabled">
 
     {{!--    Post request when dog is accepted--}}
-    <form action="/" method="post" class="log-in-form">
+    <form action="/match/add-match" method="post" class="log-in-form">
 
       <label for="email" style="display:none">
         <input type="text" value="{{ dogs.[0].email }}" name="email">
@@ -34,7 +34,7 @@
     </form>
 
     {{!--    Post request when dog is denied--}}
-    <form action="/" method="post" class="log-in-form">
+    <form action="/match/dislike-match" method="post" class="log-in-form">
 
       <label for="next-dog" style="display:none">
         <input type="text" value="{{dogs.[0].email}}" name="next-dog">
