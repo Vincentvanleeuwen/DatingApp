@@ -60,7 +60,11 @@
       </section>
       <section class="log-in-container">
 
-        <form action="/match/add-match" method="post" class="log-in-form">
+        <form action="/match" method="post" class="log-in-form">
+
+          <label for="name" style="display:none">
+            <input type="text" value="{{ name }}" name="name">
+          </label>
 
           <label for="email" style="display:none">
             <input type="text" value="{{ email }}" name="email">
@@ -70,10 +74,10 @@
 
         </form>
 
-        <form action="/match/dislike-match" method="post" class="log-in-form">
+        <form action="/" method="post" class="log-in-form">
 
-          <label for="email" style="display:none">
-            <input type="text" value="{{email}}" name="email">
+          <label for="next-dog" style="display:none">
+            <input type="text" value="{{email}}" name="next-dog">
           </label>
 
           <input type="submit" value="" class="log-in-button">
@@ -86,7 +90,6 @@
     </section>
 
   </section>
-
 
   <section class="more-details">
 

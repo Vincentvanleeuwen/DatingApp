@@ -1,7 +1,6 @@
 /*eslint-disable */
 
 const socket = io();
-let dogConnection = io.connect();
 
 /*eslint-enable */
 
@@ -21,7 +20,7 @@ const thisDog = document.querySelector('.this-dog');
 // Toggles the dog chat info menu
 if(dogSettingButton) {
 
-  dogSettingButton.addEventListener('click', (e) => {
+  dogSettingButton.addEventListener('click', () => {
 
     dogSettingMenu.classList.toggle('show-menu');
 
@@ -30,12 +29,21 @@ if(dogSettingButton) {
       dogSettingMenu.classList.toggle('hide-menu');
 
       setTimeout(() => {
+
         dogSettingMenu.classList.toggle('hide-menu');
+
       }, 400);
 
     }
 
   });
+
+}
+if(chatBulbContainer) {
+
+  // Scroll to bottom to always see newest chat message
+  chatBulbContainer.scrollTop = chatBulbContainer.scrollHeight - chatBulbContainer.clientHeight;
+
 
 }
 
@@ -45,12 +53,16 @@ if (bulb.length !== 0) {
   bulb.forEach(bulb => {
 
     bulb.addEventListener('click', () => {
-      if (confirm("Do you really want to delete this message?")) {
+
+      if (confirm('Do you really want to delete this message?')) {
 
         socket.emit('delete-message', bulb.id);
         bulb.remove();
+
       } else {
+
         console.log('cancelled deletion');
+
       }
 
 
@@ -60,11 +72,12 @@ if (bulb.length !== 0) {
 
 }
 
+// Eventlistener for the block button
 if(blockButton) {
 
   blockButton.addEventListener('click', () => {
 
-    console.log('Dog to block = ', thisDog.value, "@default.js:38");
+    console.log('Dog to block = ', thisDog.value, '@default.js:38');
 
     // Emit the dog you want to block
     socket.emit('block-user', thisDog.value);
@@ -76,8 +89,6 @@ if(blockButton) {
 socket.on('block-user', data => {
 
   console.log(data);
-
-  deleteDogFromChat(data);
 
 });
 
@@ -149,32 +160,34 @@ if(chatContainer) {
         message: message,
         date: new Date()
         .toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' })
-      })
+      });
 
     }
 
-    console.log(socket.id);
+    console.log('Clientside Socket Room ID',socket.id);
 
     socket.emit('dog-message', socket.id, message);
 
     // Clear the input when someone sends their message
     chatInput.value = '';
 
+
+
   });
 
 }
 
-
 if (chatButtons.length !== 0) {
 
-  let currentlyActive = chatButtons[0];
+
 
   let room = chatButtons[0].getAttribute('data-room');
+
   // Set chat index to 0
   socket.emit('chat-index', 0);
   socket.emit('match-room', room);
 
-  currentlyActive.classList.add('active-chat');
+
 
   chatButtons.forEach(button => {
 
@@ -182,22 +195,11 @@ if (chatButtons.length !== 0) {
     button.addEventListener('click', () => {
 
       // Get the room
-      const room = button.getAttribute('data-room');
-
-      // Remove the active class
-      currentlyActive.classList.remove('active-chat');
-
-      // Add active class to clicked element
-      button.classList.add('active-chat');
-
-      // Set clicked element to current active element.
-      currentlyActive = button;
+      const email = button.getAttribute('data-room');
 
       socket.emit('chat-index', getIndexOfChat(button));
 
-      console.log('room', room);
-
-      socket.emit('match-room', room);
+      socket.emit('match-room', email);
 
 
 
@@ -207,7 +209,6 @@ if (chatButtons.length !== 0) {
 
 }
 
-
 function getIndexOfChat(button) {
 
   const chats = Array.prototype.slice.call(chatButtons);
@@ -216,14 +217,13 @@ function getIndexOfChat(button) {
 
 }
 
-
 //Create HTML element of a chatbubble.
 function addNewMessage(message, receiver) {
 
   const chatBulb = document.createElement('div');
   chatBulb.classList += ' single-bulb';
 
-  if(receiver){
+  if (receiver) {
 
     chatBulb.classList += `${receiver}`;
 
@@ -253,20 +253,4 @@ function addNewMessage(message, receiver) {
 
 }
 
-function deleteDogFromChat(dog) {
 
-  console.log(dog);
-
-}
-
-function logDogIn(dog) {
-
-  // Get the "login" buttons.
-  // When First button is clicked => next dog in template
-  // When second button is clicked => Log dog into this.dog
-
-  console.log(dog);
-
-}
-
-logDogIn();

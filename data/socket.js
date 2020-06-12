@@ -1,11 +1,11 @@
 const sharedSessions = require('express-socket.io-session');
 const Message = require('./messageModel');
 const Dog = require('./dogModel');
+const Room = require('./roomModel');
 
 const initializeSocketIO = (server, newSession) => {
 
   const io = require('socket.io')(server);
-  let room;
 
   io.use(sharedSessions(newSession));
 
@@ -41,26 +41,39 @@ const initializeSocketIO = (server, newSession) => {
     });
 
     // Unfinished Socket function.
-    socket.on('match-room', roomID => {
+    socket.on('match-room', email => {
 
-      if(socket.roomID) {
+      if (socket.id) {
 
-        console.log('Left the socket!', socket.roomID);
-
-        socket.leave(socket.roomID);
+        socket.leave(socket.id);
 
       }
 
-      room = roomID;
+      console.log('Serverside (argument 1)', email);
+      console.log('Serverside (argument 2)', socket.handshake.session.user.email);
 
-      socket.join(room);
+      async function waiting() {
+
+        return await Room.getRoom(email, socket.handshake.session.user.email);
+
+      }
+      waiting().then(result => {
+
+        console.log('Serverside (getRoom result)', result);
+
+      })
+      .catch(err => console.log('Error getting room', err));
+
+      socket.join('test');
 
     });
 
     // When a dog submits a message
     socket.on('dog-message', (id, message) => {
 
-      socket.broadcast.to(id).emit('message', message);
+      socket.broadcast.to(socket.id).emit('message', message);
+
+      // socket.broadcast.to(id).emit('message', message);
 
     });
 
@@ -76,16 +89,12 @@ const initializeSocketIO = (server, newSession) => {
 
       let currentDog = Dog.getDogFromEmail(socket.handshake.session.allDogs, socket.handshake.session.user);
 
-      console.log('blocked user = ', email);
-      console.log('current user = ', socket.handshake.session.user);
-
       socket.handshake.session.user.matches = Dog.blockMatch(email, currentDog[0].matches);
 
       // Update matches
       Dog.updateDog(socket.handshake.session.user)
-      .then(result => console.log("result is", result))
+      .then(result => console.log('result is', result))
       .catch(err => console.log(err));
-
 
     });
 
