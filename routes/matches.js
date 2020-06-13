@@ -44,7 +44,10 @@ router.post('/:id/chat', async (req, res) => {
   const allDogs = await Dog.getDogs();
   const allMessages = await Message.getAllMessages();
 
+
   req.session.selected = Dog.getDogFromEmail(allDogs, req.body);
+  console.log('what is selected', req.session.selected);
+  // socket.emit('match-room', email);
 
   res.render('chat', {
 

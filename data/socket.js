@@ -18,7 +18,7 @@ const initializeSocketIO = (server, newSession) => {
       // Push new message to the database
       Message.create([{
         sendFrom: socket.handshake.session.user.email,
-        sendTo: socket.handshake.session.selected.email,
+        sendTo: socket.handshake.session.selected[0].email,
         message: message.message,
         receiver: socket.handshake.session.user.email,
         date: message.date
@@ -43,35 +43,53 @@ const initializeSocketIO = (server, newSession) => {
     // Unfinished Socket function.
     socket.on('match-room', email => {
 
-      if (socket.id) {
-
-        socket.leave(socket.id);
-
-      }
-
-      console.log('Serverside (argument 1)', email);
-      console.log('Serverside (argument 2)', socket.handshake.session.user.email);
-
       async function waiting() {
 
-        return await Room.getRoom(email, socket.handshake.session.user.email);
+        const waitForRoom = await Room.getRoom(email, socket.handshake.session.user.email);
+
+        console.log('=== RoomID in socket.js ===', waitForRoom);
+
+
+        const currentRooms = Object.keys(socket.adapter.rooms);
+
+
+
+        currentRooms.forEach(room => {
+
+          if (currentRooms !== waitForRoom) {
+
+
+            socket.leave(room);
+
+          }
+
+        });
+
+
+
+        // socket.handshake.session.roomID = waitForRoom;
+
+
+        socket.join(waitForRoom);
+
+
+        socket.emit('send-room-id', { room: waitForRoom });
+
+        console.log('------currentRooms = ', Object.keys(socket.adapter.rooms));
 
       }
-      waiting().then(result => {
 
-        console.log('Serverside (getRoom result)', result);
-
-      })
-      .catch(err => console.log('Error getting room', err));
-
-      socket.join('test');
+      waiting();
 
     });
 
-    // When a dog submits a message
-    socket.on('dog-message', (id, message) => {
 
-      socket.broadcast.to(socket.id).emit('message', message);
+    // When a dog submits a message
+    socket.on('dog-message', (message) => {
+
+      console.log('Dog message init ==', socket.handshake.session.roomID);
+
+      socket.broadcast.to(' test').emit('message', message);
 
       // socket.broadcast.to(id).emit('message', message);
 
@@ -98,14 +116,14 @@ const initializeSocketIO = (server, newSession) => {
 
     });
 
-    // When a chat is opened, change req.session.selected to new dog
-    socket.on('chat-index', index => {
-
-      // Change the selected chat
-      socket.handshake.session.selected = Dog.selectedConversation(socket.handshake.session.allDogs,socket.handshake.session.user, index);
-      socket.handshake.session.save();
-
-    });
+    // // When a chat is opened, change req.session.selected to new dog
+    // socket.on('chat-index', index => {
+    //
+    //   // Change the selected chat
+    //   socket.handshake.session.selected = Dog.selectedConversation(socket.handshake.session.allDogs,socket.handshake.session.user, index);
+    //   socket.handshake.session.save();
+    //
+    // });
 
   });
 
