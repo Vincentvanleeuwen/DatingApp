@@ -74,7 +74,7 @@ app.engine('hbs', handlebars({
 // Supports parsing of x-www-form-urlencoded
 .use(bodyParser.urlencoded({extended: true}))
 
-.use('/', register)
+.use('/register', register)
 
 .use('/match',
   dogVariables,
