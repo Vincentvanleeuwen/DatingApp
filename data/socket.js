@@ -85,11 +85,14 @@ const initializeSocketIO = (server, newSession) => {
 
 
     // When a dog submits a message
-    socket.on('dog-message', (message) => {
+    socket.on('dog-message', (room, message) => {
 
-      console.log('Dog message init ==', socket.handshake.session.roomID);
+      socket.handshake.session.room = room;
 
-      socket.broadcast.to(' test').emit('message', message);
+      console.log('Dog message init ==', socket.handshake.session.room);
+
+
+      socket.in(room).emit('message', message);
 
       // socket.broadcast.to(id).emit('message', message);
 
@@ -98,7 +101,8 @@ const initializeSocketIO = (server, newSession) => {
     // When a dog is typing, show it to the other dog.
     socket.on('typing', () => {
 
-      socket.broadcast.emit('typing', {username: socket.handshake.session.user.name});
+      // to(socket.handshake.session.room)
+      socket.in(socket.handshake.session.room).emit('typing', {username: socket.handshake.session.user.name});
 
     });
 

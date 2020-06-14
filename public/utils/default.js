@@ -100,8 +100,14 @@ socket.on('message', message => {
   } else {
 
     addNewMessage(message);
-    document.querySelector('.is-typing')
-    .remove();
+
+    if (document.querySelector('.is-typing')) {
+
+      document.querySelector('.is-typing').remove();
+
+    }
+
+
     socket.emit('message', message);
 
   }
@@ -141,22 +147,13 @@ if (chatContainer) {
 
   const email = chatContainer.getAttribute('data-room');
 
-  socket.emit('match-room', email);
-
-  socket.on('send-room-id', room => {
-
-    socket.handshake.session.roomID = room.room;
-
-  });
-
-  console.log('AAAAAAAAAAAAAAAAAAAAA', socket.handshake.session);
-
   chatContainer.addEventListener('submit', e => {
 
     e.preventDefault();
 
     const message = chatInput.value;
 
+    socket.emit('match-room', email);
 
     if (message.length === 0) {
 
@@ -164,6 +161,7 @@ if (chatContainer) {
 
     } else {
 
+      console.log('message in DefaultJs 164 === ', message);
       // Show message to the view
       addNewMessage(message, ' self');
 
@@ -178,8 +176,15 @@ if (chatContainer) {
 
     console.log('Clientside Socket Room ID', socket);
 
+    socket.on('send-room-id', room => {
 
-    socket.emit('dog-message', socket.handshake.session.room, message);
+      console.log('AAAAAAAAAAAAAAAAAAAAA', room.room);
+
+
+      socket.emit('dog-message', room.room, message);
+
+    });
+
     // Clear the input when someone sends their message
     chatInput.value = '';
 
