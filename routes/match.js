@@ -1,6 +1,6 @@
-const router = require('express')
-.Router();
+const router = require('express').Router();
 const Dog = require('../data/dogModel');
+const Room = require('../data/roomModel');
 
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
@@ -59,6 +59,7 @@ router.post('/', async (req, res) => {
   .lean()
   .then(dogs => {
 
+
     let currentDog = Dog.getDogFromEmail(dogs, req.session.user)[0];
 
     return dogs.filter(dog => {
@@ -76,6 +77,7 @@ router.post('/', async (req, res) => {
     });
 
   });
+
 
 
   res.render('match', {
@@ -128,8 +130,6 @@ router.post('/dislike-match', async (req, res) => {
 
   });
 
-
-
   res.render('match', {
 
     title: 'Match',
@@ -165,6 +165,10 @@ router.post('/add-match', async (req, res) => {
 
 
   if (matchDog.matches.includes(currentDog.email)) {
+
+    Room.create([{
+      participants: [currentDog.email, matchDog.email]
+    }]);
 
     res.render('newMatch', {
 

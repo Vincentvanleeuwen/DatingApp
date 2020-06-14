@@ -94,12 +94,6 @@ dogSchema.statics = {
 
   },
 
-  selectedConversation: (dogs, currentDog, index) => {
-
-    // Get first dog in array to open instantly.
-    return mongoose.model('dogModel', dogSchema).dogMatches(dogs, currentDog)[index];
-
-  }
 };
 
 
