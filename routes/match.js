@@ -1,6 +1,9 @@
 const router = require('express')
 .Router();
 const Dog = require('../data/dogModel');
+const multer  = require('multer');
+
+let upload = multer({ dest: '../public/media/images/dogs/' });
 
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
@@ -46,18 +49,48 @@ router.get('/', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('profilePicture'), async (req, res) => {
 
   req.session.user = {
 
+    name: req.body.firstName,
     email: req.body.email,
-    name: req.body.name
+    age: req.body.age,
+    breed: req.body.breed,
+    description: req.body.description,
+    gender: req.body.gender,
+    toy: req.body.toy,
+    personality: req.body.personality,
+    matches: [],
+    dislikes: [],
+    images: [],
+    status: "",
+    lastMessage: ""
 
   };
+
+  // Push new message to the database
+  Dog.create([{
+
+      email: req.session.user.email,
+      name: req.session.user.name,
+      age: req.session.user.age,
+      breed: req.session.user.breed,
+      images: req.session.user.images,
+      status: req.session.user.status,
+      lastMessage: req.session.user.lastMessage,
+      description: req.session.user.description,
+      favToy: req.session.user.toy,
+      personality: req.session.user.personality,
+      matches: req.session.user.matches,
+      dislikes: req.session.user.dislikes
+
+  }]);
 
   req.session.unratedDogs = await Dog.find()
   .lean()
   .then(dogs => {
+
 
     let currentDog = Dog.getDogFromEmail(dogs, req.session.user)[0];
 
@@ -75,7 +108,7 @@ router.post('/', async (req, res) => {
 
     });
 
-  });
+  }).catch(err => console.log(err));
 
 
   res.render('match', {

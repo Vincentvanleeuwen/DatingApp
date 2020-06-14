@@ -65,14 +65,25 @@ function addCounter() {
                 }
                 break;
 
-            case "birthday":
+            case "age":
                 if (input[i].value == false) {
-                	document.getElementById('error-birthday').innerHTML = 'Enter a date';
+                	document.getElementById('error-age').innerHTML = 'Enter a number';
                     input[i].classList.add('invalid');
                     valid = false;
                 } else if (input[i].classList.contains('invalid')) {
                     input[i].classList.remove('invalid');
-                    document.getElementById('error-birthday').innerHTML = '';
+                    document.getElementById('error-age').innerHTML = '';
+                }
+                break;
+
+            case "breed":
+                if (input[i].value == false) {
+                    document.getElementById('error-breed').innerHTML = 'Enter dog breed';
+                    input[i].classList.add('invalid');
+                    valid = false;
+                } else if (input[i].classList.contains('invalid')) {
+                    input[i].classList.remove('invalid');
+                    document.getElementById('error-breed').innerHTML = '';
                 }
                 break;
 
@@ -92,19 +103,26 @@ function addCounter() {
                 }
                 break;
 
-            case "preference":
-                let preference = input[i].checked;
-                if (preference == false) {
-                    activePreference.push(preference);
-                }
 
-                if (activePreference.length == 2) {
-                	document.getElementById('error-preference').innerHTML = 'Enter at least one preference';
+            case "toy":
+                if (input[i].value == false) {
+                    document.getElementById('error-toy').innerHTML = 'Enter a toy';
                     input[i].classList.add('invalid');
                     valid = false;
                 } else if (input[i].classList.contains('invalid')) {
-                	input[i].classList.remove('invalid');
-                    document.getElementById('error-preference').innerHTML = '';
+                    input[i].classList.remove('invalid');
+                    document.getElementById('error-toy').innerHTML = '';
+                }
+                break;
+
+            case "personality":
+                if (input[i].value == false) {
+                    document.getElementById('error-personality').innerHTML = 'Describe dogs personality';
+                    input[i].classList.add('invalid');
+                    valid = false;
+                } else if (input[i].classList.contains('invalid')) {
+                    input[i].classList.remove('invalid');
+                    document.getElementById('error-personality').innerHTML = '';
                 }
                 break;
 

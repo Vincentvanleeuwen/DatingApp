@@ -5,7 +5,7 @@
         <form method="post" action="/match" enctype="multipart/form-data">
             <fieldset>
                 <h1>MAKE ACCOUNT</h1>
-                <label for="name">First Name</label>
+                <label for="name">Dog Name</label>
                 <input type="text" name="firstName" id="name" minlength="2" maxlength="25" required>
                 <p class="errorMessage" id="error-name"></p>
             
@@ -25,11 +25,15 @@
 
             <fieldset>
                 <h1>LET'S BEGIN</h1>
-                <label for="birthday">Birthday</label>
-                <input type="date" name="birthday" id="birthday">
-                <p class="errorMessage" id="error-birthday"></p>
+                <label for="age">Age</label>
+                <input type="text" name="age" id="age">
+                <p class="errorMessage" id="error-age"></p>
 
-                <label for="gender">Your Gender</label>
+                <label for="breed">Breed</label>
+                <input type="text" name="breed" id="breed">
+                <p class="errorMessage" id="error-breed"></p>
+
+                <label for="gender">Dog' Gender</label>
                 <ul class="gender-container">
                     <li>
                         <input type="radio" id="male" name="gender" value="male" required>
@@ -43,27 +47,12 @@
                 </ul>
                 <p class="errorMessage" id="error-gender"></p>
 
-
-                <label for="preference">Looking for</label>
-                <ul class="gender-container">
-                    <li>
-                        <input type="checkbox" id="pref-male" name="preference" value="male">
-                        <label for="pref-male">Male</label>
-                    </li>
-
-                    <li>
-                        <input type="checkbox" id="pref-female" name="preference" value="female">
-                        <label for="pref-female">Female</label>
-                    </li>
-                </ul>
-                <p class="errorMessage" id="error-preference"></p>
-
                 <div class="btn-next-container">
                     <button type="button" class="btn-previous">Back</button>
                     <button type="button" class="btn-next">Next</button>
                 </div>
             </fieldset>
-
+<!-- 
             <fieldset>
                 <h1>PROFILE PICTURE</h1>
                 <label for="profilePicture"></label>
@@ -74,11 +63,28 @@
                     <button type="button" class="btn-previous">Back</button>
                     <button type="button" class="btn-next">Next</button>
                 </div>
+            </fieldset> -->
+
+            <fieldset>
+                <h1>YOUR DOGGIE</h1>
+
+                <label for="toy">Favorite Toy</label>
+                <input type="text" name="toy" id="toy">
+                <p class="errorMessage" id="error-toy"></p>
+
+                <label for="breed">Personality</label>
+                <input type="text" name="personality" id="personality">
+                <p class="errorMessage" id="error-personality"></p>
+
+                <div class="btn-next-container">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
             </fieldset>
 
             <fieldset>
                 <h1>DESCRIBE YOURSELF</h1>
-                <label for="description">Describe yourself</label>
+                <label for="description">Describe your doggie</label>
                 <textarea name="description" rows="6" cols="50" required></textarea>
 
                 <div class="btn-submit-container">
