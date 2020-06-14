@@ -176,7 +176,7 @@ if (chatContainer) {
 
     console.log('Clientside Socket Room ID', socket);
 
-    socket.on('send-room-id', room => {
+    socket.once('send-room-id', room => {
 
       console.log('AAAAAAAAAAAAAAAAAAAAA', room.room);
 
