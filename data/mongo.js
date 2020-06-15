@@ -63,6 +63,7 @@ async function dogVariables(req, res, next) {
 
 
   console.log('dogVars | Currentroom = ', req.session.currentRoom);
+
   next();
 
 }

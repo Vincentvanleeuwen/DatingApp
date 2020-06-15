@@ -8,7 +8,6 @@ const socket = io();
 const chatContainer = document.querySelector('.chat-container');
 const chatInput = document.getElementById('chat-input');
 const chatBulbContainer = document.querySelector('.chat-bulbs');
-const chatButtons = document.querySelectorAll('.single-match');
 const bulb = document.querySelectorAll('.bulb');
 
 // Block dog elements
@@ -18,13 +17,13 @@ const blockButton = document.querySelector('.block');
 const thisDog = document.querySelector('.this-dog');
 
 // Toggles the dog chat info menu
-if(dogSettingButton) {
+if (dogSettingButton) {
 
   dogSettingButton.addEventListener('click', () => {
 
     dogSettingMenu.classList.toggle('show-menu');
 
-    if(!dogSettingMenu.classList.contains('show-menu')) {
+    if (!dogSettingMenu.classList.contains('show-menu')) {
 
       dogSettingMenu.classList.toggle('hide-menu');
 
@@ -39,7 +38,7 @@ if(dogSettingButton) {
   });
 
 }
-if(chatBulbContainer) {
+if (chatBulbContainer) {
 
   // Scroll to bottom to always see newest chat message
   chatBulbContainer.scrollTop = chatBulbContainer.scrollHeight - chatBulbContainer.clientHeight;
@@ -73,7 +72,7 @@ if (bulb.length !== 0) {
 }
 
 // Eventlistener for the block button
-if(blockButton) {
+if (blockButton) {
 
   blockButton.addEventListener('click', () => {
 
@@ -101,7 +100,14 @@ socket.on('message', message => {
   } else {
 
     addNewMessage(message);
-    document.querySelector('.is-typing').remove();
+
+    if (document.querySelector('.is-typing')) {
+
+      document.querySelector('.is-typing').remove();
+
+    }
+
+
     socket.emit('message', message);
 
   }
@@ -127,7 +133,7 @@ socket.on('typing', data => {
   isTyping.classList += ' is-typing';
   isTyping.appendChild(typingMessage);
 
-  if(!document.querySelector('.is-typing')) {
+  if (!document.querySelector('.is-typing')) {
 
     chatContainer.appendChild(isTyping);
 
@@ -136,8 +142,10 @@ socket.on('typing', data => {
 });
 
 
+if (chatContainer) {
 
-if(chatContainer) {
+
+  const email = chatContainer.getAttribute('data-room');
 
   chatContainer.addEventListener('submit', e => {
 
@@ -145,6 +153,7 @@ if(chatContainer) {
 
     const message = chatInput.value;
 
+    socket.emit('match-room', email);
 
     if (message.length === 0) {
 
@@ -152,6 +161,7 @@ if(chatContainer) {
 
     } else {
 
+      console.log('message in DefaultJs 164 === ', message);
       // Show message to the view
       addNewMessage(message, ' self');
 
@@ -159,61 +169,28 @@ if(chatContainer) {
       socket.emit('message-to-db', {
         message: message,
         date: new Date()
-        .toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' })
+        .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'})
       });
 
     }
 
-    console.log('Clientside Socket Room ID',socket.id);
+    console.log('Clientside Socket Room ID', socket);
 
-    socket.emit('dog-message', socket.id, message);
+    socket.once('send-room-id', room => {
+
+      console.log('AAAAAAAAAAAAAAAAAAAAA', room.room);
+
+
+      socket.emit('dog-message', room.room, message);
+
+    });
 
     // Clear the input when someone sends their message
     chatInput.value = '';
 
 
-
   });
 
-}
-
-if (chatButtons.length !== 0) {
-
-
-
-  let room = chatButtons[0].getAttribute('data-room');
-
-  // Set chat index to 0
-  socket.emit('chat-index', 0);
-  socket.emit('match-room', room);
-
-
-
-  chatButtons.forEach(button => {
-
-
-    button.addEventListener('click', () => {
-
-      // Get the room
-      const email = button.getAttribute('data-room');
-
-      socket.emit('chat-index', getIndexOfChat(button));
-
-      socket.emit('match-room', email);
-
-
-
-    });
-
-  });
-
-}
-
-function getIndexOfChat(button) {
-
-  const chats = Array.prototype.slice.call(chatButtons);
-
-  return chats.indexOf(button);
 
 }
 
@@ -240,7 +217,7 @@ function addNewMessage(message, receiver) {
 
   bulbContent.innerText = message;
   bulbTime.innerText = new Date()
-    .toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' });
+  .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'});
 
   chatBulb.appendChild(bulb);
   bulb.appendChild(bulbContent);

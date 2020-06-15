@@ -1,9 +1,12 @@
-const router = require('express')
-.Router();
+const router = require('express').Router();
 const Dog = require('../data/dogModel');
+
 const multer  = require('multer');
 
 let upload = multer({ dest: '../public/media/images/dogs/' });
+
+const Room = require('../data/roomModel');
+
 
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
@@ -91,7 +94,6 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
   .lean()
   .then(dogs => {
 
-
     waitForCurrentDog();
 
     async function waitForCurrentDog() {
@@ -116,7 +118,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
 
       })
       .catch(err => console.log('Error Finding dog, ', err));
-
+      
     }
 
   })
@@ -163,8 +165,6 @@ router.post('/dislike-match', async (req, res) => {
 
   });
 
-
-
   res.render('match', {
 
     title: 'Match',
@@ -200,6 +200,10 @@ router.post('/add-match', async (req, res) => {
 
 
   if (matchDog.matches.includes(currentDog.email)) {
+
+    Room.create([{
+      participants: [currentDog.email, matchDog.email]
+    }]);
 
     res.render('newMatch', {
 
