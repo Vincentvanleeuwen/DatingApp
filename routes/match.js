@@ -11,13 +11,6 @@ const Room = require('../data/roomModel');
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
 
-  req.session.user = {
-
-    email: req.body.email,
-    name: req.body.name
-
-  };
-
   Dog.find()
   .lean()
   .then(dogs => {
@@ -197,7 +190,6 @@ router.post('/dislike-match', async (req, res) => {
 
   }
 
-
   console.log('dislikes = ', currentDog);
 
   Dog.findOneAndUpdate({email: currentDog.email},
@@ -297,28 +289,14 @@ router.post('/add-match', async (req, res) => {
     else {
 
       console.log('reqsessionUnrated @299', req.session.unratedDogs);
-      
-      res.render('match', {
 
-        title: 'Match',
-        style: 'match.css',
-        path: 'matches',
-        dogs: req.session.unratedDogs
-
-      });
-
-
-
+      res.redirect('/match');
 
     }
-
 
   })
   .catch(err => console.log(err));
 
-
-
-
-
 });
+
 module.exports = router;
