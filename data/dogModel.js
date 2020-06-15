@@ -80,9 +80,7 @@ dogSchema.statics = {
 
   },
 
-  getDogFromEmail: (dogs, currentDog) => {
-
-    return dogs.filter( dog => {
+  getDogFromEmail: (dogs, currentDog) => dogs.filter( dog => {
 
       if (dog.email === currentDog.email) {
 
@@ -90,9 +88,7 @@ dogSchema.statics = {
 
       }
 
-    });
-
-  },
+    }),
 
 };
 

@@ -144,7 +144,6 @@ socket.on('typing', data => {
 
 if (chatContainer) {
 
-
   const email = chatContainer.getAttribute('data-room');
 
   chatContainer.addEventListener('submit', e => {

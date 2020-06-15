@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
   res.render('matches', {
 
-    title: 'Logged in as ' + req.body.name,
+    title: 'Logged in as ' + req.session.user.name,
     style: 'matches.css',
     match: req.session.matches,
 
