@@ -64,8 +64,8 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
     matches: [],
     dislikes: [],
     images: [],
-    status: "",
-    lastMessage: ""
+    status: '',
+    lastMessage: ''
 
   };
 
@@ -91,39 +91,41 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
   .lean()
   .then(dogs => {
 
-    let currentDog;
+
     waitForCurrentDog();
 
-    function waitForCurrentDog() {
+    async function waitForCurrentDog() {
 
-      currentDog = Dog.findOne({email: req.session.user.email});
+      return await Dog.findOne({email: req.session.user.email})
+      .then(result => {
 
-    } 
+        const unratedDogs = dogs.filter(dog => {
 
-    const unratedDogs = dogs.filter(dog => {
-      console.log('currentDog = ', currentDog);
-      console.log('dog = ', dog);
+          if(dog.email !== result.email) return dog;
 
-      if(dog.email !== currentDog.email) return dog;
+        });
 
-    });
+        res.render('match', {
 
-    res.render('match', {
+          title: 'Match',
+          style: 'match.css',
+          path: 'matches',
+          dogs: unratedDogs
 
-      title: 'Match',
-      style: 'match.css',
-      path: 'matches',
-      dogs: unratedDogs
+        });
 
-    });
+      })
+      .catch(err => console.log('Error Finding dog, ', err));
 
-  }).catch(err => console.log(err));
-  // console.log('', req.session.unratedDogs);
+    }
+
+  })
+  .catch(err => console.log(err));
+
 
 });
 
 router.post('/dislike-match', async (req, res) => {
-
   let currentDog = Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0];
 
   if (!currentDog.dislikes.includes(req.body.email)) {
