@@ -91,9 +91,14 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
   .lean()
   .then(dogs => {
 
-    let currentDog = Dog.findOne({email: req.session.user.email})
-    .then(result => result)
-    .catch(err => console.log(err));
+    let currentDog;
+    waitForCurrentDog();
+
+    function waitForCurrentDog() {
+
+      currentDog = Dog.findOne({email: req.session.user.email});
+
+    } 
 
     const unratedDogs = dogs.filter(dog => {
       console.log('currentDog = ', currentDog);
