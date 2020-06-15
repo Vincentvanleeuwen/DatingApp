@@ -87,38 +87,33 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
 
   }]);
 
-  req.session.unratedDogs = await Dog.find()
+  Dog.find()
   .lean()
   .then(dogs => {
 
+    let currentDog = Dog.findOne({email: req.session.user.email})
+    .then(result => result)
+    .catch(err => console.log(err));
 
-    let currentDog = Dog.getDogFromEmail(dogs, req.session.user)[0];
+    const unratedDogs = dogs.filter(dog => {
+      console.log('currentDog = ', currentDog);
+      console.log('dog = ', dog);
 
-    return dogs.filter(dog => {
+      if(dog.email !== currentDog.email) return dog;
 
-        if (currentDog.dislikes.includes(dog.email) || currentDog.matches.includes(dog.email)) {
+    });
 
-          console.log('Included in dislikes or matches.', dog.email);
+    res.render('match', {
 
-        } else {
-
-          if(dog.email !== currentDog.email) return dog;
-
-        }
+      title: 'Match',
+      style: 'match.css',
+      path: 'matches',
+      dogs: unratedDogs
 
     });
 
   }).catch(err => console.log(err));
-
-
-  res.render('match', {
-
-    title: 'Match',
-    style: 'match.css',
-    path: 'matches',
-    dogs: req.session.unratedDogs
-
-  });
+  // console.log('', req.session.unratedDogs);
 
 });
 
