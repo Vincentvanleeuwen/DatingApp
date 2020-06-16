@@ -203,43 +203,46 @@ router.post('/dislike-match', async (req, res) => {
 
     });
 
-  req.session.unratedDogs = req.session.unratedDogs.filter(dog => {
+  console.log('unratedDogs dislikes= ', req.session.unratedDogs);
 
-    if (dog.email !== req.body.email) {
-
-      return dog;
-
-    }
-    else {
-
-      console.log('UnratedDogs error@137 matchjs');
-
-    }
-
-  });
-
-  res.render('match', {
-
-    title: 'Match',
-    style: 'match.css',
-    path: 'matches',
-    dogs: req.session.unratedDogs
-
-  });
+  // req.session.unratedDogs = req.session.unratedDogs.filter(dog => {
+  //
+  //   if (dog.email !== req.body.email) {
+  //
+  //     return dog;
+  //
+  //   }
+  //   else {
+  //
+  //     console.log('UnratedDogs error@137 matchjs');
+  //
+  //   }
+  //
+  // });
+  //
+  // res.render('match', {
+  //
+  //   title: 'Match',
+  //   style: 'match.css',
+  //   path: 'matches',
+  //   dogs: req.session.unratedDogs
+  //
+  // });
+  res.redirect('/match');
 
 });
 
 router.post('/add-match', async (req, res) => {
 
   async function waitForBothDogs() {
-    
+
     return {
-      
+
       currentDog: await Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0],
       matchDog: await Dog.getDogFromEmail(req.session.allDogs, req.body)[0],
-      
+
     };
-    
+
   }
 
   waitForBothDogs().then(result=> {
