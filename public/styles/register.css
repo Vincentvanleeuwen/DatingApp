@@ -1,0 +1,195 @@
+:root {
+  --primary-color: #FFAF91;
+  --secondary-color: #FF9EA6;
+  --call-to-action: #03EBBB;
+  --error-color: #FF4D8F;
+  --dark-color: #565656;
+  --light-color: #fff;
+  --heading: 'Bevan', cursive;
+  --paragraph: 'Open Sans', sans-serif;
+}
+
+.register-main {
+  /*margin-left: 10%;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 25%;
+  z-index: 6;
+}
+
+
+/*classes for JS to add*/
+.addVisbility {
+  display: inline-block;
+}
+
+.makeInvisible {
+  display: none;
+}
+
+.invalid {
+  background-color: #FFF4F7;
+  border: 1px solid #FF0066;
+}
+
+.errorMessage {
+  color: #FF0066;
+  font-size: 0.9em;
+}
+
+form {
+  width: 100%;
+}
+
+label {
+  margin: 20px 0 0;
+  display: inline-block;
+}
+
+h1 + label{
+  margin-top: 0;
+}
+
+fieldset {
+  padding: 20px 0 10px;
+  border: 0px solid #DCDCDC;
+}
+
+input, textarea {
+  display: block;
+  background-color: #F5F6F7;
+  border: 1px solid #DCDCDC;
+  width: 100%;
+  margin: 5px 0 0;
+  padding: 10px 10px;
+  font-size: 0.8em;
+  color: #5c5c5c;
+  resize: none;
+}
+
+input:focus {
+  outline: none;
+  color: black;
+}
+
+
+input[type="radio"], input[type="checkbox"] {
+  display: none;
+}
+
+input[type="radio"] + label,  input[type="checkbox"] + label {
+  margin: 5px 20px 0 0;
+  border: 1px solid #b5b5b5;
+  color: #b5b5b5;
+  padding: 10px 10px;
+}
+
+input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
+  border: 1px solid #ff2453;
+  color: #ff2453;
+  transition: 0.5s all;
+}
+
+label + input[type="file"] {
+  background-color: #FFF;
+  width: 100%;
+  padding: 10px 10px;
+  font-size: 0.8em;
+  color: #5c5c5c;
+  resize: none;
+}
+
+header img {
+  height: 100%;
+}
+
+.register-container {
+  background: white;
+  margin: 50px auto 50px;
+  max-width: 450px;
+  padding: 50px;
+  box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15);
+}
+
+.gender-container {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  /*margin: 5px 0 20px;*/
+  /*padding: 15px 0;*/
+}
+
+.btn-next-container {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.btn-submit-container {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-next {
+  background-color: #FF0066;
+  color: white;
+  font-size: 1em;
+  font-family: montserrat, helvetica;
+  text-decoration: none;
+  padding: 10px 30px;
+  border: 0;
+  border-radius: 100px;
+  display: inline-block;
+}
+
+.btn-next:hover {
+  background-color: #ab004b;
+  color: #FFF;
+  transition: 0.6s all;
+}
+
+.btn-next:focus {
+  outline: none;
+}
+
+.btn-previous {
+  background-color: #FFF;
+  color: #b5b5b5;
+  font-size: 1em;
+  font-family: montserrat, helvetica;
+  text-decoration: none;
+  padding: 8px 28px;
+  border: 1px solid #b5b5b5;
+  border-radius: 100px;
+  display: inline-block;
+}
+
+.profile-info {
+  margin-bottom: 5px;
+}
+
+.delete-button {
+  color: red;
+  font-size: 1em;
+  font-family: montserrat, helvetica;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  margin-top: 30px;
+  background-color: #FFF;
+}
+
+.delete-button:hover {
+  border: 1px solid red;
+  transition: 1s all;
+}
+
+#profile-picture {
+  width: 80%;
+  margin: 0 10% 20px;
+}

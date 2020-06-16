@@ -1,7 +1,6 @@
 /*eslint-disable */
 
 const socket = io();
-let dogConnection = io.connect();
 
 /*eslint-enable */
 
@@ -9,7 +8,6 @@ let dogConnection = io.connect();
 const chatContainer = document.querySelector('.chat-container');
 const chatInput = document.getElementById('chat-input');
 const chatBulbContainer = document.querySelector('.chat-bulbs');
-const chatButtons = document.querySelectorAll('.single-match');
 const bulb = document.querySelectorAll('.bulb');
 
 // Block dog elements
@@ -19,23 +17,32 @@ const blockButton = document.querySelector('.block');
 const thisDog = document.querySelector('.this-dog');
 
 // Toggles the dog chat info menu
-if(dogSettingButton) {
+if (dogSettingButton) {
 
-  dogSettingButton.addEventListener('click', (e) => {
+  dogSettingButton.addEventListener('click', () => {
 
     dogSettingMenu.classList.toggle('show-menu');
 
-    if(!dogSettingMenu.classList.contains('show-menu')) {
+    if (!dogSettingMenu.classList.contains('show-menu')) {
 
       dogSettingMenu.classList.toggle('hide-menu');
 
       setTimeout(() => {
+
         dogSettingMenu.classList.toggle('hide-menu');
+
       }, 400);
 
     }
 
   });
+
+}
+if (chatBulbContainer) {
+
+  // Scroll to bottom to always see newest chat message
+  chatBulbContainer.scrollTop = chatBulbContainer.scrollHeight - chatBulbContainer.clientHeight;
+
 
 }
 
@@ -45,12 +52,16 @@ if (bulb.length !== 0) {
   bulb.forEach(bulb => {
 
     bulb.addEventListener('click', () => {
-      if (confirm("Do you really want to delete this message?")) {
+
+      if (confirm('Do you really want to delete this message?')) {
 
         socket.emit('delete-message', bulb.id);
         bulb.remove();
+
       } else {
+
         console.log('cancelled deletion');
+
       }
 
 
@@ -60,11 +71,12 @@ if (bulb.length !== 0) {
 
 }
 
-if(blockButton) {
+// Eventlistener for the block button
+if (blockButton) {
 
   blockButton.addEventListener('click', () => {
 
-    console.log('Dog to block = ', thisDog.value, "@default.js:38");
+    console.log('Dog to block = ', thisDog.value, '@default.js:38');
 
     // Emit the dog you want to block
     socket.emit('block-user', thisDog.value);
@@ -77,8 +89,6 @@ socket.on('block-user', data => {
 
   console.log(data);
 
-  deleteDogFromChat(data);
-
 });
 
 socket.on('message', message => {
@@ -90,7 +100,14 @@ socket.on('message', message => {
   } else {
 
     addNewMessage(message);
-    document.querySelector('.is-typing').remove();
+
+    if (document.querySelector('.is-typing')) {
+
+      document.querySelector('.is-typing').remove();
+
+    }
+
+
     socket.emit('message', message);
 
   }
@@ -116,7 +133,7 @@ socket.on('typing', data => {
   isTyping.classList += ' is-typing';
   isTyping.appendChild(typingMessage);
 
-  if(!document.querySelector('.is-typing')) {
+  if (!document.querySelector('.is-typing')) {
 
     chatContainer.appendChild(isTyping);
 
@@ -125,8 +142,10 @@ socket.on('typing', data => {
 });
 
 
+if (chatContainer) {
 
-if(chatContainer) {
+
+  const email = chatContainer.getAttribute('data-room');
 
   chatContainer.addEventListener('submit', e => {
 
@@ -134,6 +153,7 @@ if(chatContainer) {
 
     const message = chatInput.value;
 
+    socket.emit('match-room', email);
 
     if (message.length === 0) {
 
@@ -141,6 +161,7 @@ if(chatContainer) {
 
     } else {
 
+      console.log('message in DefaultJs 164 === ', message);
       // Show message to the view
       addNewMessage(message, ' self');
 
@@ -148,74 +169,30 @@ if(chatContainer) {
       socket.emit('message-to-db', {
         message: message,
         date: new Date()
-        .toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' })
-      })
+        .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'})
+      });
 
     }
 
-    console.log(socket.id);
+    console.log('Clientside Socket Room ID', socket);
 
-    socket.emit('dog-message', socket.id, message);
+    socket.once('send-room-id', room => {
+
+      console.log('AAAAAAAAAAAAAAAAAAAAA', room.room);
+
+
+      socket.emit('dog-message', room.room, message);
+
+    });
 
     // Clear the input when someone sends their message
     chatInput.value = '';
 
-  });
-
-}
-
-
-if (chatButtons.length !== 0) {
-
-  let currentlyActive = chatButtons[0];
-
-  let room = chatButtons[0].getAttribute('data-room');
-  // Set chat index to 0
-  socket.emit('chat-index', 0);
-  socket.emit('match-room', room);
-
-  currentlyActive.classList.add('active-chat');
-
-  chatButtons.forEach(button => {
-
-
-    button.addEventListener('click', () => {
-
-      // Get the room
-      const room = button.getAttribute('data-room');
-
-      // Remove the active class
-      currentlyActive.classList.remove('active-chat');
-
-      // Add active class to clicked element
-      button.classList.add('active-chat');
-
-      // Set clicked element to current active element.
-      currentlyActive = button;
-
-      socket.emit('chat-index', getIndexOfChat(button));
-
-      console.log('room', room);
-
-      socket.emit('match-room', room);
-
-
-
-    });
 
   });
 
-}
-
-
-function getIndexOfChat(button) {
-
-  const chats = Array.prototype.slice.call(chatButtons);
-
-  return chats.indexOf(button);
 
 }
-
 
 //Create HTML element of a chatbubble.
 function addNewMessage(message, receiver) {
@@ -223,7 +200,7 @@ function addNewMessage(message, receiver) {
   const chatBulb = document.createElement('div');
   chatBulb.classList += ' single-bulb';
 
-  if(receiver){
+  if (receiver) {
 
     chatBulb.classList += `${receiver}`;
 
@@ -240,7 +217,7 @@ function addNewMessage(message, receiver) {
 
   bulbContent.innerText = message;
   bulbTime.innerText = new Date()
-    .toLocaleTimeString('en-GB', { hour: 'numeric', minute: 'numeric' });
+  .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'});
 
   chatBulb.appendChild(bulb);
   bulb.appendChild(bulbContent);
@@ -253,20 +230,4 @@ function addNewMessage(message, receiver) {
 
 }
 
-function deleteDogFromChat(dog) {
 
-  console.log(dog);
-
-}
-
-function logDogIn(dog) {
-
-  // Get the "login" buttons.
-  // When First button is clicked => next dog in template
-  // When second button is clicked => Log dog into this.dog
-
-  console.log(dog);
-
-}
-
-logDogIn();

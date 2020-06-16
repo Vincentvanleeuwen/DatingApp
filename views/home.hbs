@@ -1,52 +1,99 @@
 {{#> layouts/main }}
 
-  {{!--  Render a dog--}}
-  {{#with dogs.[0] }}
-    {{> singleMatch
-      name = name
-      images = images
-      email = email
-      chatStatus = status
-      lastMessage = lastMessage
-      breed = breed
-      description = description
-      favToy = favToy
-      age = age
-      personality = personality
-    }}
-
-  {{/with}}
-
-{{!--    Match buttons on mobile--}}
+<section class=register-main>
+    <div class="register-container">
+        <form method="post" action="/match" enctype="multipart/form-data">
+            <fieldset>
+                <h1>MAKE ACCOUNT</h1>
+                <label for="name">Dog Name</label>
+                <input type="text" name="firstName" id="name" minlength="2" maxlength="25" required>
+                <p class="errorMessage" id="error-name"></p>
+            
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <p class="errorMessage" id="error-email"></p>
 
 
-  <section class="log-in-container-mobile disabled">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+                <p class="errorMessage" id="error-password"></p>
 
-    <form action="/matches" method="post" class="log-in-form">
+                <div class="btn-next-container">
+                    <div type="button" class="btn-next">Next</div>
+                </div>
+            </fieldset>
 
-      <label for="name" style="display:none">
-        <input type="text" value="{{ dogs.[0].name }}" name="name">
-      </label>
+            <fieldset>
+                <h1>LET'S BEGIN</h1>
+                <label for="age">Age</label>
+                <input type="text" name="age" id="age">
+                <p class="errorMessage" id="error-age"></p>
 
-      <label for="email" style="display:none">
-        <input type="text" value="{{ dogs.[0].email }}" name="email">
-      </label>
+                <label for="breed">Breed</label>
+                <input type="text" name="breed" id="breed">
+                <p class="errorMessage" id="error-breed"></p>
 
-      <input type="submit" value="" class="log-in-button">
+                <label for="gender">Dog' Gender</label>
+                <ul class="gender-container">
+                    <li>
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label for="male">Male</label>
+                    </li>
 
-    </form>
+                    <li>
+                        <input type="radio" id="female" name="gender" value="female" required>
+                        <label for="female">Female</label>
+                    </li>
+                </ul>
+                <p class="errorMessage" id="error-gender"></p>
 
-    <form action="/" method="post" class="log-in-form">
+                <div class="btn-next-container">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+<!-- 
+            <fieldset>
+                <h1>PROFILE PICTURE</h1>
+                <label for="profilePicture"></label>
+                <input type="file" id="img" name="profilePicture" accept="image/*" required>
+                <p class="errorMessage" id="error-profilePicture"></p>
 
-      <label for="next-dog" style="display:none">
-        <input type="text" value="{{dogs.[0].email}}" name="next-dog">
-      </label>
+                <div class="btn-next-container">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </fieldset> -->
 
-      <input type="submit" value="" class="log-in-button">
+            <fieldset>
+                <h1>YOUR DOGGIE</h1>
 
-    </form>
+                <label for="toy">Favorite Toy</label>
+                <input type="text" name="toy" id="toy">
+                <p class="errorMessage" id="error-toy"></p>
 
+                <label for="breed">Personality</label>
+                <input type="text" name="personality" id="personality">
+                <p class="errorMessage" id="error-personality"></p>
 
-  </section>
+                <div class="btn-next-container">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <h1>DESCRIBE YOURSELF</h1>
+                <label for="description">Describe your doggie</label>
+                <textarea name="description" rows="6" cols="50" required></textarea>
+
+                <div class="btn-submit-container">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="submit" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
 
 {{/layouts/main}}

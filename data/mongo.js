@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 // Require the models
 const Dog = require('./dogModel');
-const Message = require('./messageModel');
+// const Message = require('./messageModel');
+// const Room = require('./roomModel');
 
 require('dotenv').config();
 
@@ -18,6 +19,7 @@ mongoose.connect(dbUrl, {
   // Prevent connection error
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false
 
 });
 
@@ -35,19 +37,32 @@ db.on('connected', () => {
 db.on('error', err => console.log(`MongoDB connection error: ${err}`));
 
 
+// Create a room:
+// Room.create([{
+//   participants: ['bobby@gmail.com', 'bruno@dog.com']
+// }]);
+
 // Get all data from Mongo, set the current user.
 async function dogVariables(req, res, next) {
 
   // Get dogs collection & messages collection from mongoDB
   const allDogs = await Dog.getDogs();
-  const allMessages = await Message.getAllMessages();
 
-  // Set the session for this user
-  req.session.user = {email: req.body.email, name: req.body.name};
+
+  // Set the session for this user if undefined
+  if (!req.session.user) {
+
+    req.session.user = {email: req.body.email, name: req.body.name};
+
+  }
+
   req.session.matches = Dog.dogMatches(allDogs, req.session.user);
   req.session.allDogs = allDogs;
-  req.session.selected = Dog.selectedConversation(req.session.allDogs,req.session.user, 0);
-  req.session.messages =  Message.getMessages(allMessages, req.session.user.email, req.session.selected.email);
+
+  // req.session.selected = Dog.selectedConversation(req.session.allDogs,req.session.user, 0);
+
+
+  console.log('dogVars | Currentroom = ', req.session.currentRoom);
 
   next();
 

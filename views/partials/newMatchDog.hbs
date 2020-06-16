@@ -26,7 +26,7 @@
 
   <section class="dog-bio">
 
-    <h2 class="dog-name"> {{ name }} </h2>
+    <h2 class="dog-name">You matched {{ name }} </h2>
 
     <section class="dog-desktop">
 
@@ -60,7 +60,7 @@
       </section>
       <section class="log-in-container">
 
-        <form action="/match/add-match" method="post" class="log-in-form">
+        <form action="/matches/{{ id }}/chat" method="post" class="log-in-form">
 
           <label for="email" style="display:none">
             <input type="text" value="{{ email }}" name="email">
@@ -70,7 +70,7 @@
 
         </form>
 
-        <form action="/match/dislike-match" method="post" class="log-in-form">
+        <form action="/match" method="post" class="log-in-form">
 
           <label for="email" style="display:none">
             <input type="text" value="{{email}}" name="email">

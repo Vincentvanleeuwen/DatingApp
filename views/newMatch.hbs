@@ -1,0 +1,51 @@
+{{#> layouts/main }}
+
+  {{!--  Render a dog--}}
+  {{#with match }}
+    {{> newMatchDog
+      name = name
+      images = images
+      email = email
+      chatStatus = status
+      lastMessage = lastMessage
+      breed = breed
+      description = description
+      favToy = favToy
+      age = age
+      personality = personality
+      id = _id
+    }}
+
+  {{/with}}
+
+{{!--    Match buttons on mobile--}}
+
+
+  <section class="log-in-container-mobile disabled">
+
+    {{!--    Go to chat--}}
+    <form action="/matches/{{ match._id }}/chat" method="post" class="log-in-form">
+
+      <label for="email" style="display:none">
+        <input type="text" value="{{ dogs.[0].email }}" name="email">
+      </label>
+
+      <input type="submit" value="" class="log-in-button">
+
+    </form>
+
+    {{!--    Keep scrolling --}}
+    <form action="/match" method="post" class="log-in-form">
+
+      <label for="email" style="display:none">
+        <input type="text" value="{{ dogs.[0].email }}" name="email">
+      </label>
+
+      <input type="submit" value="" class="log-in-button">
+
+    </form>
+
+
+  </section>
+
+{{/layouts/main}}

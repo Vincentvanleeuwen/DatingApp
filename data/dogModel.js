@@ -12,18 +12,20 @@ const dogSchema = new Schema({
   favToy: String,
   age: String,
   personality: String,
-  matches: Array
+  matches: Array,
+  dislikes: Array
 }, {collection: 'dogs'});
 
 
 dogSchema.statics = {
 
   //just return the plain javascript object. instead of mongoose
-  getDogs: async () => mongoose.model('dogModel', dogSchema).find().lean(),
+  getDogs: async () => mongoose.model('dogModel', dogSchema).find()
+                                                                  .lean(),
 
   updateDog: async (dog) => {
 
-    return await Dog.updateOne(
+    await Dog.updateOne(
 
       {'email': dog.email},
       {'name': dog.name},
@@ -33,7 +35,8 @@ dogSchema.statics = {
       {'breed': dog.breed},
       {'favToy': dog.favToy},
       {'age': dog.age},
-      {'personality': dog.personality}
+      {'personality': dog.personality},
+      {'dislikes': dog.dislikes}
 
     );
 
@@ -44,7 +47,9 @@ dogSchema.statics = {
     return currentDog.filter(dog => {
 
       if (dog !== match) {
+
         return dog;
+
       }
 
     });
@@ -56,6 +61,12 @@ dogSchema.statics = {
     // Get the logged in dog object
     let loggedInDog = mongoose.model('dogModel', dogSchema).getDogFromEmail(dogs, currentDog);
 
+    if (!loggedInDog[0]) {
+
+      return;
+
+    }
+
     // Check if logged in dog has matches, return those dogs
     return dogs.filter(dog => {
 
@@ -66,6 +77,7 @@ dogSchema.statics = {
       }
 
     });
+
   },
 
   getDogFromEmail: (dogs, currentDog) => {
@@ -82,12 +94,6 @@ dogSchema.statics = {
 
   },
 
-  selectedConversation(dogs, currentDog, index) {
-
-    // Get first dog in array to open instantly.
-    return mongoose.model('dogModel', dogSchema).dogMatches(dogs, currentDog)[index];
-
-  }
 };
 
 
