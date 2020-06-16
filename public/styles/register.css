@@ -72,7 +72,9 @@ input, textarea {
 
 input:focus {
   outline: none;
+  color: black;
 }
+
 
 input[type="radio"], input[type="checkbox"] {
   display: none;
