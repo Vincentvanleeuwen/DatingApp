@@ -1,7 +1,5 @@
-const assert =require('assert');
-
+const assert = require('assert');
 const Dog = require('../data/dogModel');
-
 
 async function createDog() {
 
@@ -25,24 +23,19 @@ async function createDog() {
 }
 
 let dog;
+let dogs;
 
 // This function is called before each test
 beforeEach(async () => {
 
-
   dog = await createDog();
   dogs = await Dog.getDogs();
-  //this function runs after the drop is completed
-
 
 });
 
 describe('Dogs', () => {
 
   it('Should create a new dog', (done) => {
-    // console.log(dog.name === 'Bobby', dog.name);
-
-    // assert(!dog.isNew);
 
     assert(dog.email === 'bobby@gmail.com');
     assert(dog.name === 'Bobby');
@@ -54,8 +47,6 @@ describe('Dogs', () => {
     assert(dog.matches.length === 0);
     assert(dog.dislikes.length === 0);
 
-
-
     done();
 
   });
@@ -63,10 +54,8 @@ describe('Dogs', () => {
   it('find a dog', () => {
 
     Dog.findOne({email: dog.email})
-    .then(dog => assert(dog.name === 'Bobby') );
-
-
-
+    .then(dog => assert(dog.name === 'Bobby') )
+    .catch(err => console.log(err));
 
   });
 
@@ -77,8 +66,6 @@ describe('Dogs', () => {
     .then((dog) => {
 
       assert(dog === null);
-
-
 
     })
     .catch(err => console.log('Error', err));
