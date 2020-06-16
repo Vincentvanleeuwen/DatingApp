@@ -205,29 +205,6 @@ router.post('/dislike-match', async (req, res) => {
 
   console.log('unratedDogs dislikes= ', req.session.unratedDogs);
 
-  // req.session.unratedDogs = req.session.unratedDogs.filter(dog => {
-  //
-  //   if (dog.email !== req.body.email) {
-  //
-  //     return dog;
-  //
-  //   }
-  //   else {
-  //
-  //     console.log('UnratedDogs error@137 matchjs');
-  //
-  //   }
-  //
-  // });
-  //
-  // res.render('match', {
-  //
-  //   title: 'Match',
-  //   style: 'match.css',
-  //   path: 'matches',
-  //   dogs: req.session.unratedDogs
-  //
-  // });
   res.redirect('/match');
 
 });
