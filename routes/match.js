@@ -81,24 +81,7 @@ router.post('/', upload.array('images'), async (req, res) => {
 
   if (req.session.user.email === undefined) {
 
-<<<<<<< HEAD
-    name: req.body.firstName,
-    email: req.body.email,
-    password: req.body.password,
-    age: req.body.age,
-    breed: req.body.breed,
-    description: req.body.description,
-    gender: req.body.gender,
-    toy: req.body.toy,
-    personality: req.body.personality,
-    matches: [],
-    dislikes: [],
-    images: req.files,
-    status: '',
-    lastMessage: ''
-=======
     req.session.user = {
->>>>>>> 56313b5cb395b10efc217f23048784eaffbf4981
 
       name: req.body.firstName,
       email: req.body.email,
@@ -111,7 +94,7 @@ router.post('/', upload.array('images'), async (req, res) => {
       personality: req.body.personality,
       matches: [],
       dislikes: [],
-      images: [],
+      images: req.files,
       status: '',
       lastMessage: ''
 
@@ -140,12 +123,7 @@ router.post('/', upload.array('images'), async (req, res) => {
     .lean()
     .then(dogs => {
 
-<<<<<<< HEAD
-
-    waitForCurrentDog();
-=======
       waitForCurrentDog();
->>>>>>> 56313b5cb395b10efc217f23048784eaffbf4981
 
       async function waitForCurrentDog() {
 
@@ -198,7 +176,6 @@ router.post('/', upload.array('images'), async (req, res) => {
 
             }
 
-
           });
 
           res.render('match', {
@@ -219,16 +196,6 @@ router.post('/', upload.array('images'), async (req, res) => {
     .catch(err => console.log(err));
 
   }
-
-<<<<<<< HEAD
-      })
-      .catch(err => console.log('Error Finding dog, ', err));
-
-    }
-=======
->>>>>>> 56313b5cb395b10efc217f23048784eaffbf4981
-
-
 
 });
 
@@ -254,31 +221,6 @@ router.post('/dislike-match', async (req, res) => {
 
     });
 
-  console.log('unratedDogs dislikes= ', req.session.unratedDogs);
-
-  // req.session.unratedDogs = req.session.unratedDogs.filter(dog => {
-  //
-  //   if (dog.email !== req.body.email) {
-  //
-  //     return dog;
-  //
-  //   }
-  //   else {
-  //
-  //     console.log('UnratedDogs error@137 matchjs');
-  //
-  //   }
-  //
-  // });
-  //
-  // res.render('match', {
-  //
-  //   title: 'Match',
-  //   style: 'match.css',
-  //   path: 'matches',
-  //   dogs: req.session.unratedDogs
-  //
-  // });
   res.redirect('/match');
 
 });
@@ -289,14 +231,8 @@ router.post('/add-match', async (req, res) => {
 
     return {
 
-<<<<<<< HEAD
-
-
-  res.render('match', {
-=======
       currentDog: await Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0],
-      matchDog: await Dog.getDogFromEmail(req.session.allDogs, req.body)[0],
->>>>>>> 56313b5cb395b10efc217f23048784eaffbf4981
+      matchDog: await Dog.getDogFromEmail(req.session.allDogs, req.body)[0]
 
     };
 
@@ -328,16 +264,11 @@ router.post('/add-match', async (req, res) => {
 
       });
 
-
-<<<<<<< HEAD
-    res.render('newMatch', {
-=======
     if (matchDog.matches.includes(currentDog.email)) {
 
       Room.create([{
         participants: [currentDog.email, matchDog.email]
       }]);
->>>>>>> 56313b5cb395b10efc217f23048784eaffbf4981
 
       res.render('newMatch', {
 

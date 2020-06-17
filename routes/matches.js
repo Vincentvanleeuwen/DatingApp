@@ -6,7 +6,8 @@ const Message = require('../data/messageModel');
 router.get('/', (req, res) => {
 
   console.log('current user matches.js/', req.session.user);
-
+  console.log('req.matches', req.session.matches);
+  
   res.render('matches', {
 
     title: 'Logged in as ' + req.body.name,
