@@ -1,0 +1,23 @@
+{{#> layouts/main }}
+
+<section class=register-main>
+    <div class="register-container">
+        <form method="post" action="/match">
+            <fieldset>
+
+                <h1>Login</h1>
+            
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <p class="errorMessage" id="error-email"></p>
+
+                <div class="btn-next-container">
+                    <button type="submit" class="btn-next">Login</button>
+                </div>
+            </fieldset>
+
+        </form>
+    </div>
+</section>
+
+{{/layouts/main}}
