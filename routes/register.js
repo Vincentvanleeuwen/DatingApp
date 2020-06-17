@@ -6,18 +6,14 @@ router.get('/', async (req, res) => {
 
   req.session.user = null;
 
-  req.session.allDogs =  await Dog.find().lean();
-
-  res.render('home', {
+  res.render('register', {
     layout: 'noNavigation',
     title: 'Login as',
     style: 'register.css',
-    dogs: req.session.allDogs
+    register: true,
 
   });
 
 });
-
-router.get('/', (req, res) => res.render('register'))
 
 module.exports = router;
