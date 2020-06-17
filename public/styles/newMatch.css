@@ -20,7 +20,7 @@
 
 .log-in-form {
   height: 8em;
-  width: 50%;
+  width: 15rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,21 +211,20 @@
   }
   .dog-container {
     margin-top: 3em;
-    height: 65vh;
+    height: 35rem;
     width: 75vw;
     align-items: flex-start;
-    flex-direction: row;
+    flex-direction: column;
     box-shadow: #27272757 0 13px 20px 0;
     filter: none;
   }
   .dog-container .dog-image {
     height: 100%;
-    width: 50%;
+    width: 100%;
   }
 
-
   .dog-container .dog-bio {
-    width: 50%;
+    width: 100%;
     height: 100%;
     flex-direction: column;
   }
@@ -234,7 +233,7 @@
     flex-direction: column;
     width: 100%;
     height: 90%;
-    padding-left: 2.5em;
+    padding-left: 8.5em;
     position: relative;
   }
   .dog-container .dog-bio .dog-desktop .dog-points {
@@ -280,7 +279,8 @@
     height: 10%;
     font-size: 2.2em;
     font-weight: 100;
-    margin: .6em 0 .6em 1em;
+    justify-content: center;
+    display: flex;
   }
 
   .more-images {

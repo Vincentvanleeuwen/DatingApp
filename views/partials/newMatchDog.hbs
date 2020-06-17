@@ -7,21 +7,6 @@
     <img src="../../public/media/images/dogs/{{ images.[0] }}"
          alt="Bobby"
          class="main-image">
-
-    <section class="more-images">
-
-      {{#each images }}
-
-        <div class="image-box">
-
-          <img src="../../public/media/images/dogs/{{ this }}"
-               alt="more pups"/>
-
-        </div>
-
-      {{/each}}
-
-    </section>
   </section>
 
   <section class="dog-bio">
@@ -30,36 +15,8 @@
 
     <section class="dog-desktop">
 
-      <section class="dog-points">
-
-        <div class="dog-points-titles">
-
-          <h3> Breed </h3>
-          <h3> Age </h3>
-          <h3> Personality </h3>
-          <h3> Favorite Key </h3>
-
-        </div>
-
-        <div class="dog-points-answers">
-
-          <p> {{ breed }}</p>
-          <p> {{ age }}</p>
-          <p> {{ personality }}</p>
-          <p> {{ favToy }}</p>
-
-        </div>
-
-      </section>
-
-      <section class="dog-description">
-
-        <h3> Description </h3>
-        <p> {{ description }} </p>
-
-      </section>
       <section class="log-in-container">
-
+          <a href=""> </a>
         <form action="/matches/{{ id }}/chat" method="post" class="log-in-form">
 
           <label for="email" style="display:none">
