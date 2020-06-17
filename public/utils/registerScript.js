@@ -23,6 +23,8 @@ function showContent() {
 }
 
 function previousContent() {
+    let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
+    progressBar.style.width = widthProgressBar + "vw";
     fieldset[activeFieldset + 1].classList.replace('addVisibility', 'makeInvisible');
     fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
 }
