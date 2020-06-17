@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const dogSchema = new Schema({
   email: String,
   name: String,
+  password: String,
   images: Array,
   status: String,
   lastMessage: String,

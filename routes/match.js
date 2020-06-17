@@ -55,6 +55,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
 
     name: req.body.firstName,
     email: req.body.email,
+    password: req.body.password,
     age: req.body.age,
     breed: req.body.breed,
     description: req.body.description,
@@ -74,6 +75,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
 
       email: req.session.user.email,
       name: req.session.user.name,
+      password: req.session.user.password,
       age: req.session.user.age,
       breed: req.session.user.breed,
       images: req.session.user.images,
