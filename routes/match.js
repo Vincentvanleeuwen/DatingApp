@@ -79,7 +79,7 @@ router.post('/', upload.array('images'), async (req, res) => {
 
   console.log('reqbody', req.body);
 
-  if (req.session.user.email === undefined) {
+  if (req.session.user.email === undefined && req.session.user.matches === undefined) {
 
     req.session.user = {
 
@@ -133,6 +133,50 @@ router.post('/', upload.array('images'), async (req, res) => {
           const unratedDogs = dogs.filter(dog => {
 
             if(dog.email !== result.email) return dog;
+
+          });
+
+          res.render('match', {
+
+            title: 'Match',
+            style: 'match.css',
+            path: 'matches',
+            dogs: unratedDogs
+
+          });
+
+        })
+        .catch(err => console.log('Error Finding dog, ', err));
+
+      }
+
+    })
+    .catch(err => console.log(err));
+
+  } else if (req.session.user.email === undefined) {
+
+    Dog.find()
+    .lean()
+    .then(dogs => {
+
+      waitForCurrentDog();
+
+      async function waitForCurrentDog() {
+
+        return await Dog.findOne({email: req.body.email})
+        .then(result => {
+
+          const unratedDogs = dogs.filter(dog => {
+
+            if (result.dislikes.includes(dog.email) || result.matches.includes(dog.email)) {
+
+              console.log('included');
+
+            } else {
+
+              if(dog.email !== result.email) return dog;
+
+            }
 
           });
 
