@@ -66,7 +66,7 @@ function addCounter() {
                 break;
 
             case "age":
-                if (input[i].value == false) {
+                if (isNaN(input[i].value) == true || input[i].value == false) {
                 	document.getElementById('error-age').innerHTML = 'Enter a number';
                     input[i].classList.add('invalid');
                     valid = false;
@@ -126,14 +126,14 @@ function addCounter() {
                 }
                 break;
 
-            case "profilePicture":
+            case "images":
                 if (input[i].value == false) {
-                	document.getElementById('error-profilePicture').innerHTML = 'Select an image';
+                	document.getElementById('error-images').innerHTML = 'Select an image';
                     input[i].classList.add('invalid');
                     valid = false;
                 } else if (input[i].classList.contains('invalid')) {
                     input[i].classList.remove('invalid');
-                	document.getElementById('error-profilePicture').innerHTML = '';
+                	document.getElementById('error-images').innerHTML = '';
                 }
                 break;
 
@@ -155,6 +155,7 @@ function addCounter() {
     if (valid === true) {
         activeFieldset += 1;
         showContent();
+        console.log('images = ');
     }
 
 }
