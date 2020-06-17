@@ -42,22 +42,23 @@ router.post('/', (req, res) => {
 // Show a chat
 router.post('/:id/chat', async (req, res) => {
 
-  const allDogs = await Dog.getDogs();
   const allMessages = await Message.getAllMessages();
 
+  await Dog.findOne({ 'email': req.body.email }).then(result => {
 
-  req.session.selected = Dog.getDogFromEmail(allDogs, req.body);
-  console.log('what is selected', req.session.selected);
-  // socket.emit('match-room', email);
+    let selected = result.toObject();
 
-  res.render('chat', {
+    res.render('chat', {
 
-    title: 'Chatting with ' + req.session.selected[0].name,
-    style: 'chat.css',
-    selected: req.session.selected[0],
-    message: Message.getMessages(allMessages, req.session.user.email, req.body.email)
-    // Returns an array with all their messages.
-  });
+      title: 'Chatting with ' + selected.name,
+      style: 'chat.css',
+      selected: selected,
+      message: Message.getMessages(allMessages, req.session.user.email, selected.email)
+      // Returns an array with all their messages.
+    });
+
+  })
+  .catch(err => console.log(err));
 
 });
 

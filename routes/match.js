@@ -1,6 +1,7 @@
 const router = require('express')
 .Router();
 const Dog = require('../data/dogModel');
+const Room = require('../data/roomModel');
 const multer  = require('multer');
 
 // let upload = multer({ dest: '../public/media/images/dogs/' });
