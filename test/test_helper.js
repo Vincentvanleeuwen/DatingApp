@@ -1,13 +1,9 @@
+// Set up a connection for the unit test
 const mongoose = require('mongoose');
-
-
 require('dotenv').config();
-
 
 // Initialize MongoDB
 const dbUrl = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@playdate-npesr.mongodb.net/playdatedatabase?retryWrites=true&w=majority`;
-
-// Connect to the Database
 
 
 //tell mongoose to use es6 implementation of promises
@@ -32,7 +28,7 @@ mongoose.connection
 
 // This function is called before each test
 // beforeEach((done) => {
-//
+//      // Delete dog collection
 //   // mongoose.connection.collections.dogs.drop(() => {
 //   //
 //   //   //this function runs after the drop is completed

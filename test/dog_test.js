@@ -33,8 +33,10 @@ beforeEach(async () => {
 
 });
 
+// Check the dog functions
 describe('Dogs', () => {
 
+  // Check if you can succesfully create a dog
   it('Should create a new dog', (done) => {
 
     assert(dog.email === 'bobby@gmail.com');
@@ -51,6 +53,7 @@ describe('Dogs', () => {
 
   });
 
+  // Check if you can receive a dog from the database
   it('find a dog', () => {
 
     Dog.findOne({email: dog.email})
@@ -59,6 +62,7 @@ describe('Dogs', () => {
 
   });
 
+  // Check if you can remove a dog from the database
   it('removes a dog', () => {
 
     Dog.findOneAndRemove({ name: dog.name })
