@@ -66,7 +66,7 @@ function addCounter() {
                 break;
 
             case "age":
-                if (input[i].value == false) {
+                if (isNaN(input[i].value) == true || input[i].value == false) {
                 	document.getElementById('error-age').innerHTML = 'Enter a number';
                     input[i].classList.add('invalid');
                     valid = false;
