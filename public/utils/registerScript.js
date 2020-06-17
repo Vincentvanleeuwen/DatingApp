@@ -2,11 +2,15 @@ let fieldset = document.body.getElementsByTagName('fieldset');
 // let nextButton = document.body.getElementsByClassName('btn-next-container');
 let button = document.body.getElementsByClassName('btn-next');
 let previousButton = document.body.getElementsByClassName('btn-previous');
+let progressBar = document.getElementById('progress-bar');
 let activeFieldset = 0;
 
 showContent(); //makes all fieldsets invisible, except first one
 
 function showContent() {
+    let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
+    progressBar.style.width = widthProgressBar + "vw";
+
     if (activeFieldset === 0) {
         for (let i = 0; i < fieldset.length; i++) {
             fieldset[i].classList.add('makeInvisible');
@@ -155,7 +159,6 @@ function addCounter() {
     if (valid === true) {
         activeFieldset += 1;
         showContent();
-        console.log('images = ');
     }
 
 }
