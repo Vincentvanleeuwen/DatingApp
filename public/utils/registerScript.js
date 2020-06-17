@@ -9,7 +9,7 @@ showContent(); //makes all fieldsets invisible, except first one
 
 function showContent() {
     let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
-    progressBar.style.width = widthProgressBar + "vw";
+    progressBar.style.width = widthProgressBar + "%";
 
     if (activeFieldset === 0) {
         for (let i = 0; i < fieldset.length; i++) {
@@ -24,7 +24,7 @@ function showContent() {
 
 function previousContent() {
     let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
-    progressBar.style.width = widthProgressBar + "vw";
+    progressBar.style.width = widthProgressBar + "%";
     fieldset[activeFieldset + 1].classList.replace('addVisibility', 'makeInvisible');
     fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
 }
