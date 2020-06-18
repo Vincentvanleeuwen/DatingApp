@@ -54,14 +54,11 @@ const initializeSocketIO = (server, newSession) => {
       //   return;
       //
       // }
+      const currentRooms = Object.keys(socket.adapter.rooms);
 
-      async function waiting() {
+      getRoom(email, socket.handshake.session.user.email).then(waitForRoom => {
 
-        const waitForRoom = await Room.getRoom(email, socket.handshake.session.user.email);
 
-        console.log('=== RoomID in socket.js@52 ===', waitForRoom);
-
-        const currentRooms = Object.keys(socket.adapter.rooms);
 
         currentRooms.forEach(room => {
 
@@ -81,17 +78,17 @@ const initializeSocketIO = (server, newSession) => {
 
         socket.join(waitForRoom);
 
+        socket.handshake.session.room = waitForRoom;
+        socket.handshake.session.save();
+
         socket.emit('send-room-id', { room: waitForRoom });
         //
-        // socket.handshake.session.room = waitForRoom;
-        // socket.handshake.session.save();
 
 
+        console.log('Joined room');
 
-      }
-
-      waiting().then(() => console.log('Joined room'))
-              .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
 
     });
 
@@ -114,8 +111,10 @@ const initializeSocketIO = (server, newSession) => {
     // When a dog is typing, show it to the other dog.
     socket.on('typing', () => {
 
-      console.log('Session Room in Typing', socket.handshake.session.room);
-      socket.in(socket.handshake.session.room).emit('typing', {username: socket.handshake.session.user.name});
+      console.log('typing', socket.handshake.session.room);
+      // const waitForRoom = await Room.getRoom(email, socket.handshake.session.user.email);
+      // console.log('Session Room in Typing', socket.handshake.session.room);
+      socket.in('socket.handshake.session.room').emit('typing', {username: socket.handshake.session.user.name});
 
     });
 
@@ -133,18 +132,20 @@ const initializeSocketIO = (server, newSession) => {
 
     });
 
-    // // When a chat is opened, change req.session.selected to new dog
-    // socket.on('chat-index', index => {
-    //
-    //   // Change the selected chat
-    //   socket.handshake.session.selected = Dog.selectedConversation(socket.handshake.session.allDogs,socket.handshake.session.user, index);
-    //   socket.handshake.session.save();
-    //
-    // });
+
 
   });
 
 };
+
+async function getRoom(email, userEmail) {
+
+  const waitForRoom = await Room.getRoom(email, userEmail);
+  console.log('=== RoomID in socket.js@52 ===', waitForRoom);
+
+  return waitForRoom;
+
+}
 
 
 module.exports = { initializeSocketIO };

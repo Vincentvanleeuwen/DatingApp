@@ -11,6 +11,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: var(--paragraph);
 }
 
 *:focus {

@@ -1,5 +1,8 @@
 /* Matches Page*/
 
+.disabled {
+  display:none;
+}
 form {
   width: 100%;
   position: relative;
