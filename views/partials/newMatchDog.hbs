@@ -1,12 +1,15 @@
 <!--    On swipe left/right, go to the next or previous dog-->
 <!--    On swipe up, open the dog biography-->
+
 <section class="dog-container">
 
   <section class="dog-image">
 
-    <img src="../../public/media/images/dogs/{{ images.[0] }}"
+    <img src="../../public/media/images/dogs/{{ images.[0].originalname }}"
          alt="Bobby"
          class="main-image">
+
+    
   </section>
 
   <section class="dog-bio">
@@ -14,9 +17,12 @@
     <h2 class="dog-name">You matched {{ name }} </h2>
 
     <section class="dog-desktop">
+        {{!-- <a class="newmatchBtn" href="/match">Keep looking</a>
+
+        <a class="newmatchBtn2" href="/matches">chat now!</a> --}}
 
       <section class="log-in-container">
-          <a href=""> </a>
+
         <form action="/matches/{{ id }}/chat" method="post" class="log-in-form">
 
           <label for="email" style="display:none">
@@ -36,7 +42,7 @@
           <input type="submit" value="" class="log-in-button">
 
         </form>
-
+ 
 
       </section>
 

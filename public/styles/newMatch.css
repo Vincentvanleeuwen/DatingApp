@@ -8,7 +8,7 @@
 }
 
 .log-in-container-mobile {
-  margin-left: 10%;
+  margin-left: 5%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -19,20 +19,21 @@
 }
 
 .log-in-form {
-  height: 8em;
-  width: 15rem;
+  height: 7em;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .log-in-button {
  height: 100%;
-  width: 100%;
+  width: 7rem;
   outline: none;
   border: none;
   background: url('../media/images/chat.svg');
   background-repeat: no-repeat;
   cursor: pointer;
+  background-size: 6rem;
 }
 .log-in-form:last-of-type .log-in-button {
 
@@ -63,7 +64,7 @@
 
 /*Dog match*/
 .dog-container {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
   height: 65vh;
   width: 80vw;
   background-color: var(--light-color);
@@ -210,14 +211,15 @@
     transform: rotate(-90deg);
   }
   .dog-container {
-    margin-top: 3em;
-    height: 35rem;
-    width: 75vw;
+    margin-top: 8em;
+    height: 100%;
+    width: 50%;
     align-items: flex-start;
     flex-direction: column;
     box-shadow: #27272757 0 13px 20px 0;
     filter: none;
   }
+
   .dog-container .dog-image {
     height: 100%;
     width: 100%;
@@ -225,16 +227,18 @@
 
   .dog-container .dog-bio {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     flex-direction: column;
+    padding: 1rem;
   }
   .dog-container .dog-bio .dog-desktop {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    height: 90%;
-    padding-left: 8.5em;
+    /* height: 90%; */
+    padding-left: 2.5em;
     position: relative;
+    justify-content: center;
   }
   .dog-container .dog-bio .dog-desktop .dog-points {
     display: flex;
@@ -276,11 +280,12 @@
     margin:5px 0;
   }
   .dog-container .dog-bio .dog-name {
-    height: 10%;
+    height: 2rem;
     font-size: 2.2em;
     font-weight: 100;
-    justify-content: center;
-    display: flex;
+    margin: .6em 0 .6em 1em;
+    text-align: center;
+    margin-bottom: 2.5rem;
   }
 
   .more-images {
@@ -314,4 +319,28 @@
     transition: 1s;
     cursor:pointer;
   }
+}
+
+.newmatchBtn {
+  width: 10rem;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  background-color: white;
+  color: #09E7BA;
+  border: solid 3px #09E7BA;
+  border-radius: 20px;
+  margin: 1rem;
+}
+
+.newmatchBtn2 {
+  width: 10rem;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  background-color: #09E7BA;
+  color: white;
+  border: solid 3px #09E7BA;
+  border-radius: 20px;
+  margin: 1rem;
 }
