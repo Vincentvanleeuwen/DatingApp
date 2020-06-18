@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   
   res.render('matches', {
 
-    title: 'Logged in as ' + req.body.name,
+    title: 'All your chats',
     style: 'matches.css',
     match: req.session.matches,
 
