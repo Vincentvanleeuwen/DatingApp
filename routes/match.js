@@ -1,12 +1,33 @@
-const router = require('express').Router();
+const router = require('express')
+.Router();
 const Dog = require('../data/dogModel');
-
+const Room = require('../data/roomModel');
 const multer  = require('multer');
 
-let upload = multer({ dest: '../public/media/images/dogs/' });
+// let upload = multer({ dest: '../public/media/images/dogs/' });
 
-const Room = require('../data/roomModel');
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/media/images/dogs/') //destination of file
+    },
+    
+    filename: function (req, file, cb) {
+        cb(null, file.originalname); //how file should be named in directory
+    }
+});
 
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === "image/jpg"  || //filetype check
+       file.mimetype ==="image/jpeg"  || 
+       file.mimetype ===  "image/png"){
+     
+    cb(null, true);
+  }else{
+      cb(new Error("Image uploaded is not of type jpg/jpeg or png"),false);
+  }
+}
+
+const upload = multer({storage: storage, fileFilter : fileFilter});
 
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
@@ -55,16 +76,17 @@ router.get('/', async (req, res) => {
 });
 
 
-router.post('/', upload.single('profilePicture'), async (req, res) => {
+router.post('/', upload.array('images'), async (req, res) => {
 
   console.log('reqbody', req.body);
 
-  if (req.session.user.email === undefined) {
+  if (req.session.user.email === undefined && req.session.user.matches === undefined) {
 
     req.session.user = {
 
       name: req.body.firstName,
       email: req.body.email,
+      password: req.body.password,
       age: req.body.age,
       breed: req.body.breed,
       description: req.body.description,
@@ -73,7 +95,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
       personality: req.body.personality,
       matches: [],
       dislikes: [],
-      images: [],
+      images: req.files,
       status: '',
       lastMessage: ''
 
@@ -84,6 +106,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
 
       email: req.session.user.email,
       name: req.session.user.name,
+      password: req.session.user.password,
       age: req.session.user.age,
       breed: req.session.user.breed,
       images: req.session.user.images,
@@ -131,6 +154,50 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
     })
     .catch(err => console.log(err));
 
+  } else if (req.session.user.email === undefined) {
+
+    Dog.find()
+    .lean()
+    .then(dogs => {
+
+      waitForCurrentDog();
+
+      async function waitForCurrentDog() {
+
+        return await Dog.findOne({email: req.body.email})
+        .then(result => {
+
+          const unratedDogs = dogs.filter(dog => {
+
+            if (result.dislikes.includes(dog.email) || result.matches.includes(dog.email)) {
+
+              console.log('included');
+
+            } else {
+
+              if(dog.email !== result.email) return dog;
+
+            }
+
+          });
+
+          res.render('match', {
+
+            title: 'Match',
+            style: 'match.css',
+            path: 'matches',
+            dogs: unratedDogs
+
+          });
+
+        })
+        .catch(err => console.log('Error Finding dog, ', err));
+
+      }
+
+    })
+    .catch(err => console.log(err));
+
   } else {
 
     Dog.find()
@@ -154,7 +221,6 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
 
             }
 
-
           });
 
           res.render('match', {
@@ -175,9 +241,6 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
     .catch(err => console.log(err));
 
   }
-
-
-
 
 });
 
@@ -203,31 +266,6 @@ router.post('/dislike-match', async (req, res) => {
 
     });
 
-  console.log('unratedDogs dislikes= ', req.session.unratedDogs);
-
-  // req.session.unratedDogs = req.session.unratedDogs.filter(dog => {
-  //
-  //   if (dog.email !== req.body.email) {
-  //
-  //     return dog;
-  //
-  //   }
-  //   else {
-  //
-  //     console.log('UnratedDogs error@137 matchjs');
-  //
-  //   }
-  //
-  // });
-  //
-  // res.render('match', {
-  //
-  //   title: 'Match',
-  //   style: 'match.css',
-  //   path: 'matches',
-  //   dogs: req.session.unratedDogs
-  //
-  // });
   res.redirect('/match');
 
 });
@@ -239,7 +277,7 @@ router.post('/add-match', async (req, res) => {
     return {
 
       currentDog: await Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0],
-      matchDog: await Dog.getDogFromEmail(req.session.allDogs, req.body)[0],
+      matchDog: await Dog.getDogFromEmail(req.session.allDogs, req.body)[0]
 
     };
 
@@ -270,7 +308,6 @@ router.post('/add-match', async (req, res) => {
         console.log('Updated email', result);
 
       });
-
 
     if (matchDog.matches.includes(currentDog.email)) {
 

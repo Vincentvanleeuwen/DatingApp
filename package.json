@@ -25,6 +25,7 @@
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^7.1.0",
+    "handlebars": "^4.7.6",
     "nodemon": "^2.0.4"
   },
   "repository": {
