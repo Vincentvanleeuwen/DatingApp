@@ -58,17 +58,11 @@ const initializeSocketIO = (server, newSession) => {
 
           if (currentRooms !== waitForRoom) {
 
-
             socket.leave(room);
 
           }
 
         });
-
-
-
-        // socket.handshake.session.roomID = waitForRoom;
-
 
         socket.join(waitForRoom);
 
