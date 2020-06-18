@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 
   console.log('current user matches.js/', req.session.user);
   console.log('req.matches', req.session.matches);
-  
+
   res.render('matches', {
 
     title: 'All your chats',
@@ -46,14 +46,14 @@ router.post('/:id/chat', async (req, res) => {
 
   await Dog.findOne({ 'email': req.body.email }).then(result => {
 
-    let selected = result.toObject();
+    req.session.selected = result.toObject();
 
     res.render('chat', {
 
-      title: 'Chatting with ' + selected.name,
+      title: 'Chatting with ' + req.session.selected.name,
       style: 'chat.css',
-      selected: selected,
-      message: Message.getMessages(allMessages, req.session.user.email, selected.email)
+      selected: req.session.selected,
+      message: Message.getMessages(allMessages, req.session.user.email, req.session.selected.email)
       // Returns an array with all their messages.
     });
 
