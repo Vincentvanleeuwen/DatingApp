@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
 const dogSchema = new Schema({
   email: String,
@@ -97,6 +98,22 @@ dogSchema.statics = {
 
 };
 
+dogSchema.pre('save', (next) => {
+
+  let dog = this;
+
+  if (!dog.isModified('password')) return next();
+
+  bcrypt.genSalt(10, (err, salt) => {
+
+    if (err) return next(err);
+
+    dog.password = hash;
+    next();
+
+  });
+
+});
 
 const Dog = mongoose.model('dogModel', dogSchema);
 
