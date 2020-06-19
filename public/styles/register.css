@@ -201,3 +201,11 @@ header img {
   width: 80%;
   margin: 0 10% 20px;
 }
+
+#progress-bar {
+  height: 15px;
+  background-color: #FF0066;
+  transition: 0.8s all;
+  flex-basis: 100%;
+  max-width: 100%;
+}
