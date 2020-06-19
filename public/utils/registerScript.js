@@ -1,9 +1,9 @@
-let fieldset = document.body.getElementsByTagName('fieldset');
+const fieldset = document.body.getElementsByTagName('fieldset');
 // let nextButton = document.body.getElementsByClassName('btn-next-container');
-let button = document.body.getElementsByClassName('btn-next');
-let previousButton = document.body.getElementsByClassName('btn-previous');
-let buttonContainer = document.body.getElementsByClassName('btn-next-container');
-let progressBar = document.getElementById('progress-bar');
+const button = document.body.getElementsByClassName('btn-next');
+const previousButton = document.body.getElementsByClassName('btn-previous');
+const buttonContainer = document.body.getElementsByClassName('btn-next-container');
+const progressBar = document.getElementById('progress-bar');
 let activeFieldset = 0;
 
 showContent(); //makes all fieldsets invisible, except first one and makes butttons visible
@@ -21,18 +21,18 @@ function showContent() {
         for (let i = 0; i < fieldset.length; i++) {
             fieldset[i].classList.add('dontDisplay');
         }
-        fieldset[activeFieldset].classList.replace('dontDisplay', 'addVisibility');
+        fieldset[activeFieldset].classList.remove('dontDisplay');
     } else {
-        fieldset[activeFieldset].classList.replace('dontDisplay', 'addVisibility');
-        fieldset[activeFieldset - 1].classList.replace('addVisibility', 'dontDisplay');
+        fieldset[activeFieldset].classList.remove('dontDisplay');
+        fieldset[activeFieldset - 1].classList.add('dontDisplay');
     }
 }
 
 function previousContent() {
     let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
     progressBar.style.width = widthProgressBar + "%";
-    fieldset[activeFieldset + 1].classList.replace('addVisibility', 'dontDisplay');
-    fieldset[activeFieldset].classList.replace('dontDisplay', 'addVisibility');
+    fieldset[activeFieldset + 1].classList.add('dontDisplay');
+    fieldset[activeFieldset].classList.remove('dontDisplay');
 }
 
 function addCounter() {
