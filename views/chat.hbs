@@ -3,15 +3,15 @@
 
   <form class="dropdown-menu" action="/{{ selected.id }}/chat" method="post">
 
-  <label for="dog-match" style="display:none">
+    <label for="dog-match" style="display:none">
 
-    <input type="text" value="{{ selected.email }}" name="dog-match" class="this-dog">
+      <input type="text" value="{{ selected.email }}" name="dog-match" class="this-dog">
 
-  </label>
+    </label>
 
-  <input type="submit" value="Block this dog" class="block">
+    <input type="submit" value="Block this dog" class="block">
 
-</form>
+  </form>
 
 <section class="chat-container" data-room="{{ selected.email }}">
 
@@ -21,7 +21,7 @@
          alt="chat settings"
          class="dog-settings"/>
 
-    <img src="../../public/media/images/dogs/{{ selected.images.[0] }}"
+    <img src="../../public/media/images/dogs/{{ selected.images.[0].originalname }}"
          alt="Bobby"
          class="main-image"/>
 

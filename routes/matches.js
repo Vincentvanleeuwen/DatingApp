@@ -7,10 +7,10 @@ router.get('/', (req, res) => {
 
   console.log('current user matches.js/', req.session.user);
   console.log('req.matches', req.session.matches);
-  
+
   res.render('matches', {
 
-    title: 'Logged in as ' + req.body.name,
+    title: 'All your chats',
     style: 'matches.css',
     match: req.session.matches,
 
@@ -42,22 +42,23 @@ router.post('/', (req, res) => {
 // Show a chat
 router.post('/:id/chat', async (req, res) => {
 
-  const allDogs = await Dog.getDogs();
   const allMessages = await Message.getAllMessages();
 
+  await Dog.findOne({ 'email': req.body.email }).then(result => {
 
-  req.session.selected = Dog.getDogFromEmail(allDogs, req.body);
-  console.log('what is selected', req.session.selected);
-  // socket.emit('match-room', email);
+    req.session.selected = result.toObject();
 
-  res.render('chat', {
+    res.render('chat', {
 
-    title: 'Chatting with ' + req.session.selected[0].name,
-    style: 'chat.css',
-    selected: req.session.selected[0],
-    message: Message.getMessages(allMessages, req.session.user.email, req.body.email)
-    // Returns an array with all their messages.
-  });
+      title: 'Chatting with ' + req.session.selected.name,
+      style: 'chat.css',
+      selected: req.session.selected,
+      message: Message.getMessages(allMessages, req.session.user.email, req.session.selected.email)
+      // Returns an array with all their messages.
+    });
+
+  })
+  .catch(err => console.log(err));
 
 });
 
