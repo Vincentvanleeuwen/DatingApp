@@ -21,6 +21,22 @@ const dogSchema = new Schema({
 
 dogSchema.statics = {
 
+  // https://medium.com/gomycode/authentication-with-passport-js-73ca65b25feb
+  createDog: (newDog, callback) => {
+
+    bcrypt.genSalt(10, (err, salt) => {
+
+      bcrypt.hash(newDog.password, salt, (err, hash) => {
+
+        newDog.password = hash;
+        newDog.save(callback);
+
+      });
+
+    });
+
+  },
+
   //just return the plain javascript object. instead of mongoose
   getDogs: async () => mongoose.model('dogModel', dogSchema).find()
                                                                   .lean(),
@@ -43,7 +59,7 @@ dogSchema.statics = {
     );
 
   },
-
+  
   blockMatch: (match, currentDog) => {
 
     return currentDog.filter(dog => {
@@ -98,23 +114,19 @@ dogSchema.statics = {
 
 };
 
-dogSchema.pre('save', (next) => {
+dogSchema.methods.comparePassword = function(candidatePassword, callback) {
 
-  let dog = this;
+  // https://stackoverflow.com/questions/14588032/mongoose-password-hashing
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
 
-  if (!dog.isModified('password')) return next();
+    if (err) return callback(err);
 
-  bcrypt.genSalt(10, (err, salt) => {
-
-    if (err) return next(err);
-
-    dog.password = hash;
-    next();
+    callback(null, isMatch);
 
   });
 
-});
+};
 
 const Dog = mongoose.model('dogModel', dogSchema);
 
-module.exports =  Dog;
+module.exports = Dog;

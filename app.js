@@ -4,7 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
-
+const passport = require('passport');
 const app = express();
 const server = require('http').createServer(app);
 const session = require('express-session');
@@ -40,6 +40,7 @@ let newSession = session({
 
 });
 
+
 // Require the routes
 let login = require('./routes/login');
 let register = require('./routes/register');
@@ -66,8 +67,16 @@ app.engine('hbs', handlebars({
 // Initialize a session
 .use(newSession)
 
+// Initialize passport & its session
+.use(passport.initialize())
+.use(passport.session());
+
+// Initialize passport Strategy
+require('./data/passport')(passport);
+
 // Make files public
-.use('/public', express.static('public'))
+app.use('/public', express.static('public'))
+
 
 // Supports parsing of Json
 .use(bodyParser.json())
@@ -89,6 +98,7 @@ app.engine('hbs', handlebars({
   dogVariables,
   matches
 );
+
 
 // Initialize the chat function with Socket.io
 initializeSocketIO(server, newSession);

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const passport = require('passport');
 
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
@@ -12,6 +13,22 @@ router.get('/', async (req, res) => {
     register: false,
 
   });
+
+});
+
+
+router.post('/', passport.authenticate('local-login', {
+
+  successRedirect: '/match',
+  failureRedirect: '/',
+  failureFlash: true,
+
+}));
+
+router.get('/logout', (req, res) => {
+
+  req.logout();
+  req.redirect('/');
 
 });
 
