@@ -2,6 +2,7 @@
 
 <section class=register-main>
     <div class="register-container">
+        <div id="progress-bar"></div>
         <form method="post" action="/match" enctype="multipart/form-data">
             <fieldset>
                 <h1>MAKE ACCOUNT</h1>
@@ -18,7 +19,7 @@
                 <input type="password" name="password" id="password">
                 <p class="errorMessage" id="error-password"></p>
 
-                <div class="btn-next-container">
+                <div class="btn-next-container dontDisplay">
                     <div type="button" class="btn-next">Next</div>
                 </div>
             </fieldset>
@@ -47,19 +48,7 @@
                 </ul>
                 <p class="errorMessage" id="error-gender"></p>
 
-                <div class="btn-next-container">
-                    <button type="button" class="btn-previous">Back</button>
-                    <button type="button" class="btn-next">Next</button>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <h1>PROFILE PICTURE</h1>
-                <label for="images"></label>
-                <input type="file" name="images" accept="image/*" multiple required>
-                <p class="errorMessage" id="error-images"></p>
-
-                <div class="btn-next-container">
+                <div class="btn-next-container dontDisplay">
                     <button type="button" class="btn-previous">Back</button>
                     <button type="button" class="btn-next">Next</button>
                 </div>
@@ -72,9 +61,13 @@
                 <input type="text" name="toy" id="toy">
                 <p class="errorMessage" id="error-toy"></p>
 
-                <label for="breed">Personality</label>
+                <label for="breed">Personality Trait</label>
                 <input type="text" name="personality" id="personality">
                 <p class="errorMessage" id="error-personality"></p>
+
+                <label for="images">Add Images</label>
+                <input type="file" name="images" accept="image/*" multiple required>
+                <p class="errorMessage" id="error-images"></p>
 
                 <div class="btn-next-container">
                     <button type="button" class="btn-previous">Back</button>
@@ -83,11 +76,11 @@
             </fieldset>
 
             <fieldset>
-                <h1>DESCRIBE YOURSELF</h1>
+                <h1>DESCRIBE YOUR DOG</h1>
                 <label for="description">Describe your doggie</label>
                 <textarea name="description" rows="6" cols="50" required></textarea>
 
-                <div class="btn-submit-container">
+                <div class="btn-submit-container dontDisplay">
                     <button type="button" class="btn-previous">Back</button>
                     <button type="submit" class="btn-next">Next</button>
                 </div>

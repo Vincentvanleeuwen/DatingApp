@@ -10,34 +10,10 @@
 }
 
 .register-main {
-  /*margin-left: 10%;*/
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 0 25%;
   z-index: 6;
-}
-
-
-/*classes for JS to add*/
-.addVisbility {
-  display: inline-block;
-}
-
-.makeInvisible {
-  display: none;
-}
-
-.invalid {
-  background-color: #FFF4F7;
-  border: 1px solid #FF0066;
-}
-
-.errorMessage {
-  color: #FF0066;
-  font-size: 0.9em;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
 }
 
 form {
@@ -49,16 +25,23 @@ label {
   display: inline-block;
 }
 
+h1 {
+  margin: 20px auto;
+  text-align: center;
+}
+
 h1 + label{
   margin-top: 0;
 }
 
 fieldset {
-  padding: 20px 0 10px;
   border: 0px solid #DCDCDC;
+  margin: 20px 30px 30px;
+  padding: 0 0 20px 0;
 }
 
-input, textarea {
+input, 
+textarea {
   display: block;
   background-color: #F5F6F7;
   border: 1px solid #DCDCDC;
@@ -75,19 +58,21 @@ input:focus {
   color: black;
 }
 
-
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"], 
+input[type="checkbox"] {
   display: none;
 }
 
-input[type="radio"] + label,  input[type="checkbox"] + label {
+input[type="radio"] + label, 
+input[type="checkbox"] + label {
   margin: 5px 20px 0 0;
   border: 1px solid #b5b5b5;
   color: #b5b5b5;
   padding: 10px 10px;
 }
 
-input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
+input[type="radio"]:checked + label, 
+input[type="checkbox"]:checked + label {
   border: 1px solid #ff2453;
   color: #ff2453;
   transition: 0.5s all;
@@ -108,31 +93,32 @@ header img {
 
 .register-container {
   background: white;
-  margin: 50px auto 50px;
-  max-width: 450px;
-  padding: 50px;
+  margin: 10vw auto 50px;
+  min-height: 500px;
   box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15);
+  width: 100%;
+  max-width: 400px;
+  padding-bottom: 80px;
+  position: relative;
 }
 
 .gender-container {
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  /*margin: 5px 0 20px;*/
-  /*padding: 15px 0;*/
+  padding: 0;
 }
 
-.btn-next-container {
+.btn-next-container,
+.btn-submit-container {
   width: 100%;
   text-align: center;
   display: flex;
   justify-content: space-around;
-  margin-top: 40px;
-}
-
-.btn-submit-container {
-  width: 100%;
-  text-align: center;
+  margin-top: auto;
+  position: absolute;
+  bottom: 30px;
+  left: 0px;
 }
 
 .btn-next {
@@ -192,4 +178,34 @@ header img {
 #profile-picture {
   width: 80%;
   margin: 0 10% 20px;
+}
+
+
+/*classes for JS to add*/
+.display {
+  display: inline-block;
+}
+
+.dontDisplay {
+  display: none;
+}
+
+.invalid {
+  background-color: #FFF4F7;
+  border: 1px solid #FF0066;
+}
+
+.errorMessage {
+  color: #FF0066;
+  font-size: 0.9em;
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+#progress-bar {
+  height: 15px;
+  background-color: #FF0066;
+  transition: 0.8s all;
+  flex-basis: 100%;
+  max-width: 100%;
 }
