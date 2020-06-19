@@ -27,13 +27,16 @@ mongoose.connection
 });
 
 // This function is called before each test
-// beforeEach((done) => {
-//      // Delete dog collection
-//   // mongoose.connection.collections.dogs.drop(() => {
-//   //
-//   //   //this function runs after the drop is completed
-//   //   done();
-//   //
-//   // });
-//
-// });
+beforeEach((done) => {
+
+     // Delete dog collection
+  // mongoose.connection.db.dropCollection('messages', (err, result) => {
+  //
+  //   console.log(result);
+  //   console.log(err);
+  //
+  //   done();
+  //
+  // });
+
+});
