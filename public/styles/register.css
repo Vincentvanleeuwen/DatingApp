@@ -48,9 +48,13 @@ label {
   margin: 20px 0 0;
   display: inline-block;
 }
+h1 {
+  color:black;
+}
 
 h1 + label{
   margin-top: 0;
+  
 }
 
 fieldset {
@@ -107,11 +111,15 @@ header img {
 }
 
 .register-container {
+  font-family: var(--heading);
+  color: var(--dark-color);
   background: white;
+  border-radius: 50px;
   margin: 50px auto 50px;
   max-width: 450px;
   padding: 50px;
-  box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15);
+  /* box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15); */
+  box-shadow: #27272757 0 13px 20px 0;
 }
 
 .gender-container {
@@ -136,7 +144,7 @@ header img {
 }
 
 .btn-next {
-  background-color: #FF0066;
+  background-color: #04EABB;
   color: white;
   font-size: 1em;
   font-family: montserrat, helvetica;
@@ -148,7 +156,7 @@ header img {
 }
 
 .btn-next:hover {
-  background-color: #ab004b;
+  background-color:  #FF9EA6;
   color: #FFF;
   transition: 0.6s all;
 }

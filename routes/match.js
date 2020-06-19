@@ -103,7 +103,6 @@ router.post('/', upload.array('images'), async (req, res) => {
 
     // Push new message to the database
     Dog.create([{
-
       email: req.session.user.email,
       name: req.session.user.name,
       password: req.session.user.password,
@@ -119,6 +118,8 @@ router.post('/', upload.array('images'), async (req, res) => {
       dislikes: req.session.user.dislikes
 
     }]);
+
+    
 
     Dog.find()
     .lean()
@@ -155,7 +156,7 @@ router.post('/', upload.array('images'), async (req, res) => {
     .catch(err => console.log(err));
 
   } else if (req.session.user.email === undefined) {
-
+   
     Dog.find()
     .lean()
     .then(dogs => {
@@ -236,6 +237,9 @@ router.post('/', upload.array('images'), async (req, res) => {
         .catch(err => console.log('Error Finding dog, ', err));
 
       }
+    
+
+      
 
     })
     .catch(err => console.log(err));
@@ -243,6 +247,9 @@ router.post('/', upload.array('images'), async (req, res) => {
   }
 
 });
+
+
+
 
 router.post('/dislike-match', async (req, res) => {
   let currentDog = Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0];
@@ -269,6 +276,7 @@ router.post('/dislike-match', async (req, res) => {
   res.redirect('/match');
 
 });
+
 
 router.post('/add-match', async (req, res) => {
 
