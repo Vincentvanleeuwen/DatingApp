@@ -2,31 +2,37 @@ let fieldset = document.body.getElementsByTagName('fieldset');
 // let nextButton = document.body.getElementsByClassName('btn-next-container');
 let button = document.body.getElementsByClassName('btn-next');
 let previousButton = document.body.getElementsByClassName('btn-previous');
+let buttonContainer = document.body.getElementsByClassName('btn-next-container');
 let progressBar = document.getElementById('progress-bar');
 let activeFieldset = 0;
 
-showContent(); //makes all fieldsets invisible, except first one
+showContent(); //makes all fieldsets invisible, except first one and makes butttons visible
 
 function showContent() {
+    console.log(buttonContainer);
     let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
     progressBar.style.width = widthProgressBar + "%";
 
+    for (let i = 0; i < buttonContainer.length; i++) {
+        buttonContainer[i].classList.remove("dontDisplay");
+    }
+
     if (activeFieldset === 0) {
         for (let i = 0; i < fieldset.length; i++) {
-            fieldset[i].classList.add('makeInvisible');
+            fieldset[i].classList.add('dontDisplay');
         }
-        fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
+        fieldset[activeFieldset].classList.replace('dontDisplay', 'addVisibility');
     } else {
-        fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
-        fieldset[activeFieldset - 1].classList.replace('addVisibility', 'makeInvisible');
+        fieldset[activeFieldset].classList.replace('dontDisplay', 'addVisibility');
+        fieldset[activeFieldset - 1].classList.replace('addVisibility', 'dontDisplay');
     }
 }
 
 function previousContent() {
     let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
     progressBar.style.width = widthProgressBar + "%";
-    fieldset[activeFieldset + 1].classList.replace('addVisibility', 'makeInvisible');
-    fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
+    fieldset[activeFieldset + 1].classList.replace('addVisibility', 'dontDisplay');
+    fieldset[activeFieldset].classList.replace('dontDisplay', 'addVisibility');
 }
 
 function addCounter() {
