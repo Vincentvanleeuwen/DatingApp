@@ -4,12 +4,23 @@ const button = document.body.getElementsByClassName('btn-next');
 const previousButton = document.body.getElementsByClassName('btn-previous');
 const buttonContainer = document.body.getElementsByClassName('btn-next-container');
 const progressBar = document.getElementById('progress-bar');
+const databaseDogEmails = document.getElementById('dogsobject').value;
+const emailArray = databaseDogEmails.split(",");
+// const obj = JSON.parse(databaseDogs);
 let activeFieldset = 0;
+let dogEmailArray = [];
 
 showContent(); //makes all fieldsets invisible, except first one and makes butttons visible
 
 function showContent() {
-    console.log(buttonContainer);
+    for (let i = 0; i < emailArray.length; i++) {
+        let emailRemovePartOne = emailArray[i].replace('{ email: \'', '');
+        let emailRemovePartTwo = emailRemovePartOne.replace('\' }', '');
+        dogEmailArray.push(emailRemovePartTwo);
+    }
+
+    console.log('allEmails =', dogEmailArray);
+
     let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
     progressBar.style.width = widthProgressBar + "%";
 
@@ -46,7 +57,7 @@ function addCounter() {
         switch (input[i].getAttribute("name")) {
             case "firstName":
                 if (input[i].value.length < 2 || input[i].value.length > 25) {
-                    document.getElementById('error-name').innerHTML = 'Field must contain between 1-26 characters';
+                    document.getElementById('error-name').innerHTML = 'Field must contain between 2-25 characters';
                     input[i].classList.add('invalid');
                     valid = false;
                 } else if (input[i].classList.contains('invalid')) {
