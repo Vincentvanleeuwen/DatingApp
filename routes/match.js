@@ -46,12 +46,9 @@ let unratedDogs = (dogs, result, change) => {
 
 async function waitForCurrentDog(dogs, req, res, change) {
 
-  console.log('userdefined?', req.user);
-
   return await Dog.findOne({email: req.session.user.email})
   .then(result => {
 
-    console.log('userdefined?', result);
     res.render('match', {
 
       title: 'Match',
@@ -85,8 +82,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-  console.log('Post Request (req.body) match.js@112', req.body);
-
 
   if (req.session.user.email === undefined && req.session.user.matches === undefined) {
 
@@ -114,8 +109,6 @@ router.post('/', async (req, res) => {
     Dog.createDog(newDog, (err, dog) => {
 
       if(err) throw err;
-
-      console.log('dogInCreateDog', dog);
 
       Dog.find()
       .lean()
@@ -162,8 +155,6 @@ router.post('/dislike-match', async (req, res) => {
 
   }
 
-  console.log('dislikes = ', currentDog);
-
   Dog.findOneAndUpdate({email: currentDog.email},
     {$set:{dislikes: currentDog.dislikes }},
     {new: true},
@@ -193,10 +184,6 @@ router.post('/add-match', async (req, res) => {
   }
 
   waitForBothDogs().then(result=> {
-
-    console.log('currentdog = ', result.currentDog);
-    console.log('matchdog =', result.matchDog);
-
 
     const currentDog = result.currentDog;
     const matchDog = result.matchDog;
