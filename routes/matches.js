@@ -72,6 +72,7 @@ router.post('/:id/chat/noJS', async (req, res) => {
 
     req.session.selected = result.toObject();
     console.log('reqsessionseleceed', req.session.selected);
+
     let newMessage = Message.create([{
       sendFrom: req.session.user.email,
       sendTo: req.session.selected[0].email,
