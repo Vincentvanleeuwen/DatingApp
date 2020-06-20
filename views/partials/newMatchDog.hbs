@@ -1,27 +1,14 @@
 <!--    On swipe left/right, go to the next or previous dog-->
 <!--    On swipe up, open the dog biography-->
+
 <section class="dog-container">
 
   <section class="dog-image">
 
-    <img src="../../public/media/images/dogs/{{ images.[0] }}"
+    <img src="../../public/media/images/dogs/{{ images.[0].originalname }}"
          alt="Bobby"
          class="main-image">
 
-    <section class="more-images">
-
-      {{#each images }}
-
-        <div class="image-box">
-
-          <img src="../../public/media/images/dogs/{{ this }}"
-               alt="more pups"/>
-
-        </div>
-
-      {{/each}}
-
-    </section>
   </section>
 
   <section class="dog-bio">
@@ -29,35 +16,10 @@
     <h2 class="dog-name">You matched {{ name }} </h2>
 
     <section class="dog-desktop">
+        {{!-- <a class="newmatchBtn" href="/match">Keep looking</a>
 
-      <section class="dog-points">
+        <a class="newmatchBtn2" href="/matches">chat now!</a> --}}
 
-        <div class="dog-points-titles">
-
-          <h3> Breed </h3>
-          <h3> Age </h3>
-          <h3> Personality </h3>
-          <h3> Favorite Key </h3>
-
-        </div>
-
-        <div class="dog-points-answers">
-
-          <p> {{ breed }}</p>
-          <p> {{ age }}</p>
-          <p> {{ personality }}</p>
-          <p> {{ favToy }}</p>
-
-        </div>
-
-      </section>
-
-      <section class="dog-description">
-
-        <h3> Description </h3>
-        <p> {{ description }} </p>
-
-      </section>
       <section class="log-in-container">
 
         <form action="/matches/{{ id }}/chat" method="post" class="log-in-form">
@@ -79,7 +41,7 @@
           <input type="submit" value="" class="log-in-button">
 
         </form>
-
+ 
 
       </section>
 

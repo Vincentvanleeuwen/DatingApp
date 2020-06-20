@@ -1,0 +1,98 @@
+{{#> layouts/main }}
+
+<section class=register-main>
+    <div class="register-container">
+
+        <div id="progress-bar"></div>
+        <form method="post" action="/register" enctype="multipart/form-data">
+
+            <fieldset>
+                <h1>MAKE ACCOUNT</h1>
+                <label for="name">Dog Name</label>
+                <input type="text" name="firstName" id="name" minlength="2" maxlength="25" required>
+                <p class="errorMessage" id="error-name"></p>
+                
+                <label for="dogsobject" style="display: none;">
+                    <input type="text" id="dogsobject" value="{{allDogs}}" name="dogsobject">
+                </label>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <p class="errorMessage" id="error-email"></p>
+
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+                <p class="errorMessage" id="error-password"></p>
+
+                <div class="btn-next-container dontDisplay">
+                    <div type="button" class="btn-next">Next</div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <h1>LET'S BEGIN</h1>
+                <label for="age">Age</label>
+                <input type="text" name="age" id="age">
+                <p class="errorMessage" id="error-age"></p>
+
+                <label for="breed">Breed</label>
+                <input type="text" name="breed" id="breed">
+                <p class="errorMessage" id="error-breed"></p>
+
+                <label for="gender">Dog' Gender</label>
+                <ul class="gender-container">
+                    <li>
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label for="male">Male</label>
+                    </li>
+
+                    <li>
+                        <input type="radio" id="female" name="gender" value="female" required>
+                        <label for="female">Female</label>
+                    </li>
+                </ul>
+                <p class="errorMessage" id="error-gender"></p>
+
+                <div class="btn-next-container dontDisplay">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <h1>YOUR DOGGIE</h1>
+
+                <label for="toy">Favorite Toy</label>
+                <input type="text" name="toy" id="toy">
+                <p class="errorMessage" id="error-toy"></p>
+
+                <label for="breed">Personality Trait</label>
+                <input type="text" name="personality" id="personality">
+                <p class="errorMessage" id="error-personality"></p>
+
+                <label for="images">Add Images</label>
+                <input type="file" name="images" accept="image/*" multiple required>
+                <p class="errorMessage" id="error-images"></p>
+
+                <div class="btn-next-container">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <h1>DESCRIBE YOUR DOG</h1>
+                <label for="description">Describe your doggie</label>
+                <textarea name="description" rows="6" cols="50" required></textarea>
+
+                <div class="btn-submit-container">
+                    <button type="button" class="btn-previous">Back</button>
+                    <button type="submit" class="btn-next">Next</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
+
+{{/layouts/main}}

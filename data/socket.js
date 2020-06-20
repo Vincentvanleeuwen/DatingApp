@@ -15,10 +15,12 @@ const initializeSocketIO = (server, newSession) => {
     // Save message to database
     socket.on('message-to-db',(message) => {
 
+      console.log('Chatuser message-to-db socket.js@18', socket.handshake.session.selected);
+      console.log('Thisuser message-to-db socket.js@19', socket.handshake.session.user);
       // Push new message to the database
       Message.create([{
         sendFrom: socket.handshake.session.user.email,
-        sendTo: socket.handshake.session.selected[0].email,
+        sendTo: socket.handshake.session.selected.email,
         message: message.message,
         receiver: socket.handshake.session.user.email,
         date: message.date
@@ -43,43 +45,53 @@ const initializeSocketIO = (server, newSession) => {
     // Unfinished Socket function.
     socket.on('match-room', email => {
 
+      // console.log('Socket adapter.rooms includes =', Object.keys(socket.adapter.rooms));
+      //
+      // if (Object.keys(socket.adapter.rooms).includes('5eeb4ff5ab2a4f0fd04fdfd0')) {
+      //
+      //   console.log('True!');
+      //
+      //   return;
+      //
+      // }
+
       async function waiting() {
 
         const waitForRoom = await Room.getRoom(email, socket.handshake.session.user.email);
 
-        console.log('=== RoomID in socket.js ===', waitForRoom);
-
+        console.log('=== RoomID in socket.js@52 ===', waitForRoom);
 
         const currentRooms = Object.keys(socket.adapter.rooms);
 
-
-
         currentRooms.forEach(room => {
 
-          if (currentRooms !== waitForRoom) {
+          if (room !== waitForRoom) {
 
+            // console.log('Room before leave socket.js@60', room);
+            socket.leave(room, (err) => {
 
-            socket.leave(room);
+              console.log('error leaving socket', err);
+              // console.log('------currentRooms (in match-room socket.js@70 = ', Object.keys(socket.adapter.rooms));
+
+            });
 
           }
 
         });
 
-
-
-        // socket.handshake.session.roomID = waitForRoom;
-
-
         socket.join(waitForRoom);
 
-
         socket.emit('send-room-id', { room: waitForRoom });
+        //
+        // socket.handshake.session.room = waitForRoom;
+        // socket.handshake.session.save();
 
-        console.log('------currentRooms = ', Object.keys(socket.adapter.rooms));
+
 
       }
 
-      waiting();
+      waiting().then(() => console.log('Joined room'))
+              .catch(err => console.log(err));
 
     });
 
@@ -88,8 +100,9 @@ const initializeSocketIO = (server, newSession) => {
     socket.on('dog-message', (room, message) => {
 
       socket.handshake.session.room = room;
+      socket.handshake.session.save();
 
-      console.log('Dog message init ==', socket.handshake.session.room);
+      console.log('Session room in dog-message socket.js@89==', socket.handshake.session.room);
 
 
       socket.in(room).emit('message', message);
@@ -101,7 +114,7 @@ const initializeSocketIO = (server, newSession) => {
     // When a dog is typing, show it to the other dog.
     socket.on('typing', () => {
 
-      // to(socket.handshake.session.room)
+      console.log('Session Room in Typing', socket.handshake.session.room);
       socket.in(socket.handshake.session.room).emit('typing', {username: socket.handshake.session.user.name});
 
     });
@@ -132,5 +145,6 @@ const initializeSocketIO = (server, newSession) => {
   });
 
 };
+
 
 module.exports = { initializeSocketIO };

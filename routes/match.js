@@ -2,92 +2,147 @@ const router = require('express').Router();
 const Dog = require('../data/dogModel');
 const Room = require('../data/roomModel');
 
-// Show all the dogs on localhost:4000/
-router.get('/', async (req, res) => {
+let unratedDogs = (dogs, result, change) => {
 
-  req.session.user = {
+  let filter;
 
-    email: req.body.email,
-    name: req.body.name
+  // Get all dogs except for yourself
+  if (change) {
 
-  };
+    filter = dogs.filter(dog => {
 
-  req.session.unratedDogs = await Dog.find()
-  .lean()
-  .then(dogs => {
+      // If dog is not current dog, return it.
+      if (dog.email !== result.email) return dog;
 
-    let currentDog = Dog.getDogFromEmail(dogs, req.session.user)[0];
+    });
 
-    return dogs.filter(dog => {
+  }
+  // Get all dogs except for yourself & your matches and dislikes
+  else {
 
-      if (currentDog.dislikes.includes(dog.email) || currentDog.matches.includes(dog.email)) {
+    filter = dogs.filter(dog => {
 
-        console.log('Included in dislikes or matches.', dog.email);
+      // When a dog is included in the dislikes or matches,
+      // If dog is not current dog, return it.
+      if (dog.email !== result.email) {
 
-      } else {
+        if (!result.dislikes.includes(dog.email)
+          && !result.matches.includes(dog.email)) {
 
-        if(dog.email !== currentDog.email) return dog;
+          return dog;
+
+        }
 
       }
 
     });
 
-  });
+  }
 
-  res.render('match', {
+  // Return an array of dogs
+  return filter;
 
-    title: 'Match',
-    style: 'match.css',
-    path: 'matches',
-    dogs: req.session.unratedDogs
+};
 
-  });
+async function waitForCurrentDog(dogs, req, res, change) {
+
+  return await Dog.findOne({email: req.session.user.email})
+  .then(result => {
+
+    res.render('match', {
+
+      title: 'Match',
+      style: 'match.css',
+      path: 'matches',
+      dogs: unratedDogs(dogs, result, change)
+
+    });
+
+  })
+  .catch(err => console.log('Error Finding dog, ', err));
+
+}
+
+// Show all the dogs on localhost:4000/
+router.get('/', async (req, res) => {
+
+  console.log('req.body', req.session.user);
+  Dog.find()
+  .lean()
+  .then(dogs => {
+
+    waitForCurrentDog(dogs, req, res, false);
+
+  })
+  .catch(err => console.log(err));
 
 });
 
 
+
 router.post('/', async (req, res) => {
 
-  req.session.user = {
 
-    email: req.body.email,
-    name: req.body.name
+  if (req.session.user.email === undefined && req.session.user.matches === undefined) {
 
-  };
+    req.session.user.email = req.body.email;
 
-  req.session.unratedDogs = await Dog.find()
-  .lean()
-  .then(dogs => {
+    const newDog = new Dog({
 
-
-    let currentDog = Dog.getDogFromEmail(dogs, req.session.user)[0];
-
-    return dogs.filter(dog => {
-
-        if (currentDog.dislikes.includes(dog.email) || currentDog.matches.includes(dog.email)) {
-
-          console.log('Included in dislikes or matches.', dog.email);
-
-        } else {
-
-          if(dog.email !== currentDog.email) return dog;
-
-        }
+      name: req.body.firstName,
+      email: req.body.email,
+      password: req.body.password,
+      age: req.body.age,
+      breed: req.body.breed,
+      description: req.body.description,
+      gender: req.body.gender,
+      toy: req.body.toy,
+      personality: req.body.personality,
+      matches: [],
+      dislikes: [],
+      images: req.files,
+      status: '',
+      lastMessage: ''
 
     });
 
-  });
+    Dog.createDog(newDog, (err, dog) => {
+
+      if(err) throw err;
+
+      Dog.find()
+      .lean()
+      .then(dogs => {
+
+        console.log('userdefined?', dog);
+        res.render('match', {
+
+          title: 'Match',
+          style: 'match.css',
+          path: 'matches',
+          dogs: unratedDogs(dogs, dog, true)
+
+        });
+
+      })
+      .catch(err => console.log(err));
 
 
 
-  res.render('match', {
+    });
 
-    title: 'Match',
-    style: 'match.css',
-    path: 'matches',
-    dogs: req.session.unratedDogs
+  } else {
 
-  });
+    Dog.find()
+    .lean()
+    .then(dogs => {
+
+      waitForCurrentDog(dogs, req, res, false);
+
+    })
+    .catch(err => console.log(err));
+
+  }
 
 });
 
@@ -101,9 +156,6 @@ router.post('/dislike-match', async (req, res) => {
 
   }
 
-
-  console.log('dislikes = ', currentDog);
-
   Dog.findOneAndUpdate({email: currentDog.email},
     {$set:{dislikes: currentDog.dislikes }},
     {new: true},
@@ -115,85 +167,80 @@ router.post('/dislike-match', async (req, res) => {
 
     });
 
-  req.session.unratedDogs = req.session.unratedDogs.filter(dog => {
-
-    if (dog.email !== req.body.email) {
-
-      return dog;
-
-    }
-    else {
-
-      console.log('UnratedDogs error@137 matchjs');
-
-    }
-
-  });
-
-  res.render('match', {
-
-    title: 'Match',
-    style: 'match.css',
-    path: 'matches',
-    dogs: req.session.unratedDogs
-
-  });
+  res.redirect('/match');
 
 });
 
 router.post('/add-match', async (req, res) => {
 
-  let currentDog = Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0];
-  let matchDog = Dog.getDogFromEmail(req.session.allDogs, req.body)[0];
+  async function waitForBothDogs() {
 
-  if (!currentDog.matches.includes(req.body.email)) {
+    return {
 
-    currentDog.matches.push(req.body.email);
+      currentDog: await Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0],
+      matchDog: await Dog.getDogFromEmail(req.session.allDogs, req.body)[0]
 
-  }
-
-  Dog.findOneAndUpdate({email: currentDog.email},
-    {$set:{matches: currentDog.matches }},
-    {new: true},
-    (err, result) => {
-
-      if(err) throw err;
-
-      console.log(result);
-
-    });
-
-
-  if (matchDog.matches.includes(currentDog.email)) {
-
-    Room.create([{
-      participants: [currentDog.email, matchDog.email]
-    }]);
-
-    res.render('newMatch', {
-
-      title: 'New Match!',
-      style: 'newMatch.css',
-      path: 'matches',
-      match: matchDog,
-
-
-    });
-
-  }
-  else {
-
-    res.render('match', {
-
-      title: 'Match',
-      style: 'match.css',
-      path: 'matches',
-      dogs: req.session.unratedDogs,
-
-    });
+    };
 
   }
 
+  waitForBothDogs().then(result=> {
+
+    const currentDog = result.currentDog;
+    const matchDog = result.matchDog;
+
+    if (!currentDog.matches.includes(req.body.email)) {
+
+      currentDog.matches.push(req.body.email);
+
+    }
+
+    Dog.findOneAndUpdate({ email: currentDog.email },
+      { $set: {matches: currentDog.matches }},
+      { new: true },
+      (err, result) => {
+
+        if(err) throw err;
+
+        console.log('Updated email', result);
+
+      });
+
+    if (matchDog.matches.includes(currentDog.email)) {
+
+      Room.findOne({ participants: [currentDog.email, matchDog.email]}).then(result => {
+
+        if (!result) {
+
+          Room.create([{
+            participants: [currentDog.email, matchDog.email]
+          }]);
+
+        }
+
+      })
+      .catch(err => console.log(err));
+
+      res.render('newMatch', {
+
+        title: 'New Match!',
+        style: 'newMatch.css',
+        path: 'matches',
+        match: matchDog
+
+
+      });
+
+    }
+    else {
+
+      res.redirect('/match');
+
+    }
+
+  })
+  .catch(err => console.log(err));
 
 });
+
 module.exports = router;

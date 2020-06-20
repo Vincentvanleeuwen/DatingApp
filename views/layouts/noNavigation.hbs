@@ -2,29 +2,20 @@
 <html lang="en">
 <head>
 
-
   <meta charset="UTF-8">
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible"
         content="ie=edge">
-
-
-  <noscript>
-      <meta http-equiv="refresh" content="10">
-  </noscript>
-
-
   <link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap"
         rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;800&display=swap" rel="stylesheet">
 
-
-  {{!--  Default style--}}
+{{!--  Default style--}}
   <link href="../../public/styles/general.css"
         rel="stylesheet">
 
-  {{!--  Page Specific style--}}
+{{!--  Page Specific style--}}
   <link rel="stylesheet"
         href="../../public/styles/{{ style }}">
 
@@ -33,19 +24,17 @@
 
 </head>
 
-<body>
+<body style="overflow: auto">
 
   <div class="bg-circle"></div>
   <div class="bg-circle"></div>
-
-  {{> navigation }}
-
 
   {{{body}}}
 
-  {{!--  Import Socket IO and Clientside Script--}}
-  <script defer src ="/socket.io/socket.io.js"></script>
-  <script defer src="../../public/utils/default.js"></script>
+  {{!--  Import registerScript --}}
+  {{# if register}}
+  <script src="../../public/utils/registerScript.js"></script>
+  {{/if}}
 
 </body>
 </html>
