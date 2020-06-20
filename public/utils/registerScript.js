@@ -1,29 +1,56 @@
-let fieldset = document.body.getElementsByTagName('fieldset');
+const fieldset = document.body.getElementsByTagName('fieldset');
 // let nextButton = document.body.getElementsByClassName('btn-next-container');
-let button = document.body.getElementsByClassName('btn-next');
-let previousButton = document.body.getElementsByClassName('btn-previous');
+const button = document.body.getElementsByClassName('btn-next');
+const previousButton = document.body.getElementsByClassName('btn-previous');
+const buttonContainer = document.body.getElementsByClassName('btn-next-container');
+const progressBar = document.getElementById('progress-bar');
+const databaseDogEmails = document.getElementById('dogsobject').value; //all dog emails in one string
+const emailArray = databaseDogEmails.split(","); //splits dog emails string and makes array
 let activeFieldset = 0;
+let dogEmailArray = [];
 
-showContent(); //makes all fieldsets invisible, except first one
+showContent(); //makes all fieldsets invisible, except first one and makes butttons visible
 
 function showContent() {
+
+    let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100; //gives percentage number of progressbar width
+    progressBar.style.width = widthProgressBar + "%"; //places the width in css
+
+    for (let i = 0; i < buttonContainer.length; i++) {
+        buttonContainer[i].classList.remove("dontDisplay");
+    }
+
     if (activeFieldset === 0) {
         for (let i = 0; i < fieldset.length; i++) {
-            fieldset[i].classList.add('makeInvisible');
+            fieldset[i].classList.add('dontDisplay');
         }
-        fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
+        fieldset[activeFieldset].classList.remove('dontDisplay');
     } else {
-        fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
-        fieldset[activeFieldset - 1].classList.replace('addVisibility', 'makeInvisible');
+        fieldset[activeFieldset].classList.remove('dontDisplay');
+        fieldset[activeFieldset - 1].classList.add('dontDisplay');
     }
 }
 
 function previousContent() {
-    fieldset[activeFieldset + 1].classList.replace('addVisibility', 'makeInvisible');
-    fieldset[activeFieldset].classList.replace('makeInvisible', 'addVisibility');
+
+    let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
+    progressBar.style.width = widthProgressBar + "%";
+    fieldset[activeFieldset + 1].classList.add('dontDisplay');
+    fieldset[activeFieldset].classList.remove('dontDisplay');
+
 }
 
-function addCounter() {
+function makeEmailArray() { //function makes an array with the email adresses of all dogs
+
+    for (let i = 0; i < emailArray.length; i++) {
+        let emailRemovePartOne = emailArray[i].replace('{ email: \'', '');
+        let emailRemovePartTwo = emailRemovePartOne.replace('\' }', '');
+        dogEmailArray.push(emailRemovePartTwo);
+    }
+
+}
+
+function checkInput() {
 
     let input = fieldset[activeFieldset].getElementsByTagName('input'); //gets the inputs of the active Fieldset
     let valid = true;
@@ -34,7 +61,7 @@ function addCounter() {
         switch (input[i].getAttribute("name")) {
             case "firstName":
                 if (input[i].value.length < 2 || input[i].value.length > 25) {
-                    document.getElementById('error-name').innerHTML = 'Field must contain between 1-26 characters';
+                    document.getElementById('error-name').innerHTML = 'Field must contain between 2-25 characters';
                     input[i].classList.add('invalid');
                     valid = false;
                 } else if (input[i].classList.contains('invalid')) {
@@ -44,8 +71,13 @@ function addCounter() {
                 break;
 
             case "email":
-                if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input[i].value) == false) { //checks if the input is equal to the RegEx email structure
-                	document.getElementById('error-email').innerHTML = 'Email should look like: name@examle.com';
+                makeEmailArray();
+                if (dogEmailArray.includes(input[i].value) === true || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input[i].value) === false) {
+                    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input[i].value) === false) {
+                        document.getElementById('error-email').innerHTML = 'Email should look like: name@examle.com'
+                    } else if (dogEmailArray.includes(input[i].value) === true) {
+                        document.getElementById('error-email').innerHTML = 'This email is already being used';
+                    }
                     input[i].classList.add('invalid');
                     valid = false;
                 } else if (input[i].classList.contains('invalid')) {
@@ -155,7 +187,6 @@ function addCounter() {
     if (valid === true) {
         activeFieldset += 1;
         showContent();
-        console.log('images = ');
     }
 
 }
@@ -166,7 +197,7 @@ function subtractCounter() {
 }
 
 for (let i = 0; i < fieldset.length; i++) {
-    button[i].addEventListener('click', addCounter);
+    button[i].addEventListener('click', checkInput);
 }
 
 for (let i = 0; i < previousButton.length; i++) {
