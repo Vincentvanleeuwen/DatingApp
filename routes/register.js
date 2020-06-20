@@ -82,9 +82,6 @@ router.post('/', upload.array('images'), async (req, res) => {
 
       if(err) throw err;
 
-      console.log('=== dog in createDog | Register@83 ===', dog);
-
-
       req.session.user = dog;
 
       res.redirect('/match');

@@ -42,13 +42,43 @@
       }}
     {{/ each }}
     <noscript>
-      <iframe name="enhanced" id="enhanced" style="border: none; width: 100%;" src="/matches/{{ selected._id }}/chat/noJS">
+      <iframe name="enhanced"
+              id="enhanced"
+              style="border: none; width: 100%;"
+              src="/matches/{{ selected._id }}/chat/nojs">
       </iframe>
     </noscript>
 
   </div>
 
-  <form class="chat-input" autocomplete="off" target="enhanced" action="/matches/{{ selected._id }}/chat/"
+  <noscript>
+    <form class="chat-input"
+          autocomplete="off"
+          target="enhanced"
+          id="no-js"
+          action="/matches/{{ selected._id }}/chat/nojs"
+          method="POST">
+
+      <label for="message">
+
+        <input name="message" type="text" placeholder="Send a message..." id="chat-input"/>
+
+      </label>
+
+      <label for="email" style="display:none">
+
+        <input type="text" name="email" value="{{ selected.email }}">
+      </label>
+
+      <button type="submit" id="send-message"></button>
+
+    </form>
+  </noscript>
+
+  <form class="chat-input if-no-js"
+        id="yes-js"
+        autocomplete="off"
+        action="/matches/{{ selected._id }}/chat/"
         method="post">
 
     <label for="message">

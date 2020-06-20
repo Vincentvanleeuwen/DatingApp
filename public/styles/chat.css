@@ -226,7 +226,9 @@ body {
   animation: slide-back .4s backwards;
 }
 
-
+.if-no-js {
+  display:none!important;
+}
 
 @keyframes slide {
   0% {

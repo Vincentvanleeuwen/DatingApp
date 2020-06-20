@@ -5,11 +5,6 @@ const Message = require('../data/messageModel');
 
 router.get('/', (req, res) => {
 
-  console.log('current user matches.js/', req.session.user);
-  console.log('req.matches', req.session.matches);
-  // const realMatches = req.session.matches.filter
-
-
   res.render('matches', {
 
     title: 'All your chats',
@@ -41,6 +36,22 @@ router.post('/', (req, res) => {
 
 });
 
+
+router.get('/:id/chat', async (req, res) => {
+
+  const allMessages = await Message.getAllMessages();
+
+  res.render('chat', {
+
+    title: 'Chatting with ' + req.session.selected.name,
+    style: 'chat.css',
+    selected: req.session.selected,
+    message: Message.getMessages(allMessages, req.session.user.email, req.session.selected.email),
+    // Returns an array with all their messages.
+  });
+
+});
+
 // Show a chat
 router.post('/:id/chat', async (req, res) => {
 
@@ -64,46 +75,57 @@ router.post('/:id/chat', async (req, res) => {
 
 });
 
-// Show a chat without js
-router.post('/:id/chat/noJS', async (req, res) => {
-
-  console.log(req.body.email);
-  await Dog.findOne({ 'email': req.body.email }).then(result => {
-
-    req.session.selected = result.toObject();
-    console.log('reqsessionseleceed', req.session.selected);
-
-    let newMessage = Message.create([{
-      sendFrom: req.session.user.email,
-      sendTo: req.session.selected[0].email,
-      message: req.body.message,
-      receiver: req.session.user.email,
-      date: new Date()
-      .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'})
-
-    }]);
-
-    res.render('noJS', {
-      layout: 'empty',
-      style: 'noJS.css',
-      message: newMessage[0].message,
-      date: newMessage[0].date,
-      id: newMessage[0]._id
-    });
-
-  })
-  .catch(err => console.log(err));
 
 
-
-
-});
 
 router.get('/:id/chat/noJS', (req, res) => {
-  // res.redirect('/:id/chat');
+
   res.send('Javascript is disabled. Please enable Javascript for the best experience.');
 
 });
+
+// Show a chat without js
+router.post('/:id/chat/noJS', async (req, res) => {
+
+    if (req.body.message) {
+
+      await Dog.findOne({ 'email': req.body.email }).then(result => {
+
+
+        req.session.selected = result;
+
+        return Message.create([{
+          sendFrom: req.session.user.email,
+          sendTo: req.session.selected.email,
+          message: req.body.message,
+          receiver: req.session.user.email,
+          date: new Date()
+          .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'})
+
+        }]).then(result => {
+
+          console.log('new Message = ', result);
+
+          res.render('noJS', {
+            layout: 'empty',
+            style: 'noJS.css',
+            message: result[0].message,
+            date: result[0].date,
+            id: result[0]._id
+          });
+
+
+        })
+        .catch(err => console.log('error creating message', err));
+
+
+      })
+      .catch(err => console.log(err));
+
+    }
+
+});
+
 
 // Export the router so it can be required in other files.
 module.exports = router;

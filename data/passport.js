@@ -47,12 +47,10 @@ module.exports = (passport) => {
         dog.comparePassword(password, (err, isMatch) => {
 
           if (err) throw err;
-          console.log(password, '=', isMatch);
 
           if(isMatch) {
 
             req.session.user = dog;
-            console.log('user in passport', req.session.user);
 
             return done(null, dog);
 
