@@ -4,25 +4,17 @@ const button = document.body.getElementsByClassName('btn-next');
 const previousButton = document.body.getElementsByClassName('btn-previous');
 const buttonContainer = document.body.getElementsByClassName('btn-next-container');
 const progressBar = document.getElementById('progress-bar');
-const databaseDogEmails = document.getElementById('dogsobject').value;
-const emailArray = databaseDogEmails.split(",");
-// const obj = JSON.parse(databaseDogs);
+const databaseDogEmails = document.getElementById('dogsobject').value; //all dog emails in one string
+const emailArray = databaseDogEmails.split(","); //splits dog emails string and makes array
 let activeFieldset = 0;
 let dogEmailArray = [];
 
 showContent(); //makes all fieldsets invisible, except first one and makes butttons visible
 
 function showContent() {
-    for (let i = 0; i < emailArray.length; i++) {
-        let emailRemovePartOne = emailArray[i].replace('{ email: \'', '');
-        let emailRemovePartTwo = emailRemovePartOne.replace('\' }', '');
-        dogEmailArray.push(emailRemovePartTwo);
-    }
 
-    console.log('allEmails =', dogEmailArray);
-
-    let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
-    progressBar.style.width = widthProgressBar + "%";
+    let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100; //gives percentage number of progressbar width
+    progressBar.style.width = widthProgressBar + "%"; //places the width in css
 
     for (let i = 0; i < buttonContainer.length; i++) {
         buttonContainer[i].classList.remove("dontDisplay");
@@ -40,13 +32,25 @@ function showContent() {
 }
 
 function previousContent() {
+
     let widthProgressBar = activeFieldset / (fieldset.length - 1) * 100;
     progressBar.style.width = widthProgressBar + "%";
     fieldset[activeFieldset + 1].classList.add('dontDisplay');
     fieldset[activeFieldset].classList.remove('dontDisplay');
+
 }
 
-function addCounter() {
+function makeEmailArray() { //function makes an array with the email adresses of all dogs
+
+    for (let i = 0; i < emailArray.length; i++) {
+        let emailRemovePartOne = emailArray[i].replace('{ email: \'', '');
+        let emailRemovePartTwo = emailRemovePartOne.replace('\' }', '');
+        dogEmailArray.push(emailRemovePartTwo);
+    }
+
+}
+
+function checkInput() {
 
     let input = fieldset[activeFieldset].getElementsByTagName('input'); //gets the inputs of the active Fieldset
     let valid = true;
@@ -67,8 +71,13 @@ function addCounter() {
                 break;
 
             case "email":
-                if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input[i].value) == false) { //checks if the input is equal to the RegEx email structure
-                	document.getElementById('error-email').innerHTML = 'Email should look like: name@examle.com';
+                makeEmailArray();
+                if (dogEmailArray.includes(input[i].value) === true || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input[i].value) === false) {
+                    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input[i].value) === false) {
+                        document.getElementById('error-email').innerHTML = 'Email should look like: name@examle.com'
+                    } else if (dogEmailArray.includes(input[i].value) === true) {
+                        document.getElementById('error-email').innerHTML = 'This email is already being used';
+                    }
                     input[i].classList.add('invalid');
                     valid = false;
                 } else if (input[i].classList.contains('invalid')) {
@@ -188,7 +197,7 @@ function subtractCounter() {
 }
 
 for (let i = 0; i < fieldset.length; i++) {
-    button[i].addEventListener('click', addCounter);
+    button[i].addEventListener('click', checkInput);
 }
 
 for (let i = 0; i < previousButton.length; i++) {
