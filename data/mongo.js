@@ -119,6 +119,7 @@ async function dogVariables(req, res, next) {
   // Get dogs collection & messages collection from mongoDB
   const allDogs = await Dog.getDogs();
 
+  console.log('DogVariables reqsessionuser: ', req.session.user);
 
   // Set the session for this user if undefined
   if (!req.session.user) {
@@ -133,7 +134,6 @@ async function dogVariables(req, res, next) {
   // req.session.selected = Dog.selectedConversation(req.session.allDogs,req.session.user, 0);
 
 
-  console.log('dogVars | Currentroom = ', req.session.currentRoom);
 
   next();
 

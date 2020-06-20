@@ -144,8 +144,9 @@ socket.on('typing', data => {
 
 if (chatContainer) {
 
-
   const email = chatContainer.getAttribute('data-room');
+
+  // socket.emit('match-room', email);
 
   chatContainer.addEventListener('submit', e => {
 
@@ -174,12 +175,11 @@ if (chatContainer) {
 
     }
 
-    console.log('Clientside Socket Room ID', socket);
+    console.log('Clientside Socket Room ID',  socket);
 
     socket.once('send-room-id', room => {
 
-      console.log('AAAAAAAAAAAAAAAAAAAAA', room.room);
-
+      console.log('room in default.js@181', room.room);
 
       socket.emit('dog-message', room.room, message);
 

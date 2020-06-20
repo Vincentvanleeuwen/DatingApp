@@ -1,48 +1,95 @@
 const router = require('express').Router();
 const Dog = require('../data/dogModel');
+const multer  = require('multer');
 
-// Show all the dogs on localhost:4000/
-router.get('/', async (req, res) => {
+// let upload = multer({ dest: '../public/media/images/dogs/' });
 
-  req.session.user = null;
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
 
-  req.session.allDogs =  await Dog.find().lean();
+    cb(null, './public/media/images/dogs/'); //destination of file
 
-  res.render('home', {
+  },
 
-    title: 'Login as',
-    style: 'match.css',
-    dogs: req.session.allDogs
+  filename: function (req, file, cb) {
 
-  });
+    cb(null, file.originalname); //how file should be named in directory
 
+  }
 });
 
+const fileFilter = (req, file, cb) => {
 
+  if(file.mimetype === 'image/jpg'  || //filetype check
+    file.mimetype === 'image/jpeg'  ||
+    file.mimetype ===  'image/png'){
 
-router.post('/', async (req, res) => {
+    cb(null, true);
 
-  if (req.session.allDogs.length !== 1) {
+  } else {
 
-    req.session.allDogs.shift();
+    cb(new Error('Image uploaded is not of type jpg/jpeg or png'), false);
 
   }
 
-  // De huidige dog matches updaten naar de nieuwe match
-  // Session dog
-  // req.dog
-  // req.matches = ['1', 'bobby@gmail.com']
+};
 
-  // []                         [...]
+const upload = multer({storage: storage, fileFilter : fileFilter});
 
 
-  res.render('home', {
+// Show all the dogs on localhost:4000/
+router.get('/', async (req, res) => {
+  const allDogs = await Dog.find({}, {_id: 0, email: 1});
+  // console.log('allDogs = ', typeof(allDogs));
+  req.session.user = null;
 
+  res.render('register', {
+
+    layout: 'noNavigation',
     title: 'Login as',
-    style: 'match.css',
-    dogs: req.session.allDogs
+    style: 'register.css',
+    register: true,
+    allDogs: allDogs,
 
   });
+
+ 
+
+});
+
+router.post('/', upload.array('images'), async (req, res) => {
+
+    const newDog = new Dog({
+
+      name: req.body.firstName,
+      email: req.body.email,
+      password: req.body.password,
+      age: req.body.age,
+      breed: req.body.breed,
+      description: req.body.description,
+      gender: req.body.gender,
+      toy: req.body.toy,
+      personality: req.body.personality,
+      matches: [],
+      dislikes: [],
+      images: req.files,
+      status: '',
+      lastMessage: ''
+
+    });
+
+    Dog.createDog(newDog, (err, dog) => {
+
+      if(err) throw err;
+
+      console.log('=== dog in createDog | Register@83 ===', dog);
+
+
+      req.session.user = dog;
+
+      res.redirect('/match');
+
+    });
 
 });
 
