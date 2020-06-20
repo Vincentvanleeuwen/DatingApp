@@ -147,6 +147,7 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/dislike-match', async (req, res) => {
+
   let currentDog = Dog.getDogFromEmail(req.session.allDogs, req.session.user)[0];
 
   if (!currentDog.dislikes.includes(req.body.email)) {
@@ -206,7 +207,9 @@ router.post('/add-match', async (req, res) => {
       });
 
     if (matchDog.matches.includes(currentDog.email)) {
+
       Room.findOne({ participants: [currentDog.email, matchDog.email]}).then(result => {
+
         if (!result) {
 
           Room.create([{

@@ -63,9 +63,7 @@ dogSchema.statics = {
 
   },
   
-  blockMatch: (match, currentDog) => {
-
-    return currentDog.filter(dog => {
+  blockMatch: (match, currentDog) => currentDog.filter(dog => {
 
       if (dog !== match) {
 
@@ -73,9 +71,7 @@ dogSchema.statics = {
 
       }
 
-    });
-
-  },
+    }),
 
   dogMatches: (dogs, currentDog) => {
 
@@ -101,9 +97,7 @@ dogSchema.statics = {
 
   },
 
-  getDogFromEmail: (dogs, currentDog) => {
-
-    return dogs.filter( dog => {
+  getDogFromEmail: (dogs, currentDog) => dogs.filter( dog => {
 
       if (dog.email === currentDog.email) {
 
@@ -111,9 +105,7 @@ dogSchema.statics = {
 
       }
 
-    });
-
-  },
+    }),
 
 };
 
