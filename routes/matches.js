@@ -7,6 +7,8 @@ router.get('/', (req, res) => {
 
   console.log('current user matches.js/', req.session.user);
   console.log('req.matches', req.session.matches);
+  // const realMatches = req.session.matches.filter
+
 
   res.render('matches', {
 
@@ -65,23 +67,33 @@ router.post('/:id/chat', async (req, res) => {
 // Show a chat without js
 router.post('/:id/chat/noJS', async (req, res) => {
 
-  let newMessage = await Message.create([{
-    sendFrom: req.session.user.email,
-    sendTo: req.session.selected[0].email,
-    message: req.body.message,
-    receiver: req.session.user.email,
-    date: new Date()
-    .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'})
+  console.log(req.body.email);
+  await Dog.findOne({ 'email': req.body.email }).then(result => {
 
-  }]);
+    req.session.selected = result.toObject();
+    console.log('reqsessionseleceed', req.session.selected);
+    let newMessage = Message.create([{
+      sendFrom: req.session.user.email,
+      sendTo: req.session.selected[0].email,
+      message: req.body.message,
+      receiver: req.session.user.email,
+      date: new Date()
+      .toLocaleTimeString('en-GB', {hour: 'numeric', minute: 'numeric'})
 
-  res.render('noJS', {
-    layout: 'empty',
-    style: 'noJS.css',
-    message: newMessage[0].message,
-    date: newMessage[0].date,
-    id: newMessage[0]._id
-  });
+    }]);
+
+    res.render('noJS', {
+      layout: 'empty',
+      style: 'noJS.css',
+      message: newMessage[0].message,
+      date: newMessage[0].date,
+      id: newMessage[0]._id
+    });
+
+  })
+  .catch(err => console.log(err));
+
+
 
 
 });

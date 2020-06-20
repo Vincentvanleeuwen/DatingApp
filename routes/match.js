@@ -1,41 +1,6 @@
 const router = require('express').Router();
 const Dog = require('../data/dogModel');
 const Room = require('../data/roomModel');
-const multer  = require('multer');
-
-// let upload = multer({ dest: '../public/media/images/dogs/' });
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-
-        cb(null, './public/media/images/dogs/'); //destination of file
-
-    },
-
-    filename: function (req, file, cb) {
-
-        cb(null, file.originalname); //how file should be named in directory
-
-    }
-});
-
-const fileFilter = (req, file, cb) => {
-
-    if(file.mimetype === 'image/jpg'  || //filetype check
-       file.mimetype === 'image/jpeg'  ||
-       file.mimetype ===  'image/png'){
-
-    cb(null, true);
-
-  } else {
-
-      cb(new Error('Image uploaded is not of type jpg/jpeg or png'), false);
-
-  }
-
-};
-
-const upload = multer({storage: storage, fileFilter : fileFilter});
 
 let unratedDogs = (dogs, result, change) => {
 
@@ -59,8 +24,6 @@ let unratedDogs = (dogs, result, change) => {
 
       // When a dog is included in the dislikes or matches,
       // If dog is not current dog, return it.
-      console.log('email result nochange=', result);
-      console.log('dog result nochange=', dog);
       if (dog.email !== result.email) {
 
         if (!result.dislikes.includes(dog.email)
@@ -83,9 +46,12 @@ let unratedDogs = (dogs, result, change) => {
 
 async function waitForCurrentDog(dogs, req, res, change) {
 
+  console.log('userdefined?', req.user);
+
   return await Dog.findOne({email: req.session.user.email})
   .then(result => {
 
+    console.log('userdefined?', result);
     res.render('match', {
 
       title: 'Match',
@@ -103,6 +69,7 @@ async function waitForCurrentDog(dogs, req, res, change) {
 // Show all the dogs on localhost:4000/
 router.get('/', async (req, res) => {
 
+  console.log('req.body', req.session.user);
   Dog.find()
   .lean()
   .then(dogs => {
@@ -115,13 +82,17 @@ router.get('/', async (req, res) => {
 });
 
 
-router.post('/', upload.array('images'), async (req, res) => {
+
+router.post('/', async (req, res) => {
 
   console.log('Post Request (req.body) match.js@112', req.body);
 
+
   if (req.session.user.email === undefined && req.session.user.matches === undefined) {
 
-    req.session.user = {
+    req.session.user.email = req.body.email;
+
+    const newDog = new Dog({
 
       name: req.body.firstName,
       email: req.body.email,
@@ -138,43 +109,36 @@ router.post('/', upload.array('images'), async (req, res) => {
       status: '',
       lastMessage: ''
 
-    };
+    });
 
-    // Push new message to the database
-    Dog.create([{
+    Dog.createDog(newDog, (err, dog) => {
 
-      email: req.session.user.email,
-      name: req.session.user.name,
-      password: req.session.user.password,
-      age: req.session.user.age,
-      breed: req.session.user.breed,
-      images: req.session.user.images,
-      status: req.session.user.status,
-      lastMessage: req.session.user.lastMessage,
-      description: req.session.user.description,
-      favToy: req.session.user.toy,
-      personality: req.session.user.personality,
-      matches: req.session.user.matches,
-      dislikes: req.session.user.dislikes
+      if(err) throw err;
 
-    }]);
+      console.log('dogInCreateDog', dog);
 
-    Dog.find()
-    .lean()
-    .then(dogs => {
+      Dog.find()
+      .lean()
+      .then(dogs => {
 
-      waitForCurrentDog(dogs, req, res, true);
+        console.log('userdefined?', dog);
+        res.render('match', {
 
-    })
-    .catch(err => console.log(err));
+          title: 'Match',
+          style: 'match.css',
+          path: 'matches',
+          dogs: unratedDogs(dogs, dog, true)
+
+        });
+
+      })
+      .catch(err => console.log(err));
+
+
+
+    });
 
   } else {
-
-    if (!req.session.user.email) {
-
-      req.session.user.email = req.body.email;
-
-    }
 
     Dog.find()
     .lean()
