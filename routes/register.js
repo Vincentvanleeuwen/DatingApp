@@ -54,9 +54,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', upload.array('images'), async (req, res) => {
 
-  // console.log('reqbody in register', req.body);
-
-
     const newDog = new Dog({
 
       name: req.body.firstName,
@@ -80,20 +77,12 @@ router.post('/', upload.array('images'), async (req, res) => {
 
       if(err) throw err;
 
-      console.log('dogInCreateDog', dog);
+      console.log('=== dog in createDog | Register@83 ===', dog);
 
-      // Dog.find()
-      // .lean()
-      // .then(dogs => {
-      //
-      //   console.log('userdefined?', dog);
-      //
-      //
-      //
-      // })
-      // .catch(err => console.log(err));
 
-      res.redirect('match');
+      req.session.user = dog;
+
+      res.redirect('/match');
 
     });
 

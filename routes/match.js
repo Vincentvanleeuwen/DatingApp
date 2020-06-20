@@ -46,7 +46,7 @@ let unratedDogs = (dogs, result, change) => {
 
 async function waitForCurrentDog(dogs, req, res, change) {
 
-  // console.log('userdefined?', req.session.user.email);
+  console.log('userdefined?', req.user);
 
   return await Dog.findOne({email: req.session.user.email})
   .then(result => {

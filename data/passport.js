@@ -3,6 +3,9 @@ const LocalStrategy = require('passport-local').Strategy;
 
 module.exports = (passport) => {
 
+  // Sources: https://medium.com/gomycode/authentication-with-passport-js-73ca65b25feb
+  // https://dev.to/ganeshmani/node-authentication-using-passport-js-part-1-53k7
+  // https://cloudnweb.dev/2019/04/node-authentication-using-passport-js-part-2/
   passport.serializeUser(function(dog, done) {
 
     done(null, dog.id);
@@ -10,13 +13,14 @@ module.exports = (passport) => {
   });
   passport.deserializeUser( (email, done ) => {
 
-    Dog.getDogByEmail(email, (err, dog) => {
+    Dog.findOne({ email: email }, (err, dog) => {
 
       done(err, dog);
 
     });
 
   });
+
 
   passport.use('local-login', new LocalStrategy(
     {
@@ -34,6 +38,12 @@ module.exports = (passport) => {
 
         if(err) throw err;
 
+        if(!dog) {
+
+          return done(null, false, req.flash('loginMessage', 'No one exists with that email.'));
+
+        }
+
         dog.comparePassword(password, (err, isMatch) => {
 
           if (err) throw err;
@@ -45,6 +55,10 @@ module.exports = (passport) => {
             console.log('user in passport', req.session.user);
 
             return done(null, dog);
+
+          } else {
+
+            return done(null, false, req.flash('loginMessage', 'Please try again, the password does not match.'));
 
           }
 

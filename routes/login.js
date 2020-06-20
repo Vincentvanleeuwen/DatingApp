@@ -5,13 +5,13 @@ const passport = require('passport');
 router.get('/', async (req, res) => {
 
   req.session.user = null;
-
+  console.log(req.session.errMsg);
   res.render('login', {
     layout: 'noNavigation',
     title: 'Login as',
     style: 'register.css',
     register: false,
-
+    errMsg: req.session.errMsg
   });
 
 });
@@ -28,7 +28,7 @@ router.post('/', passport.authenticate('local-login', {
 router.get('/logout', (req, res) => {
 
   req.logout();
-  req.redirect('/');
+  res.redirect('/');
 
 });
 

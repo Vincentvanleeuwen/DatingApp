@@ -7,6 +7,8 @@ router.get('/', (req, res) => {
 
   console.log('current user matches.js/', req.session.user);
   console.log('req.matches', req.session.matches);
+  // const realMatches = req.session.matches.filter
+
 
   res.render('matches', {
 

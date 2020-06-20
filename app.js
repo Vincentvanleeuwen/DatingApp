@@ -10,6 +10,7 @@ const server = require('http').createServer(app);
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 
 // Import Socket IO and Mongoose
 const { initializeSocketIO } = require('./data/socket');
@@ -69,7 +70,10 @@ app.engine('hbs', handlebars({
 
 // Initialize passport & its session
 .use(passport.initialize())
-.use(passport.session());
+.use(passport.session())
+
+// Initialize flash
+.use(flash());
 
 // Initialize passport Strategy
 require('./data/passport')(passport);
