@@ -1,3 +1,7 @@
+/* body{
+  overflow: auto;
+} */
+
 :root {
   --primary-color: #FFAF91;
   --secondary-color: #FF9EA6;
@@ -8,6 +12,8 @@
   --heading: 'Bevan', cursive;
   --paragraph: 'Open Sans', sans-serif;
 }
+
+
 
 .register-main {
   z-index: 6;
@@ -53,6 +59,10 @@ textarea {
   resize: none;
 }
 
+fieldset{
+ margin-bottom: -200px;
+}
+
 input:focus {
   outline: none;
   color: black;
@@ -73,8 +83,8 @@ input[type="checkbox"] + label {
 
 input[type="radio"]:checked + label, 
 input[type="checkbox"]:checked + label {
-  border: 1px solid #ff2453;
-  color: #ff2453;
+  border: 1px solid #FF9EA6;
+  color:#FF9EA6;
   transition: 0.5s all;
 }
 
@@ -94,12 +104,17 @@ header img {
 .register-container {
   background: white;
   margin: 10vw auto 50px;
+  margin-top: 30px;
   min-height: 500px;
-  box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15);
   width: 100%;
   max-width: 400px;
   padding-bottom: 80px;
   position: relative;
+  font-family: var(--heading);
+  color: var(--dark-color);
+  border-radius: 50px;
+  box-shadow: #27272757 0 13px 20px 0;
+
 }
 
 .gender-container {
@@ -122,7 +137,7 @@ header img {
 }
 
 .btn-next {
-  background-color: #FF0066;
+  background-color: #04EABB;
   color: white;
   font-size: 1em;
   font-family: montserrat, helvetica;
@@ -134,7 +149,7 @@ header img {
 }
 
 .btn-next:hover {
-  background-color: #ab004b;
+  background-color:  #FF9EA6;
   color: #FFF;
   transition: 0.6s all;
 }
@@ -182,10 +197,6 @@ header img {
 
 
 /*classes for JS to add*/
-.display {
-  display: inline-block;
-}
-
 .dontDisplay {
   display: none;
 }
@@ -203,9 +214,24 @@ header img {
 }
 
 #progress-bar {
+  padding: 0;
   height: 15px;
-  background-color: #FF0066;
+  background-color: #03EBBB;
   transition: 0.8s all;
   flex-basis: 100%;
   max-width: 100%;
+  border-radius: 50px;
+
+}
+.link{
+  display: block;
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: -40px;
+}
+
+.link:hover{
+color: #FFAF91;
+
 }
