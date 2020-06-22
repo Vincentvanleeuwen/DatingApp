@@ -110,7 +110,7 @@ header img {
   width: 100%;
   max-width: 400px;
   padding-bottom: 80px;
-
+  overflow: hidden;
   font-family: var(--heading);
   color: var(--dark-color);
   border-radius: 50px;
@@ -232,7 +232,7 @@ header img {
   left: 0;
   top: 0;
   right: 0;
-  border-top-left-radius: 91px;
+
   margin: 0 2px;
 
 }
