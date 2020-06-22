@@ -1,3 +1,7 @@
+/* body{
+  overflow: auto;
+} */
+
 :root {
   --primary-color: #FFAF91;
   --secondary-color: #FF9EA6;
@@ -9,11 +13,17 @@
   --paragraph: 'Open Sans', sans-serif;
 }
 
+
+
 .register-main {
   z-index: 6;
   width: 100%;
   height: 100%;
   padding: 0 20px;
+}
+
+a {
+  font-family: var(--paragraph);
 }
 
 form {
@@ -23,6 +33,7 @@ form {
 label {
   margin: 20px 0 0;
   display: inline-block;
+  font-family: var(--paragraph);
 }
 
 h1 {
@@ -73,8 +84,8 @@ input[type="checkbox"] + label {
 
 input[type="radio"]:checked + label, 
 input[type="checkbox"]:checked + label {
-  border: 1px solid #ff2453;
-  color: #ff2453;
+  border: 1px solid #FF9EA6;
+  color:#FF9EA6;
   transition: 0.5s all;
 }
 
@@ -91,16 +102,25 @@ header img {
   height: 100%;
 }
 
+
 .register-container {
   background: white;
-  margin: 10vw auto 50px;
+  padding-top: 20px;
   min-height: 500px;
-  box-shadow: 0 0.3rem 1rem rgba(0,0,0,.15);
   width: 100%;
   max-width: 400px;
   padding-bottom: 80px;
-  position: relative;
+  overflow: hidden;
+  font-family: var(--heading);
+  color: var(--dark-color);
+  border-radius: 50px;
+  box-shadow: #27272757 0 13px 20px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 
 .gender-container {
   display: flex;
@@ -118,23 +138,24 @@ header img {
   margin-top: auto;
   position: absolute;
   bottom: 30px;
-  left: 0px;
+  left: 0;
 }
 
 .btn-next {
-  background-color: #FF0066;
+  background-color: #04EABB;
   color: white;
   font-size: 1em;
-  font-family: montserrat, helvetica;
+  font-family: var(--paragraph);
   text-decoration: none;
   padding: 10px 30px;
   border: 0;
   border-radius: 100px;
   display: inline-block;
+  cursor:pointer;
 }
 
 .btn-next:hover {
-  background-color: #ab004b;
+  background-color:  #FF9EA6;
   color: #FFF;
   transition: 0.6s all;
 }
@@ -199,9 +220,31 @@ header img {
 }
 
 #progress-bar {
-  height: 15px;
-  background-color: #FF0066;
+  padding: 0;
+  height: 2em;
+  background-color: #03EBBB;
   transition: 0.8s all;
   flex-basis: 100%;
   max-width: 100%;
+
+  width: 33.3333%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+
+  margin: 0 2px;
+
+}
+.link{
+  display: block;
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: -40px;
+}
+
+.link:hover{
+color: #FFAF91;
+
 }
