@@ -22,6 +22,10 @@
   padding: 0 20px;
 }
 
+a {
+  font-family: var(--paragraph);
+}
+
 form {
   width: 100%;
 }
@@ -29,6 +33,7 @@ form {
 label {
   margin: 20px 0 0;
   display: inline-block;
+  font-family: var(--paragraph);
 }
 
 h1 {
@@ -101,21 +106,25 @@ header img {
   height: 100%;
 }
 
+
 .register-container {
   background: white;
-  margin: 10vw auto 50px;
-  margin-top: 30px;
-  min-height: 500px;
+  padding-top: 20px;
+  height: 500px;
   width: 100%;
   max-width: 400px;
   padding-bottom: 80px;
-  position: relative;
+
   font-family: var(--heading);
   color: var(--dark-color);
   border-radius: 50px;
   box-shadow: #27272757 0 13px 20px 0;
-
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 
 .gender-container {
   display: flex;
@@ -215,12 +224,19 @@ header img {
 
 #progress-bar {
   padding: 0;
-  height: 15px;
+  height: 2em;
   background-color: #03EBBB;
   transition: 0.8s all;
   flex-basis: 100%;
   max-width: 100%;
-  border-radius: 50px;
+
+  width: 33.3333%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  border-top-left-radius: 91px;
+  margin: 0 2px;
 
 }
 .link{
