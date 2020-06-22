@@ -75,8 +75,9 @@
     </form>
   </noscript>
 
-  <form class="chat-input"
+  <form class="chat-input if-no-js"
         autocomplete="off"
+        id="yes-js"
         action="/matches/{{ selected._id }}/chat"
         method="POST">
 

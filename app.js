@@ -23,7 +23,7 @@ const { notEqualCheck, equalCheck } = require('./public/utils/handleHelpers');
 require('dotenv').config();
 
 // Set the port
-const port = 5000;
+const port = process.env.PORT;
 
 // Define the session
 let newSession = session({

@@ -154,11 +154,11 @@ if (chatContainer) {
 
   }
 
-  chatInput.addEventListener('submit', e => {
+  chatContainer.addEventListener('submit', e => {
 
     e.preventDefault();
 
-    console.log('hello????');
+    console.log('hel;plloooo')
     const message = chatInput.value;
 
     socket.emit('match-room', email);
