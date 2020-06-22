@@ -110,7 +110,7 @@ header img {
 .register-container {
   background: white;
   padding-top: 20px;
-  height: 500px;
+  min-height: 500px;
   width: 100%;
   max-width: 400px;
   padding-bottom: 80px;
@@ -142,19 +142,20 @@ header img {
   margin-top: auto;
   position: absolute;
   bottom: 30px;
-  left: 0px;
+  left: 0;
 }
 
 .btn-next {
   background-color: #04EABB;
   color: white;
   font-size: 1em;
-  font-family: montserrat, helvetica;
+  font-family: var(--paragraph);
   text-decoration: none;
   padding: 10px 30px;
   border: 0;
   border-radius: 100px;
   display: inline-block;
+  cursor:pointer;
 }
 
 .btn-next:hover {
