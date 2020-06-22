@@ -6,7 +6,6 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "nodemon --exec 'mocha -R min'",
-    "west": "mocha",
     "lint": "eslint \"**/*.js\"",
     "dev": "nodemon --exec \"npm run lint && node app.js\""
   },

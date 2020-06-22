@@ -26,17 +26,17 @@ mongoose.connection
 
 });
 
-// This function is called before each test
-beforeEach((done) => {
-
-     // Delete dog collection
-  // mongoose.connection.db.dropCollection('messages', (err, result) => {
-  //
-  //   console.log(result);
-  //   console.log(err);
-  //
-  //   done();
-  //
-  // });
-
-});
+// // This function is called before each test
+// beforeEach((done) => {
+//
+//      // Delete dog collection
+//   // mongoose.connection.db.dropCollection('messages', (err, result) => {
+//   //
+//   //   console.log(result);
+//   //   console.log(err);
+//   //
+//   //   done();
+//   //
+//   // });
+//
+// });
