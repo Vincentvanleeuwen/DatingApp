@@ -4,7 +4,7 @@
   "description": "Learning Node.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "nodemon --exec 'mocha -R min'",
     "lint": "eslint \"**/*.js\"",
     "dev": "nodemon --exec \"npm run lint && node app.js\""
