@@ -64,10 +64,6 @@ textarea {
   resize: none;
 }
 
-fieldset{
- margin-bottom: -200px;
-}
-
 input:focus {
   outline: none;
   color: black;
