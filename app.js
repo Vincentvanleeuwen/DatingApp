@@ -23,7 +23,7 @@ const { notEqualCheck, equalCheck } = require('./public/utils/handleHelpers');
 require('dotenv').config();
 
 // Set the port
-const port = process.env.PORT || 4000;
+const port = 5000;
 
 // Define the session
 let newSession = session({
@@ -79,7 +79,7 @@ app.engine('hbs', handlebars({
 require('./data/passport')(passport);
 
 // Make files public
-app.use('/public', express.static('public'))
+app.use(express.static( __dirname + '/public'))
 
 
 // Supports parsing of Json

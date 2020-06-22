@@ -41,6 +41,7 @@ router.get('/:id/chat', async (req, res) => {
 
   const allMessages = await Message.getAllMessages();
 
+
   res.render('chat', {
 
     title: 'Chatting with ' + req.session.selected.name,

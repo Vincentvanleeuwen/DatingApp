@@ -4,6 +4,7 @@ const socket = io();
 
 /*eslint-enable */
 
+
 // Chat elements
 const chatContainer = document.querySelector('.chat-container');
 const chatInput = document.getElementById('chat-input');
@@ -157,6 +158,7 @@ if (chatContainer) {
 
     e.preventDefault();
 
+    console.log('hello????');
     const message = chatInput.value;
 
     socket.emit('match-room', email);
