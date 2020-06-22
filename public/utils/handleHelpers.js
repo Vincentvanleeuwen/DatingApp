@@ -2,7 +2,12 @@
 // Check if equal for Handlebars view
 const equalCheck = function(a, b, options) {
 
-  if (a === b) { return options.fn(this); }
+  if (a === b) {
+
+    return options.fn(this);
+
+  }
+
   return options.inverse(this);
 
 };
@@ -10,7 +15,13 @@ const equalCheck = function(a, b, options) {
 // Check if not equal for Handlebars view
 const notEqualCheck = function(sender, receiver,  options) {
 
-  if (sender !== receiver) { return options.fn(this); }
+  if (sender !== receiver) {
+
+    return options.fn(this);
+
+  }
+
+
   return options.inverse(this);
 
 };

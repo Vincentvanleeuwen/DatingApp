@@ -146,9 +146,14 @@ if (chatContainer) {
 
   const email = chatContainer.getAttribute('data-room');
 
-  // socket.emit('match-room', email);
+  // console.log('id', document.getElementById('no-js'));
+  if (!document.getElementById('no-js')) {
 
-  chatContainer.addEventListener('submit', e => {
+    document.getElementById('yes-js').classList.remove('if-no-js');
+
+  }
+
+  chatInput.addEventListener('submit', e => {
 
     e.preventDefault();
 
@@ -162,7 +167,6 @@ if (chatContainer) {
 
     } else {
 
-      console.log('message in DefaultJs 164 === ', message);
       // Show message to the view
       addNewMessage(message, ' self');
 
@@ -175,11 +179,7 @@ if (chatContainer) {
 
     }
 
-    console.log('Clientside Socket Room ID',  socket);
-
     socket.once('send-room-id', room => {
-
-      console.log('room in default.js@181', room.room);
 
       socket.emit('dog-message', room.room, message);
 

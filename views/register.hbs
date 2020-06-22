@@ -2,13 +2,19 @@
 
 <section class=register-main>
     <div class="register-container">
+
         <div id="progress-bar"></div>
-        <form method="post" action="/match" enctype="multipart/form-data">
+        <form method="post" action="/register" enctype="multipart/form-data">
+
             <fieldset>
                 <h1>MAKE ACCOUNT</h1>
                 <label for="name">Dog Name</label>
                 <input type="text" name="firstName" id="name" minlength="2" maxlength="25" required>
                 <p class="errorMessage" id="error-name"></p>
+                
+                <label for="dogsobject" style="display: none;">
+                    <input type="text" id="dogsobject" value="{{allDogs}}" name="dogsobject">
+                </label>
 
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required>

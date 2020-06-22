@@ -14,9 +14,7 @@ messageSchema.statics = {
   getAllMessages: async () => mongoose.model('messageModel', messageSchema).find()
                                                                                   .lean(),
 
-  getMessages: (messages, sender, receiver) => {
-
-    return messages.filter(message => {
+  getMessages: (messages, sender, receiver) => messages.filter(message => {
 
       if (message.sendFrom === sender && message.sendTo === receiver) {
 
@@ -24,9 +22,7 @@ messageSchema.statics = {
 
       }
 
-    });
-
-  }
+    })
 
 };
 const Message = mongoose.model('messageModel', messageSchema);
