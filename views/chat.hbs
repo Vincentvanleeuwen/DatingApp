@@ -17,11 +17,11 @@
 
   <section class="dog-image">
 
-    <img src="../../public/media/images/dog-settings.svg"
+    <img src="/public/media/images/dog-settings.svg"
          alt="chat settings"
          class="dog-settings"/>
 
-    <img src="../../public/media/images/dogs/{{ selected.images.[0].originalname }}"
+    <img src="/public/media/images/dogs/{{ selected.images.[0].originalname }}"
          alt="Bobby"
          class="main-image"/>
 
@@ -76,10 +76,10 @@
   </noscript>
 
   <form class="chat-input if-no-js"
-        id="yes-js"
         autocomplete="off"
-        action="/matches/{{ selected._id }}/chat/"
-        method="post">
+        id="yes-js"
+        action="/matches/{{ selected._id }}/chat"
+        method="POST">
 
     <label for="message">
 

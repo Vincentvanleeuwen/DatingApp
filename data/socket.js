@@ -70,7 +70,7 @@ const initializeSocketIO = (server, newSession) => {
             // console.log('Room before leave socket.js@60', room);
             socket.leave(room, (err) => {
 
-              console.log('error leaving socket', err);
+              // if (err) throw err
               // console.log('------currentRooms (in match-room socket.js@70 = ', Object.keys(socket.adapter.rooms));
 
             });
