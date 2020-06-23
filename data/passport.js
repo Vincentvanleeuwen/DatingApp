@@ -40,7 +40,7 @@ module.exports = (passport) => {
 
         if(!dog) {
 
-          return done(null, false, req.flash('loginMessage', 'No one exists with that email.'));
+          return done(null, false, console.log('Cant find user'));
 
         }
 
@@ -56,7 +56,7 @@ module.exports = (passport) => {
 
           } else {
 
-            return done(null, false, req.flash('loginMessage', 'Please try again, the password does not match.'));
+            return done(null, false, console.log('Password Incorrect'));
 
           }
 
