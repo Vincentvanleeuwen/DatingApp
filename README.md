@@ -1,7 +1,7 @@
 # PlayDate
 
 ![alt text](https://github.com/Vincentvanleeuwen/project-tech-2020/blob/master/lib/img/header.png?raw=true "PlayDate")
-PlayDate is a playdate service that matches you to another dog to play with. The feature I have built is the chat function.
+PlayDate is a playdate service that matches you to another dog to play with.
 
 ## The main packages required for this feature are
 - Node Js
